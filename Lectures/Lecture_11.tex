@@ -1,0 +1,340 @@
+% $Header: /home/vedranm/bitbucket/beamer/solutions/generic-talks/generic-ornate-15min-45min.en.tex,v 90e850259b8b 2007/01/28 20:48:30 tantau $
+\documentclass{beamer}
+%\documentclass[handout]{beamer}
+\usefonttheme[onlymath]{serif}
+% This file is a solution template for:
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+% - Giving a talk on some subject.
+% - The talk is between 15min and 45min long.
+% - Style is ornate.
+
+
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice. 
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % or ...
+
+  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+\setbeamertemplate{navigation symbols}{} 
+
+\usepackage[english]{babel}
+% or whatever
+
+\usepackage[latin1]{inputenc}
+% or whatever
+\useoutertheme{default}
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+\newcommand{\beforeverb}{\footnotesize}
+\newcommand{\afterverb}{\normalsize}
+
+\title[Curve Fitting] % (optional, use only with long paper titles)
+{Lecture 11}
+
+\subtitle
+{Curve Fitting} % (optional)
+
+\author[Ying-Jer Kao] % (optional, use only with lots of authors)
+{Ying-Jer Kao}
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[National Taiwan University] % (optional, but mostly needed)
+{
+  Department of Physics\\
+ National Taiwan University
+  }
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date[Numerical Analysis and Programming] % (optional)
+{\today}
+
+\subject{Talks}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%\AtBeginSubsection[]
+%{
+%  \begin{frame}<beamer>{Outline}
+%    \tableofcontents[currentsection,currentsubsection]
+%  \end{frame}
+%}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \tableofcontents
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+
+% Since this a solution template for a generic talk, very little can
+% be said about how it should be structured. However, the talk length
+% of between 15min and 45min and the theme suggest that you stick to
+% the following rules:  
+
+% - Exactly two or three sections (other than the summary).
+% - At *most* three subsections per section.
+% - Talk about 30s to 2min per frame. So there should be between about
+%   15 and 30 frames, all told.
+\section[Introduction]{Introduction}
+\begin{frame}{Introduction}
+\begin{itemize}
+\item Typical data obtained from experiments normally contain a significant amount of random noise due to measurement errors. 
+\item It is desirable to find a smooth curve with a simple form that \alert{best} fits the data points. 
+\end{itemize}
+\begin{columns}
+\begin{column}[b]{0.3\textwidth}
+\begin{center}
+\begin{tabular}{cc|cc}
+\hline
+$x_i$ & $y_i$ & $x_i$ & $y_i$
+\\\hline
+1 & 1.3 & 6 & 8.8\\
+2 & 3.5 & 7 & 10.1 \\
+3 & 4.2 & 8 & 12.5\\
+4 & 5.0 & 9 & 13.0 \\
+5 & 7.0 & 10 & 15.6\\
+\hline
+\end{tabular}
+\end{center}
+\end{column}
+\begin{column}{0.6\textwidth}
+\centerline{\includegraphics[width=\textwidth]{Lec11_fig1.png}}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}{Polynomial Interpolation}
+\centerline{\includegraphics[width=0.65\textwidth]{Lec11_fig2.png}}
+
+\begin{itemize}
+\item The nine-degree polynomial is a \alert{poor} predictor of information between some data points. 
+\item A better approach is to find the \alert{best approximating line}, even if it does not agree precisely with the data at \alert{any point}.
+\end{itemize}
+\end{frame}
+\begin{frame}{Cubic Spline Interpolation}
+\centerline{\includegraphics[width=0.65\textwidth]{Lec11_fig3.png}}
+
+\begin{itemize}
+\item Cubic-spline provides a better interpolation for the data.
+\item However, it still does not capture the general trend of the data
+\end{itemize}
+\end{frame}
+\section[Least-Squares Fit]{Least-Squares Fit}
+\begin{frame}{Least-Squares Fit}
+\begin{itemize}
+\item  $f(x)=f(x;a_0,a_1,\ldots,a_m)$ is the function to be fitted to the $n+1$ data points $(x_i,y_i),i=0,1,\ldots,n$.
+\item The form of $f(x)$ is predetermined, and the  $m+1$ parameters $a_0, a_1, \ldots, a_m$ are to be determined.
+\item The best fit function is determined by the \alert{least-squares} fit, which minimizes
+\[
+S(a_0, a_1, a_2, \ldots, a_m) =\sum_{i=0}^n[y_i-f(x_i)]^2
+\]
+with respect to $a_j$. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Least-Squares Fit}
+\begin{itemize}
+\item The optimal values of the parameters are given by the solution of the $m$ equations
+\[
+\frac{\partial S}{\partial a_k}=0,\quad k=0,1,\ldots,m
+\]
+\item The \alert{residuals} $r_i=y_i-f(x_i)$ represent the discrepancy between the data points and the fitting function at $x_i$.
+\item The fitting function $f(x)$ is often chosen as a linear combination of specific functions $f_j(x)$
+\[
+f(x)=a_0 f_0(x)+a_1 f_1(x) + \cdots+ a_m f_m(x)
+\]
+\item The \alert{standard deviation} estimates spread of the data about the fitting curve, defined as
+\[
+\sigma=\sqrt{\frac{S}{n-m}}
+\] 
+\end{itemize}
+\end{frame}
+\begin{frame}{Fitting Linear Forms}
+\begin{itemize} 
+\item Consider the linear form 
+\[
+f(x)=a_0 f_0(x)+a_1 f_1(x) + \cdots+ a_m f_m(x)= 
+\sum_{j=0}^m a_j \,f_j(x)
+\]
+\item The least-squares error is given as
+\[
+S=\sum_{i=0}^n \left[y_i-\sum_{j=0}^m a_j \,f_j(x_i) \right]^2
+\]
+and 
+\[
+\frac{\partial S}{\partial a_k}=-2\left\{\sum_{i=0}^n \left[ y_i -\sum_{j=0}^m a_j \,f_j(x_i)\right] f_k(x_i)\right\}=0,\quad k=0,1,\ldots,m
+\]
+\end{itemize}
+\end{frame}
+\begin{frame}{Fitting Linear Forms}
+\begin{itemize} 
+\item $a_j$'s satisfy the \alert{normal equations} of the least-squares fit, 
+\[
+\sum_{j=0}^m \left[\sum_{i=0}^n f_j(x_i)\, f_k(x_i)\right] a_j =\sum_{i=0}^n f_k(x_i) y_i, \quad k=0,1,\ldots,m
+\]
+\item In matrix notation
+\[
+\mathbf{Aa}=\mathbf{b}
+\]
+where the matrix elements of $\mathbf{A}$ and $\mathbf{b}$ are
+\[
+A_{kj}=\sum_{i=0}^n f_j(x_i)\, f_k (x_i)\quad\quad b_k =\sum_{i=0}^n f_k(x_i) y_i
+\]
+\item The coefficient matrix is symmetric, $A_{kj}=A_{jk}$.
+\end{itemize}
+\end{frame}
+\begin{frame}{Polynomial Fit}
+\begin{itemize}
+\item Consider the case where the fitting function $f(x)$ is a polynomial, 
+\[
+f(x)=a_0+a_1x+a_2x^2+\cdots+a_m x^m =\sum_{j=0}^m a_j \,x^j
+\]
+\item The basis functions are $f_j(x)=x^j, (j=0, 1, \ldots,m)$, and we obtain the form of the coefficient matrix $\mathbf{A}$ and the constant 
+vector $\mathbf{b}$ 
+\[
+A_{kj}=\sum_{i=0}^n x_i ^{j+k}\quad b_k=\sum_{i=0}^n x_i^k y_i
+\]
+\end{itemize}
+\end{frame}
+\begin{frame}{Polynomial Fit}
+\begin{itemize}
+\item The normal equations to be solved for $a_i$ are 
+\beforeverb
+\[
+\left[
+\begin{array}{lllll}
+n & \sum x_i & \sum x_i^2 & \cdots & \sum x_i^m \\
+\sum x_i & \sum x_i^2 &  \sum x_i^3& \cdots  & \sum x_i^{m+1}\\
+\vdots & \vdots & \vdots & \ddots &\vdots \\
+\sum x_{m-1} & \sum x_i^m  & \sum x_i^{m+1} & \cdots & \sum x_i^{2m}
+\end{array}
+\right] \left[
+\begin{array}{l}
+a_0 \\
+a_1 \\
+\vdots\\
+a_m
+\end{array}
+\right]
+=\left[
+\begin{array}{l}
+\sum x_i \\
+\sum x_i y_i \\
+\vdots\\
+\sum x_i^m y_i
+\end{array}
+\right]
+\]
+\afterverb
+\item The normal equations become progressively ill conditioned with increasing $m$. 
+\item Normally, only \alert{ low-order polynomials} are useful in curve fitting. 
+\item Polynomials of high order are not recommended, because they tend to reproduce the noise inherent in the data.
+\end{itemize}
+\end{frame}
+\begin{frame}{Weighted  Data}
+\begin{itemize}
+\item There are occasions when our confidence in the accuracy of data varies from point to point.
+\item For example, in some region the instrument has higher sensitivity compared to other region, or more measurements are performed to reduce the statistical errors than other regions. 
+\item We want to \alert{weight} the data and minimize the sum of \alert{weighted residuals}
+\[
+S(a_0,a_1, \ldots,a_m)=\sum_{i=0}^mW_i [y_i-f(x_i)]^2
+\]
+\item The fitting function $f(x)$ will be  closer to the data points that have higher weights.
+\end{itemize}
+\end{frame}
+\begin{frame}{Weighted Linear-Squares Fit}
+\begin{itemize}
+\item Consider the linear form, the weighted normal equations are given by
+\beforeverb
+\[
+\sum_{j=0}^m \left[\sum_{i=0}^n W_i f_j(x_i)\, f_k(x_i)\right] a_j =\sum_{i=0}^n W_i f_k(x_i) y_i, \quad k=0,1,\ldots,m
+\]
+\afterverb
+\item For $f(x)=a+bx$, the normal equations are
+\beforeverb
+\begin{align*}
+a \sum_{i=0}^n W_i+ b \sum_{i=0}^n W_i x_i &= \sum_{i=0}^n  W_i y_i \\
+a \sum_{i=0}^n W_i x_i+b\sum_{i=0}^n W_i x_i^2 &= \sum_{i=0}^n W_i x_i y_i
+\end{align*}
+\afterverb
+and we obtain
+\beforeverb
+\begin{align*}
+a&=\hat{y} - b \hat{x},\quad b=\frac{\sum W_i y_i (x_i-\hat{x})}{	\sum W_i x_i (x_i-\hat{x})}\\
+\hat{x}&=\frac{\sum W_i x_i}{\sum W_i },\quad \hat{y}=\frac{\sum W_i y_i}{\sum W_i }
+\end{align*}
+\afterverb
+\end{itemize}
+\end{frame}
+\begin{frame}{Fitting Exponential Functions}
+\begin{itemize}
+\item  Consider  the fitting function $f(x)=ae^{bx}$. 
+\item The least-squares fit would lead to equations that are \alert{nonlinear} in $a$ and $b$.
+\item A better way is to fit a new  function $F(x)=\ln f(x)=\ln a + b x$ to the set of data points $( x_i, \ln y_i) $.
+\item However, the least-squares fit to the logarithm of the data is \alert{not quite the same} as the least-squares fit to the original data. 
+
+\end{itemize}
+\end{frame}
+\begin{frame}{Fitting Exponential Functions}
+\begin{itemize}
+\item The residuals of the original fit are,
+\[
+r_i =y_i-f(x_i)=y_i - a e^{bx_i}
+\]
+and those of the logarithmic  fit are,
+\begin{align*}
+R_i &=\ln y_i-F(x_i)=\ln y_i-(\ln a + b x_i )\\
+ &=\ln y_i - \ln(r_i-y_i)=\ln \left(1-\frac{r_i}{y_i}\right).
+\end{align*}
+\item Minimizing $\tilde{S}=\sum R_i^2$, we obtain the least-squares fit to the logarithm of the data. Using the approximation, $R_i\approx r_i/y_i$,  we find that weights of \alert{$1/y_i^2$} is introduced in the process.
+\item We can fix this by applying the weights $W_i=y_i^2$ when fitting $F(x)$ to $(x_i,\ln y_i)$.
+\end{itemize}
+\end{frame}
+\end{document}
+
+

@@ -1,0 +1,488 @@
+% $Header: /home/vedranm/bitbucket/beamer/solutions/generic-talks/generic-ornate-15min-45min.en.tex,v 90e850259b8b 2007/01/28 20:48:30 tantau $
+%\documentclass{beamer}
+
+\documentclass[handout]{beamer}
+
+% This file is a solution template for:
+
+% - Giving a talk on some subject.
+% - The talk is between 15min and 45min long.
+% - Style is ornate.
+
+
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice. 
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % or ...
+
+  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+\setbeamertemplate{navigation symbols}{} 
+
+\usepackage[english]{babel}
+% or whatever
+
+\usepackage[latin1]{inputenc}
+% or whatever
+\useoutertheme{default}
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+\newcommand{\beforeverb}{\footnotesize}
+\newcommand{\afterverb}{\normalsize}
+
+\title[File I/O and Exceptions] % (optional, use only with long paper titles)
+{Lecture 7}
+
+\subtitle
+{File I/O and Exceptions} % (optional)
+
+\author[Ying-Jer Kao] % (optional, use only with lots of authors)
+{Ying-Jer Kao}
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[National Taiwan University] % (optional, but mostly needed)
+{
+  Department of Physics\\
+ National Taiwan University
+  }
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date[Numerical Analysis and Programming] % (optional)
+{\today}
+
+\subject{Talks}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%\AtBeginSubsection[]
+%{
+%  \begin{frame}<beamer>{Outline}
+%    \tableofcontents[currentsection,currentsubsection]
+%  \end{frame}
+%}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \tableofcontents
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+
+% Since this a solution template for a generic talk, very little can
+% be said about how it should be structured. However, the talk length
+% of between 15min and 45min and the theme suggest that you stick to
+% the following rules:  
+
+% - Exactly two or three sections (other than the summary).
+% - At *most* three subsections per section.
+% - Talk about 30s to 2min per frame. So there should be between about
+%   15 and 30 frames, all told.
+
+\section[File I/O]{File I/O}
+\subsection[File Objects]{File Objects}
+\begin{frame}[fragile]
+\frametitle{File Objects}
+\begin{itemize}
+
+\item The coimmand {\tt open()} returns a \alert{file object}.
+\item It is most commonly used with two arguments: {\tt open(filename, mode)}.
+\beforeverb
+\begin{verbatim}
+>>> fin = open('words.txt')
+>>> print fin
+<open file 'words.txt', mode 'r' at 0xb7f4b380>
+>>> f = open('/tmp/workfile', 'w')
+>>> print f 
+<open file '/tmp/workfile', mode 'w' at 80a0960> 
+\end{verbatim}
+\afterverb
+\item Mode \verb"'r'" indicates that this file is open for
+reading and \verb"'w'" for writing.
+
+\end{itemize}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{File Objects Methods}
+\begin{itemize}
+\item The file object provides several methods for reading.
+\item The method {\tt readline}  reads characters from the file
+until it gets to a \alert{newline} and returns the result as a
+string:
+\beforeverb
+\begin{verbatim}
+>>> fin.readline()
+'aa\r\n'
+\end{verbatim}
+\afterverb
+%
+\item  \verb"\r\n" represents two whitespace characters,
+a \alert{carriage return} and a \alert{newline}, that separate this word from the
+next.
+\item If {\tt readline} is called again again, one gets the next line:
+\beforeverb
+\begin{verbatim}
+>>> fin.readline()
+'aah\r\n'
+\end{verbatim}
+\afterverb
+\item The whitespace characters can be removed by the string method {\tt strip}
+\beforeverb
+\begin{verbatim}
+>>> line = fin.readline()
+>>> word = line.strip()
+>>> print word
+aah
+\end{verbatim}
+\afterverb
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Loop Iteration}
+\begin{itemize}
+\item {\tt f.readlines()} returns a list containing all the lines of data in the file.  Only complete lines will be returned.
+\beforeverb
+\begin{verbatim}
+>>> f.readlines()
+['First line.\n', 'Second line.\n']
+\end{verbatim}
+\afterverb
+\item One can also use a file object as part of a {\tt for} loop.
+\item This program reads {\tt words.txt} and prints each word, one
+per line:
+\beforeverb
+\begin{verbatim}
+fin = open('words.txt')
+for line in fin:
+    word = line.strip()
+    print word
+\end{verbatim}
+\afterverb
+%
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Write to File}
+\begin{itemize}
+\item The {\tt write} method puts data into the file.
+
+\beforeverb
+\begin{verbatim}
+>>> line1 = "This here's the wattle,\n"
+>>> fout.write(line1)
+\end{verbatim}
+
+\afterverb
+\item If {\tt write} is called again, it adds the new data to the end of the file.
+\item When all the input and output are done, close the file.
+
+\beforeverb
+\begin{verbatim}
+>>> fout.close()
+\end{verbatim}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Formatting Operator}
+\begin{itemize}
+\item Sometimes it is useful to print the output in a user-defined format instead of the default format. 
+\item Whe the first operand is a string, the operator \verb!%!  is the \alert{format operator}. 
+\beforeverb
+\begin{verbatim}
+>>> camels = 42
+>>> 'I have spotted %d camels.' % camels
+'I have spotted 42 camels.'
+\end{verbatim}
+\afterverb
+
+\item The first operand is the \alert{format string}, which contains one or more \alert{format sequences}, which
+specify how the second operand is formatted.  
+\item If there is more than one format sequence in the string,
+the second argument has to be a \alert{tuple}. 
+\beforeverb
+\begin{verbatim}
+>>> dogs = 42
+>>> cats =12
+>>> 'I have spotted %d dogs and %d cats' % (dogs, cats)
+'I have spotted 42 dogs and 12 cats.'
+\end{verbatim}
+\afterverb
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Filenames and Paths}
+\begin{itemize}
+\item The {\tt  os} module provides several useful functions to obtain informations about filenames, directories and paths. 
+\begin{block}{Example}
+
+\beforeverb
+\begin{verbatim}
+def walk(dir):
+    for name in os.listdir(dir):
+        path = os.path.join(dir, name)
+
+        if os.path.isfile(path):
+            print path
+        else:
+            walk(path)
+\end{verbatim}
+\end{block}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Modules}
+\begin{itemize}
+\item  Any file that contains Python code can be imported as a module.
+
+
+\beforeverb
+\begin{verbatim}
+def linecount(filename):
+    count = 0
+    for line in open(filename):
+        count += 1
+    return count
+
+print linecount('wc.py')
+\end{verbatim}
+\afterverb
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Module}
+\begin{itemize}
+\item When this program is run, it reads itself and prints the number
+of lines in the file, 7.
+
+\item This module can also be imported.
+\beforeverb
+\begin{verbatim}
+>>> import wc
+7
+\end{verbatim}
+\afterverb
+\item
+This  provides a function called \verb"linecount":
+
+\beforeverb
+\begin{verbatim}
+>>> wc.linecount('wc.py')
+7
+\end{verbatim}
+\afterverb
+%
+\item 
+The test code at the bottom is always executed. 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Executing Modules as Scripts}
+\begin{itemize}
+\item Normally, we expect when the module is \alert{imported}, the functions are \alert{defined}, but not \alert{executed}.
+\item  Programs that will be imported as modules often use the following idiom:
+\beforeverb
+\begin{verbatim}
+if __name__ == '__main__':
+    print linecount('wc.py')
+\end{verbatim}
+\afterverb
+%
+\item 
+\verb"__name__" is a built-in variable that is set when the
+program starts.  
+\item If the program is running as a script,
+\verb"__name__" has the value \verb"__main__"; in that
+case, the test code is executed.  
+\item If the module is being imported, the test code is skipped.
+\end{itemize}
+\end{frame}
+\section[Exceptions]{Exceptions}
+\begin{frame}[fragile]
+\frametitle{Exceptions}
+ \alert{Runtime errors} can occur during file I/O.
+\begin{itemize}
+\item  File doesn't exist
+\beforeverb
+\begin{verbatim}
+>>> fin = open('bad_file')
+IOError: [Errno 2] No such file or directory: 'bad_file'
+\end{verbatim}
+\afterverb
+%
+\item No permission to access a file:
+
+\beforeverb
+\begin{verbatim}
+>>> fout = open('/etc/passwd', 'w')
+IOError: [Errno 13] Permission denied: '/etc/passwd'
+\end{verbatim}
+\afterverb
+%
+\item  Open a directory for reading:
+\beforeverb
+\begin{verbatim}
+>>> fin = open('/home')
+IOError: [Errno 21] Is a directory
+\end{verbatim}
+\afterverb
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exceptions}
+\begin{itemize}
+\item Errors detected during execution are called \alert{exceptions} and are not unconditionally fatal.
+\item Exceptions come in different \alert{types}, and the type is printed as part of the message. 
+\item The string printed as the exception type is the name of the built-in exception that occurred.
+\scriptsize
+\begin{verbatim}
+>>> 10 * (1/0)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in ?
+ZeroDivisionError: integer division or modulo by zero
+>>> 4 + spam*3
+Traceback (most recent call last):
+  File "<stdin>", line 1, in ?
+NameError: name 'spam' is not defined
+>>> '2' + 2
+Traceback (most recent call last):
+  File "<stdin>", line 1, in ?
+TypeError: cannot concatenate 'str' and 'int' objects
+\end{verbatim}
+\afterverb
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Handling Exceptions}
+\begin{itemize}
+\item It is possible to handle exceptions in the program using the {\tt try} and {\tt except} statements. 
+\item Handling an exception with a {\tt try} statement is called \alert{
+catching} an exception.  
+\item In general,
+catching an exception is useful to fix the problem, or try
+again, or at least end the program gracefully.
+
+\beforeverb
+\begin{verbatim}
+try:    
+    fin = open('bad_file')
+    for line in fin:
+        print line
+    fin.close()
+except:
+    print 'Something went wrong.'
+\end{verbatim}
+\afterverb
+%
+
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{{\tt try} statement}
+The {\tt try} statement works as follows. 
+
+\begin{itemize}
+\item First, the {\tt try} clause (the statement(s) between the {\tt try} and {\tt except} keywords) is executed. 
+\item If no exception occurs, the {\tt except} clause is skipped and execution of the {\tt try} statement is finished.
+\item If an exception occurs during execution of the {\tt try} clause, the rest of the clause is skipped. Then if its type matches the exception named after the except keyword, the except {\tt clause} is executed, and then execution continues after the {\tt try} statement.
+\item  If an exception occurs which does not match the exception named in the except clause, it is passed on to outer try statements; if no handler is found, it is an \alert{unhandled exception} and execution stops with an error message.
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{ Raising Exceptions}
+\begin{itemize}
+\item The {\tt raise} statement allows the programmer to force a specified exception to occur. 
+
+\item This is  useful for checking if the input values are valid.
+\beforeverb
+\begin{verbatim}
+def add_time(t1, t2):
+    if not valid_time(t1) or not valid_time(t2):
+        raise ValueError, 'invalid Time'
+    seconds = time_to_int(t1) + time_to_int(t2)
+    return int_to_time(seconds)
+\end{verbatim}
+\afterverb
+%
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{The {\tt assert} statment}
+\begin{itemize}
+\item It  can also be achieved by the {\tt assert} statement, which checks a given condition
+and raises an \alert{exception} if it fails:
+\scriptsize
+\begin{verbatim}
+def add_time(t1, t2):
+    assert valid_time(t1) and valid_time(t2), 'Invalid Time'
+    seconds = time_to_int(t1) + time_to_int(t2)
+    return int_to_time(seconds)
+\end{verbatim}
+\afterverb
+%
+\item {\tt assert} statements are useful because they distinguish
+code that deals with normal conditions from code
+that checks for errors.
+
+\end{itemize}
+\end{frame}
+\end{document}
+
+

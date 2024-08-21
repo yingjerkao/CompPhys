@@ -1,0 +1,522 @@
+% $Header: /home/vedranm/bitbucket/beamer/solutions/generic-talks/generic-ornate-15min-45min.en.tex,v 90e850259b8b 2007/01/28 20:48:30 tantau $
+
+\documentclass{beamer}
+%\documentclass[handout]{beamer}
+%\usepackage{pgfpages}
+%\usepackage{handoutWithNotes}
+%\pgfpagesuselayout{2 on 1 with notes}[a4paper,border shrink=5mm]
+% This file is a solution template for:
+
+% - Giving a talk on some subject.
+% - The talk is between 15min and 45min long.
+% - Style is ornate.
+
+
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice. 
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % or ...
+
+  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+\setbeamertemplate{navigation symbols}{} 
+
+\usepackage[english]{babel}
+% or whatever
+
+\usepackage[latin1]{inputenc}
+% or whatever
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+
+\title[Functions and Modules] % (optional, use only with long paper titles)
+{Lecture 4}
+
+\subtitle
+{Functions and Modules: Decomposition and Abstraction} % (optional)
+
+\author[Ying-Jer Kao] % (optional, use only with lots of authors)
+{Ying-Jer Kao}
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[National Taiwan University] % (optional, but mostly needed)
+{
+  Department of Physics\\
+ National Taiwan University
+  }
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date[Numerical Analysis and Programming] % (optional)
+{\today}
+
+\subject{Talks}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%\AtBeginSubsection[]
+%{
+%  \begin{frame}<beamer>{Outline}
+%    \tableofcontents[currentsection,currentsubsection]
+%  \end{frame}
+%}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \tableofcontents
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+
+% Since this a solution template for a generic talk, very little can
+% be said about how it should be structured. However, the talk length
+% of between 15min and 45min and the theme suggest that you stick to
+% the following rules:  
+
+% - Exactly two or three sections (other than the summary).
+% - At *most* three subsections per section.
+% - Talk about 30s to 2min per frame. So there should be between about
+%   15 and 30 frames, all told.
+
+\section{Functions}
+\subsection[Why Use Functions]{Why Use Functions}
+
+
+\begin{frame}[fragile]
+\frametitle{Why Use Functions?}
+Functions serve two primary roles: \alert{Decomposition} and \alert{Abstraction}.
+\begin{block}{Decomposition}
+ Splitting the systems into several pieces that have well-defined roles.\\
+  Breaking up the codes into pieces, called \alert{modules}, which can be reused several times. 
+  \end{block}
+  
+\begin{block}{Abstraction}
+Details of the implementation can be hidden.\\
+ Users only need to communicate with the modules through a set of pre-defined input/output \alert{parameters}.
+\end{block}
+\end{frame}
+
+\begin{frame}{Why Use Functions?}
+\begin{itemize}
+
+\item Creating a new function gives you an opportunity to \alert{name a group
+of statements}, which makes your program easier to read and debug.
+
+\item Functions can make a program smaller by \alert{eliminating repetitive
+code}.  Later, if you make a change, you only have
+to make it in one place.
+
+\item Dividing a long program into functions allows you to \alert{debug the
+parts one at a time} and then assemble them into a working whole.
+
+\item Well-designed functions are often useful for many programs.
+Once you write and debug one, you can \alert{reuse it}.
+
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{\texttt{def} Statements}
+
+\begin{itemize}
+\small
+\item The keyword \texttt{def} introduces a \alert{function definition}.
+\item It must be followed by the \alert{function name} and the \alert{parenthesized list of formal parameters}. 
+\item The statements that form the body of the function start at the next line, and must be indented.
+\item The first statement of the function body can optionally be a string literal; this string literal is the function's documentation string, or  \alert{{docstring}}.
+\end{itemize}
+\begin{block}{Example: Fibonacci}
+\small
+\begin{verbatim}
+def fib(n):	# write Fibonacci series up to n
+    """Print a Fibonacci series up to n."""
+    [a, b] = [0, 1] 
+    while a < n:
+        print a, 
+        [a, b] = [b, a+b]
+\end{verbatim}
+\end{block}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Function Object and Function Execution}
+\begin{itemize}
+\item Defining a function creates a variable with the same name.
+\begin{verbatim}
+>>> print fib
+<function fib at 0xb7e99e9c>
+>>> print type(fib)
+<type 'function'>
+\end{verbatim}
+%
+\item The value of \verb"fib" is a \alert{ function object}, which
+has type \verb"'function'".
+\item To execute a function
+\begin{verbatim}
+>>> fib(100)
+0 1 1 2 3 5 8 13 21 34 55 89
+\end{verbatim}
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{\texttt{return} Statments}
+\begin{itemize}
+\item Function can also return values by using the \verb"return" statement. 
+\end{itemize}
+\begin{block}{Example: Area of a circle}
+\small
+\begin{verbatim}
+def area(radius):
+    temp = math.pi * radius**2
+    return temp
+\end{verbatim}
+\normalsize
+or more concisely:
+\small
+\begin{verbatim}
+def area(radius):
+    return math.pi * radius**2
+\end{verbatim}
+\end{block}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Multiple \texttt{return}}
+\begin{itemize}
+\item  In some cases, it is useful to have multiple return statements, one in each
+branch of a conditional:
+\begin{block}{}
+\small
+\begin{verbatim}
+def absolute_value(x):
+    if x < 0:
+        return -x
+    else:
+        return x
+\end{verbatim}
+\end{block}
+\item As soon as a \verb!return! statement executes, the function
+\alert{terminates} without executing any subsequent statements.
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Void Functions }
+
+\begin{itemize} 
+\item Void functions such as \verb!fib()!, might display something on the screen or have some
+other effect, but they do not have a return value as in \verb!absolute_value()!.  
+\item They return a \alert{special value} called {\tt None}.
+\begin{block}{Example: void function}
+\small
+\begin{verbatim}
+>>> result = fib(100)
+0 1 1 2 3 5 8 13 21 34 55 89
+>>> print result
+None
+\end{verbatim}
+\end{block}
+\item The value {\tt None} is a special value that has its own type
+
+\small
+\begin{verbatim}
+>>> print type(None)
+<type 'NoneType'>
+\end{verbatim}
+\normalsize
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{}
+\begin{itemize}
+\item  In case of a value-returning function, it is a good practice to make sure all the  execution paths end with a \texttt{return} statement.
+\begin{block}{}
+\small
+\begin{verbatim}
+def absolute_value(x):
+    if x < 0:
+        return -x
+    if x > 0 :
+        return x
+\end{verbatim}
+\small
+\begin{verbatim}
+>>> print absolute_value(0)
+None
+\end{verbatim}
+\end{block}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Nested Function Calls}
+A function can call  another function, including itself.
+\begin{block}{}
+\small
+\begin{verbatim}
+def print_lyrics():
+    print "I'm a lumberjack, and I'm okay."
+    print "I sleep all night and I work all day."
+
+def repeat_lyrics():
+    print_lyrics()
+    print_lyrics()
+
+>>>repeat_lyrics()
+I'm a lumberjack, and I'm okay.
+I sleep all night and I work all day.
+I'm a lumberjack, and I'm okay.
+I sleep all night and I work all day.
+\end{verbatim}
+\end{block}
+\end{frame}
+\subsection{Variable Scope}
+
+
+\begin{frame}[fragile]
+\frametitle{Variable Scope}
+\begin{itemize}
+\item A variable created inside a function  is \alert{local} to the function.
+\item The variable is only visible to code \alert{inside} the function \verb"def" and exists only while the function runs. 
+\small
+\begin{verbatim}
+def print_twice(bruce):
+    print bruce
+    print bruce
+
+def cat_twice(part1, part2):
+    cat = part1 + part2
+    print_twice(cat)
+\end{verbatim}
+\normalsize
+\item \verb"bruce" is local to the function \verb"print_twice", and \verb"part1",\verb"part2", \verb"cat" are local to the function \verb"cat_twice"
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Python Scope Basics}
+\begin{itemize}
+\item When a name is used in a program, Python creates, changes or looks up the name in a \alert{namespace}, where names live.
+ \item A \alert{scope} is a textual region of a Python program where a namespace is directly accessible; that is, an unqualified reference to a name attempts to find the name in the namespace.
+\item Names in Python spring into existence when they are \alert{first assigned values}, and they must be assigned before used.
+\item Python uses the \alert{ location of the assignment} of a name to bind it to a particular namespace.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Variable Scope: Example}
+
+\begin{block}{}
+\begin{verbatim}
+def outer(a):
+    def inner(a):
+        a += 1
+        print("inner a =", a)
+     
+    a += 1
+    inner(a)
+    print("outer a =", a)
+ 
+a = 12
+print("global a =", a)
+outer(a)
+print("global a =", a)
+\end{verbatim}
+\end{block}
+
+\end{frame}
+
+
+
+\begin{frame}{Name Resolution: The LEGB Rule}
+\begin{itemize}
+\item Although scopes are determined statically, they are used dynamically. 
+\item At any time during execution, there are at least three nested scopes whose namespaces are directly accessible:
+\begin{itemize}
+\item \textbf{\alert{L}ocal}: innermost scope which is searched first, contains the local names
+\item \textbf{\alert{E}nclosing}: scopes of any enclosing functions, which is searched starting with the nearest enclosing scope, contains non-local, but also non-global names
+\item \textbf{\alert{G}lobal}: next-to-last scope contains the current module's global names
+\item \textbf{\alert{B}uilt-in}:outermost scope (searched last) is the namespace containing built-in names
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The LEGB Rule}
+\centerline{\includegraphics[width=0.8\textwidth]{LEGB.png}}
+\end{frame}
+
+%\begin{frame}{Stack Diagram}
+%\begin{itemize} 
+%\item Stack
+%diagrams show the \alert{value} of each variable, but they also show the \alert{function} each variable belongs to.
+%\item The frames are arranged in a \alert{stack} that indicates which function
+%called which, and so on. 
+%\item Each parameter refers to the same value as its corresponding
+%argument. 
+%\end{itemize}
+%\centerline{\includegraphics[width=0.6\textwidth]{thinkpython/figs/stack.eps}}
+%\end{frame}
+%
+\begin{frame}[fragile]
+\begin{itemize}
+\item
+If an \alert{error} occurs during a function call, Python prints the
+\alert{name of the function}, and the \alert{name of the function that called
+it}, and the name of the function that called \alert{that}, all the
+way back to \verb"__main__".
+
+\item If one tries to access {\tt cat} from within 
+\verb"print_twice", there is a {\tt NameError}:
+\end{itemize}
+\small
+\begin{verbatim}
+Traceback (innermost last):
+  File "test.py", line 13, in __main__
+    cat_twice(line1, line2)
+  File "test.py", line 5, in cat_twice
+    print_twice(cat)
+  File "test.py", line 9, in print_twice
+    print cat
+NameError: name 'cat' is not defined
+\end{verbatim}
+
+\end{frame}
+
+\subsection{Recursion}
+\begin{frame}[fragile]
+\frametitle{Recursion}
+\begin{itemize}
+\item A function can call itself, and the process is called \alert{recursion}.
+\end{itemize}
+\begin{block}{Example:Countdown}
+\small
+\begin{verbatim}
+def countdown(n):
+    if n <= 0:
+        print 'Blastoff!'
+    else:
+        print n
+        countdown(n-1)
+\end{verbatim}
+\end{block}
+\end{frame}
+
+\begin{frame}{Stack Diagrams for Recursive Functions}
+\centerline{\includegraphics[height=0.8\textheight]{thinkpython/figs/stack2.eps}}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Infinite Recursion}
+\begin{itemize}
+\item The bottom of the stack, where \texttt{n=0}, is
+called the \alert{base case}. 
+\item It does not make a recursive call, so
+there are no more frames.
+\item If a recursion \alert{never reaches a base case}, it goes on making
+recursive calls forever, and the program \alert{never} terminates. 
+\item This is called a \alert{infinite recursion}.
+\end{itemize}
+\begin{block}{Example:Infinite Recursion}
+\small
+\begin{verbatim}
+def recurse():
+    recurse()
+\end{verbatim}
+\end{block}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Factorial}
+\begin{itemize}
+\item Definition of factorial function $n!$
+\begin{eqnarray*}
+0! & =& 1 \\
+n! &=& n (n-1)!
+\end{eqnarray*}
+\end{itemize}
+\begin{block}{Factorial}
+\small
+\begin{verbatim}
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        recurse= factorial(n-1)
+        result = n * recurse
+        return result
+\end{verbatim}
+\end{block}
+\end{frame}
+\begin{frame}{Stack Diagram: Factorial}
+\centerline{\includegraphics[width=0.9\textwidth]{thinkpython/figs/stack3.eps}}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Tower of Hanoi}
+The objective of the puzzle is to move the entire stack to another rod, obeying the following rules:
+\begin{itemize}
+\item Only one disk may be moved at a time.
+\item Each move consists of taking the upper disk from one of the rods and sliding it onto another rod, on top of the other disks that may already be present on that rod.
+\item No disk may be placed on top of a smaller disk.
+\end{itemize}
+\centerline{\includegraphics[width=0.7\textwidth]{tower_of_hanoi.jpeg}}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tower of Hanoi}
+\begin{block}{Tower of Hanoi}
+\tiny
+\begin{verbatim}
+def Tower_of_Hanoi(size, fromStack, toStack, spareStack):
+    if size==1:
+        print 'Move disk from ', fromStack, ' to ', toStack
+    else:
+        Tower_of_Hanoi(size-1, fromStack,  spareStack, toStack)
+        Tower_of_Hanoi(1, fromStack, toStack,spareStack)
+        Tower_of_Hanoi(size-1, spareStack,  toStack, fromStack)
+\end{verbatim}
+\end{block}
+\end{frame}
+\end{document}
+
+

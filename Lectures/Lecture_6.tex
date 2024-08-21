@@ -1,0 +1,1109 @@
+% $Header: /home/vedranm/bitbucket/beamer/solutions/generic-talks/generic-ornate-15min-45min.en.tex,v 90e850259b8b 2007/01/28 20:48:30 tantau $
+
+\documentclass{beamer}
+
+% This file is a solution template for:
+
+% - Giving a talk on some subject.
+% - The talk is between 15min and 45min long.
+% - Style is ornate.
+
+
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice. 
+\graphicspath{{../../thinkpython/figs/}} 
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % or ...
+
+  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+\setbeamertemplate{navigation symbols}{} 
+
+\usepackage[english]{babel}
+% or whatever
+
+\usepackage[latin1]{inputenc}
+% or whatever
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+\newcommand{\beforeverb}{\footnotesize}
+\newcommand{\afterverb}{\normalsize}
+
+\title[Strings, Tuples, Lists and Mutability] % (optional, use only with long paper titles)
+{Lecture 6}
+
+\subtitle
+{Strings, Tuples, Lists and Mutability} % (optional)
+
+\author[Ying-Jer Kao] % (optional, use only with lots of authors)
+{Ying-Jer Kao}
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[National Taiwan University] % (optional, but mostly needed)
+{
+  Department of Physics\\
+ National Taiwan University
+  }
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date[Numerical Analysis and Programming] % (optional)
+{\today}
+
+\subject{Talks}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%\AtBeginSubsection[]
+%{
+%  \begin{frame}<beamer>{Outline}
+%    \tableofcontents[currentsection,currentsubsection]
+%  \end{frame}
+%}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \tableofcontents
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+
+% Since this a solution template for a generic talk, very little can
+% be said about how it should be structured. However, the talk length
+% of between 15min and 45min and the theme suggest that you stick to
+% the following rules:  
+
+% - Exactly two or three sections (other than the summary).
+% - At *most* three subsections per section.
+% - Talk about 30s to 2min per frame. So there should be between about
+%   15 and 30 frames, all told.
+\section{Strings}
+\subsection[Strings]{Strings}
+\begin{frame}[fragile]
+\frametitle{Strings}
+\begin{itemize}
+
+\item A \alert{string} is a sequence of characters.
+\item  The characters can be accessed one at a time with the bracket
+operator \verb![]!, and the index starts from zero.
+\small
+\begin{verbatim}
+>>> fruit = 'banana'
+>>> letter = fruit[0]
+>>> print letter
+b
+\end{verbatim}
+\normalsize
+\end{itemize}
+\centerline{\includegraphics[width=0.6\textwidth]{banana.eps}}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Slicing}
+\begin{itemize}
+\item A segment of a string is called a \alert{slice}.  
+\item The operator {\tt [n:m]} returns the part of the string from the 
+``n-eth'' character to the ``m-eth'' character, including the first but \alert{excluding the last}.
+\item {\tt fruit[-1]=fruit[len(fruit)-1]} yields the last letter.
+\beforeverb
+\begin{verbatim}
+>>> fruit = 'banana'
+>>> fruit[1:4]
+'ana'
+>>> fruit[-1]
+'a'
+>>> fruit[:3]
+'ban'
+>>> fruit[3:]
+'ana'
+\end{verbatim}
+\afterverb
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Strings are Immutable}
+\begin{itemize}
+\item Strings are \alert{immutable}, which means you \alert{can not} change an
+existing string. 
+\beforeverb
+\begin{verbatim}
+>>> greeting = 'Hello, world!'
+>>> greeting[0] = 'J'
+TypeError: object does not support item assignment
+\end{verbatim}
+\afterverb
+%
+\item This can be achieved by combining slicing and concatenation
+\beforeverb
+\begin{verbatim}
+>>> greeting = 'Hello, world!'
+>>> new_greeting = 'J' + greeting[1:]
+>>> print new_greeting
+Jello, world!
+\end{verbatim}
+\afterverb
+
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{String and Looping}
+\begin{itemize}
+\item String is an ordered sequence, and can be used for \alert{loop traversal}. 
+
+\item Each time through the loop, the next character in the string is assigned
+to the variable {\tt letter}.  The loop continues until no characters are
+left.
+\end{itemize}
+\begin{block}{Example}
+\beforeverb
+\begin{verbatim}
+word = 'banana'
+for letter in word:
+    print letter
+\end{verbatim}
+\afterverb
+\end{block}
+
+\end{frame}
+\subsection[String Methods]{String Methods}
+\begin{frame}[fragile]
+\frametitle{String Methods}
+\begin{itemize}
+\item Strings provide a set of \alert{methods} that implement more sophisticated text processing tasks.
+\item Methods are functions that are associated with a particular \alert{object} and are \alert{invoked} with  a different syntax. 
+\item Methods are specific to  \alert{object types}. String methods can only work on string objects.
+\begin{block}{Example}
+\beforeverb
+\begin{verbatim}
+>>> word = 'banana'
+>>> new_word = word.upper()
+>>> print new_word
+BANANA
+\end{verbatim}%
+\end{block}
+
+
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{String Methods}
+\begin{itemize}
+\item If we want to perform the task of finding a substring in a given string, instead of writing our own code, we first search for relevant methods in Python (Use {\tt dir}). 
+\end{itemize}
+\begin{block}{}
+\tiny
+\begin{verbatim}
+>>> dir(str)
+['__add__', '__class__', '__contains__', '__delattr__', 
+'__doc__', '__eq__', '__format__', '__ge__', 
+'__getattribute__', '__getitem__', '__getnewargs__',
+'__getslice__', '__gt__', '__hash__', '__init__',
+'__le__', '__len__', '__lt__', '__mod__', '__mul__',
+'__ne__', '__new__', '__reduce__', '__reduce_ex__', 
+'__repr__', '__rmod__', '__rmul__', '__setattr__', '__sizeof__', 
+'__str__', '__subclasshook__', '_formatter_field_name_split', 
+'_formatter_parser', 'capitalize', 'center', 'count', 'decode',
+'encode', 'endswith', 'expandtabs', 'find', 'format', 'index', 
+'isalnum', 'isalpha', 'isdigit', 'islower', 'isspace', 'istitle', 
+'isupper', 'join', 'ljust', 'lower', 'lstrip', 'partition', 
+'replace', 'rfind', 'rindex', 'rjust', 'rpartition', 'rsplit',
+'rstrip', 'split', 'splitlines', 'startswith', 'strip', 'swapcase',
+'title', 'translate', 'upper', 'zfill']
+\end{verbatim}
+\end{block}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{{\tt find()}}
+\begin{itemize}
+\item {\tt find()} looks like what we are looking for.
+\item Use {\tt help(str.find)} to find out how it works  and its interface. 
+\end{itemize}
+
+\begin{block}{\texttt{str.find(sub[, start[, end]])}} 
+\tiny
+\begin{verbatim}
+>>> help(str.find)
+Help on method_descriptor:
+
+find(...)
+    S.find(sub [,start [,end]]) -> int
+    
+    Return the lowest index in S where substring sub is found,
+    such that sub is contained within s[start:end].  Optional
+    arguments start and end are interpreted as in slice notation.
+    
+    Return -1 on failure.
+\end{verbatim}
+\end{block} 
+%\begin{itemize}
+%\item
+%Return the lowest index in the string where substring \verb$sub$ is found, such that sub is contained in the slice \verb$s[start:end]$. 
+%\item Optional arguments start and end are interpreted as in slice notation. 
+%\item Return $-1$ if \verb$sub$ is not found.
+%\end{itemize}
+%\end{block}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{String Method: \texttt{find()}}
+
+\begin{block}{}
+\beforeverb
+\begin{verbatim}
+>>> word = 'banana'
+>>> index = word.find('a')
+>>> print index
+1
+>>> word.find('na')
+2
+>>> word.find('na', 3)
+4
+>>> name = 'bob'
+>>> name.find('b', 1, 2)
+-1
+\end{verbatim}
+\afterverb
+%
+\end{block}
+
+
+\end{frame}
+
+
+%
+\subsection[String Comparison]{String Comparison}
+\begin{frame}[fragile]
+\frametitle{String Comparison}
+\begin{itemize}
+\item The relational operators ({\tt ==, !=, >, >=, <, <=}) work on strings, using the standard character-by-character comparison rules for ASCII or Unicode.
+\begin{block}{Example}
+\beforeverb
+\begin{verbatim}
+if word == 'banana':
+    print  'All right, bananas.'
+\end{verbatim}
+\begin{verbatim}
+if word < 'banana':
+    print 'Your word,' + word + ', comes before banana.'
+elif word > 'banana':
+    print 'Your word,' + word + ', comes after banana.'
+else:
+    print 'All right, bananas.'
+\end{verbatim}
+
+
+\end{block}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The {\tt in} and {\tt not in} Operators}
+\begin{itemize}
+\item The {\tt in} is a \alert{ boolean operator} that takes two strings and
+returns {\tt True} if the first appears as a substring in the second.
+\item The {\tt not in} operator returns {\tt True} if the character is not found
+\begin{block}{}
+\beforeverb
+\begin{verbatim}
+>>> 'a' in 'banana'
+True
+>>> 'seed' in 'banana'
+False
+>>> 'seed' not in 'banana'
+True
+\end{verbatim}
+\afterverb
+\end{block}
+\end{itemize}
+\end{frame}
+\section{Lists}
+\subsection[Lists]{Lists}
+
+\begin{frame}[fragile]
+\frametitle{Lists}
+\begin{itemize}
+
+\item A \alert{ list} is an ordered sequence of values, which can be any type.  The values in
+a list are called \alert{ elements} or \alert{items}.
+\item To generate a list, enclose the elements in square brackets (\verb"[" and \verb"]").
+\small
+\begin{verbatim}
+[10, 20, 30, 40]
+['XBox 360', 'Wii', 'Play Station 3']
+['spam', 2.0, 5, [10, 20]]
+\end{verbatim}
+\normalsize
+\item Lists can be assigned to variables.
+\small
+\begin{verbatim}
+>>> cheeses = ['Cheddar', 'Edam', 'Gouda']
+>>> numbers = [17, 123]
+>>> empty = []
+>>> print cheeses, numbers, empty
+['Cheddar', 'Edam', 'Gouda'] [17, 123] []
+\end{verbatim}
+\normalsize
+\end{itemize}
+\end{frame}
+\subsection[Lists are Mutable]{Lists are Mutable}
+\begin{frame}[fragile]
+\frametitle{Lists are Mutable}
+\begin{itemize}
+\item Lists are \alert{mutable}, which means the value can be changed.   
+\item When the bracket operator appears
+on the left side of an assignment, it identifies the element of the
+list that will be assigned.
+\small
+\begin{verbatim}
+>>> numbers = [17, 123]
+>>> numbers[1] = 5
+>>> print numbers
+[17, 5]
+\end{verbatim}
+\normalsize
+\end{itemize}
+
+\end{frame}
+\begin{frame}{State Diagram for Lists}
+\begin{columns}
+\begin{column}{0.4\textwidth}
+\centerline{\includegraphics[width=1.3\textwidth]{list_state.eps}}
+\end{column}
+\begin{column}{0.6\textwidth}
+\begin{itemize}
+\item Lists are represented by boxes with the word ``list'' outside
+and the elements of the list inside.  
+\item {\tt cheeses} refers to
+a list with three elements indexed 0, 1 and 2.
+\item {\tt numbers} contains two elements; the diagram shows that the
+value of the second element has been reassigned from 123 to 5.
+\item {\tt empty} refers to a list with no elements.
+\end{itemize}
+\end{column}
+\end{columns}\end{frame}
+\begin{frame}[fragile]
+\frametitle{List Indexing}
+\begin{itemize}
+
+\item Any \alert{integer expression} can be used as an index.
+
+\item If you try to read or write an element that does not exist, you
+get an {\tt IndexError}.
+
+\item If an index has a \alert{negative value}, it counts \alert{backward} from the
+end of the list.
+
+
+\item The {\tt in} operator also works on lists.
+\end{itemize}
+\begin{block}{}
+\beforeverb
+\begin{verbatim}
+>>> cheeses = ['Cheddar', 'Edam', 'Gouda']
+>>> 'Edam' in cheeses
+True
+>>> 'Brie' in cheeses
+False
+\end{verbatim}
+\afterverb
+\end{block}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{List Slices}
+\begin{itemize}
+\item To access the elements of a list, use the bracket operator(\verb"[]"), and the index starts from 0.
+\beforeverb
+\begin{verbatim}
+>>> print cheeses[0]
+Cheddar
+\end{verbatim}
+\item Slicing also works for lists.
+\begin{verbatim}
+>>> t = ['a', 'b', 'c', 'd', 'e', 'f']
+>>> t[1:3]
+['b', 'c']
+>>> t[:4]
+['a', 'b', 'c', 'd']
+>>> t[3:]
+['d', 'e', 'f']
+\end{verbatim}
+\normalsize
+\end{itemize} 
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{List Slices}
+\begin{itemize}
+\item  It is often useful to make a copy
+before performing operations that modify
+lists.
+\item A slice operator on the left side of an assignment
+can update multiple elements:
+\beforeverb
+\begin{verbatim}
+>>> t = ['a', 'b', 'c', 'd', 'e', 'f']
+>>> t[1:3] = ['x', 'y']
+>>> print t
+['a', 'x', 'y', 'd', 'e', 'f']
+\end{verbatim}
+\afterverb
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{List Methods}
+\footnotesize
+\begin{itemize}
+\item \texttt{append(x)} 
+Add an item to the end of the list.
+\item \texttt{extend(L)} Extend the list by appending all the items in the given list.
+\item \texttt{insert(i,x)} Insert an item at a given position. The first argument is the index of the element before which to insert.
+\item \texttt{remove(x)} Remove the first item from the list whose value is {\tt x}. It is an error if there is no such item.
+\item {\tt pop([i])} Remove the item at the given position in the list, and return it. If no index is specified, \texttt{a.pop()} removes and returns the last item in the list. 
+%\end{itemize}
+%\end{frame}
+%\begin{frame}[fragile]
+%\frametitle{List Methods}
+%\begin{itemize}
+\item \texttt{index(x)} Return the index in the list of the first item whose value is {\tt x}. It is an error if there is no such item.
+\item \texttt{count(x)} Return the number of times \texttt{x} appears in the list.
+\item \texttt{sort()} Sort the items of the list, in place.
+\item \texttt{reverse()} Reverse the elements of the list, in place.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{List Method Examples}
+\begin{block}{}
+\scriptsize
+\begin{verbatim}
+>>> a = [66.25, 333, 333, 1, 1234.5] 
+>>> print a.count(333), a.count(66.25), a.count('x') 
+2 1 0 
+>>> a.insert(2, -1) 
+>>> a.append(333) 
+>>> a 
+[66.25, 333, -1, 333, 1, 1234.5, 333] 
+>>> a.index(333)
+1
+>>> a.remove(333) 
+>>> a 
+[66.25, -1, 333, 1, 1234.5, 333] 
+>>> a.reverse() 
+>>> a 
+[333, 1234.5, 1, 333, -1, 66.25] 
+>>> a.sort() 
+>>> a 
+[-1, 1, 66.25, 333, 333, 1234.5]
+\end{verbatim}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{List and String}
+\begin{block}{}
+\scriptsize
+\begin{verbatim}
+>>> a = [66.25, 333, 333, 1, 1234.5] 
+>>> print a.count(333), a.count(66.25), a.count('x') 
+2 1 0 
+>>> a.insert(2, -1) 
+>>> a.append(333) 
+>>> a 
+[66.25, 333, -1, 333, 1, 1234.5, 333] 
+>>> a.index(333)
+1
+>>> a.remove(333) 
+>>> a 
+[66.25, -1, 333, 1, 1234.5, 333] 
+>>> a.reverse() 
+>>> a 
+[333, 1234.5, 1, 333, -1, 66.25] 
+>>> a.sort() 
+>>> a 
+[-1, 1, 66.25, 333, 333, 1234.5]
+\end{verbatim}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Deleting Elements}
+\begin{itemize}
+\item If you know the index of the element to be deleted, use
+{\tt pop}
+\beforeverb
+\begin{verbatim}
+>>> t = ['a', 'b', 'c']
+>>> x = t.pop(1)
+>>> print t
+['a', 'c']
+>>> print x
+b
+\end{verbatim}
+\afterverb
+\item If you know If you know the element you want to remove (but not the index), you
+can use {\tt remove}:
+\beforeverb
+\begin{verbatim}
+>>> t = ['a', 'b', 'c']
+>>> t.remove('b')
+>>> print t
+['a', 'c']
+\end{verbatim}
+\afterverb
+\item The return value from {\tt remove} is {\tt None}. 
+\item Most list methods \alert{modify the argument} and
+  return {\tt None}. This is \alert{ opposite} of the string methods,
+  which return a new string and leave the original alone.
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{{\tt del} command}
+\begin{itemize}
+\item To remove more than one element, you can use {\tt del} with
+a slice index:
+\beforeverb
+\begin{verbatim}
+>>> t = ['a', 'b', 'c', 'd', 'e', 'f']
+>>> del t[1:5]
+>>> print t
+['a', 'f']
+\end{verbatim}
+
+\afterverb
+%
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Reduce}
+\begin{itemize}
+\item To add up all the numbers in a list, you can use a loop like this:
+\beforeverb
+\begin{verbatim}
+def add_all(t):
+    total = 0
+    for x in t:
+        total += x
+    return total
+\end{verbatim}
+\afterverb
+\item Summing the elements of a list is commonly used and Python provides a built-in function, {\tt sum}:
+
+\beforeverb
+\begin{verbatim}
+>>> t = [1, 2, 3]
+>>> sum(t)
+6
+\end{verbatim}
+\afterverb
+
+\item An operation like this that combines a sequence of elements into
+a single value is called \alert{ reduce}.
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Map}
+\begin{itemize}
+\item Sometimes it is necessary to traverse one list while generating
+another.
+\beforeverb
+\begin{verbatim}
+def capitalize_all(t):
+    res = []
+    for s in t:
+        res.append(s.capitalize())
+    return res
+\end{verbatim}
+\afterverb
+\item \verb!capitalize_all! function takes a list of strings
+and returns a new list that contains capitalized strings.
+\item This operation is called a \alert{map} because it ``maps'' a function (the method {\tt
+capitalize}) onto each of the elements in a sequence.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Filter}
+\begin{itemize}
+\item Another common operation is to select some of the elements from
+a list and return a sublist.
+
+\beforeverb
+\begin{verbatim}
+def only_upper(t):
+    res = []
+    for s in t:
+        if s.isupper():
+            res.append(s)
+    return res
+\end{verbatim}
+\afterverb
+%
+\item  \verb!only_upper! function takes a list of strings and returns a list that contains
+only the uppercase strings.
+\item This type of  operation  is called a \alert{filter} because
+it selects some of the elements and filters out the others.
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Built-in Functions and List Comprehensions}
+\begin{itemize}
+\item Most common list operations can be expressed as a combination
+of map, filter and reduce. 
+\item  Python provides three built-in functions: \verb!filter(), map(),! and \verb!reduce()!.
+\item In addition, Python provides an operator called a ``list comprehension.'' (Lab)
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Objects and Values}
+
+\begin{columns}
+
+\begin{column}{0.4\textwidth}
+\begin{block}{}
+\beforeverb
+\begin{verbatim}
+a = 'banana'
+b = 'banana'
+\end{verbatim}
+\afterverb
+\end{block}
+
+\end{column}
+\begin{column}{0.4\textwidth}
+\centerline{\includegraphics[width=\textwidth,clip]{list1.eps}}
+\end{column}
+\end{columns}
+
+\begin{itemize}
+\item {\tt a} and {\tt b} can refer to two \alert{different objects} with  the \alert{same value}; or  they can refer to the \alert{same
+object}.
+
+\item To check whether two variables refer to the same object, use the {\tt is} operator.
+
+\beforeverb
+\begin{verbatim}
+>>> a = 'banana'
+>>> b = 'banana'
+>>> a is b
+True
+\end{verbatim}
+\afterverb
+\item Python only created \alert{ one} string object.
+
+%
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Objects and Values}
+
+\begin{columns}
+
+\begin{column}{0.4\textwidth}
+\begin{block}{}
+\beforeverb
+\begin{verbatim}
+>>> a = [1, 2, 3]
+>>> b = [1, 2, 3]
+>>> a is b
+False
+\end{verbatim}
+\afterverb
+\end{block}
+
+\end{column}
+\begin{column}{0.4\textwidth}
+\centerline{\includegraphics[width=0.8\textwidth,clip]{list2.eps}}
+\end{column}
+\end{columns}
+%
+\vspace{1cm}
+\begin{itemize}
+\item When two lists are created, Python creates \alert{two} objects.  
+\item The two lists are \alert{ equivalent},
+because they have the same elements, but not \alert{identical}, because
+they are not the same object.  
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Aliasing}
+\begin{columns}
+\begin{column}{0.4\textwidth}
+\begin{block}{}
+\beforeverb
+\begin{verbatim}
+>>> a = [1, 2, 3]
+>>> b = a
+>>> a is b
+True
+\end{verbatim}
+\afterverb
+\end{block}
+\end{column}
+\begin{column}{0.4\textwidth}
+\centerline{\includegraphics[width=0.8\textwidth,clip]{list3.eps}}
+\end{column}
+\end{columns}
+\vspace{0.4cm}
+
+\begin{itemize}
+\item On the other hand, if {\tt a} is \alert{assigned} to {\tt b}, both variables refer to the \alert{same} object. 
+\item The association of a variable with an object is called a \alert{reference}. 
+\item An object with more than one referencemore is \alert{aliased}.
+\item If the aliased object is \alert{mutable}, 
+changes made with one alias affect
+the other.
+\item For immutable objects like strings, aliasing is not as much of a
+problem. 
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Lists and Strings}
+
+\begin{itemize}
+
+\item A string is a sequence of \alert{characters} and a list is a sequence
+of \alert{values}.
+\item A list of characters is \alert{not the same} as a
+string.  
+\item 
+Python provides several functions and methods to convert a string to a list and vice versa.
+\item The {\tt list} function breaks a string into individual letters.
+
+\item  The {\tt split} method breaks a string into words.
+\item 
+The string method {\tt join} is the inverse of {\tt split} which takes a list of strings and
+concatenates the elements.  
+\end{itemize}
+\end{frame}
+\section[Tuples and Dictionaries]{Tuples and Dictionaries}
+\subsection[Tuples]{Tuples}
+\begin{frame}[fragile]
+\frametitle{Tuples}
+\begin{itemize}
+\item Lists and strings have many common properties, such as 
+\alert{ indexing} and \alert{slicing} operations. They are examples of \alert{sequence data types} ({\tt str,  list, tuple}, etc.). 
+\item  A tuple consists of a number of values separated by commas,
+\beforeverb
+\begin{verbatim}
+>>> t = 'a', 'b', 'c', 'd', 'e'
+\end{verbatim}
+\afterverb
+or with parentheses
+\beforeverb
+\begin{verbatim}
+>>> t = ('a', 'b', 'c', 'd', 'e')
+\end{verbatim}
+\afterverb
+\item An empty tuple is constructed by {\tt ()}. A tuple with one item is constructed by following a value with a trailing \alert{comma}.
+\beforeverb
+\begin{verbatim}
+>>> empty = ()
+>>> singleton = 'hello', 
+>>> len(empty) 
+0 
+>>> len(singleton) 
+1 
+\end{verbatim}
+\afterverb
+%\item To create a tuple with a \alert{ single element}, you have to include a \alert{final
+%comma},
+%
+%\beforeverb
+%\begin{verbatim}
+%>>> t1 = 'a',
+%>>> type(t1)
+%<type 'tuple'>
+%>>> t2= ('a')
+%>>> type(t2)
+%<type 'str'>
+%\end{verbatim}
+%\afterverb
+\item Tuples are \alert{immutable}. 
+\end{itemize}
+
+\end{frame}
+\begin{frame}[fragile]
+ \frametitle{Tuple Assignment} 
+ 
+\begin{itemize}
+\item It is often useful to swap the values of two variables. This can be achieved by \alert{tuple assignment}:
+\beforeverb
+\begin{verbatim}
+>>> a, b = b, a
+\end{verbatim}
+\afterverb
+%
+\item The left side is a tuple of variables; the right side is a tuple of
+expressions. 
+\item  Each value is assigned to its respective variable.  
+\item All the expressions on the right side are evaluated \alert{before} any
+of the assignments.
+\item The number of variables on the left and the number of
+values on the right have to be the \alert{same}.
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Tuple As Return Values}
+\begin{itemize}
+\item A function can only return one value, but
+if the value is a tuple, the effect is the same as returning
+\alert{multiple values}. 
+\item The returned value can be store as a tuple\beforeverb
+\begin{verbatim}
+>>> t = divmod(7, 3)
+>>> print t
+(2, 1)
+\end{verbatim}
+\afterverb
+or as  elements:
+\beforeverb
+\begin{verbatim}
+>>> quot, rem = divmod(7, 3)
+>>> print quot
+2
+>>> print rem
+1
+\end{verbatim}
+\afterverb
+
+
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Gather and Scatter}
+\begin{itemize}
+\item Functions can take a variable number of arguments.  
+\item A parameter name that begins with {\tt *} \alert{gathers} arguments into
+a tuple. 
+\beforeverb
+\begin{verbatim}
+def printall(*args):
+    print args
+ >>> printall(1, 2.0, '3')
+(1, 2.0, '3')
+\end{verbatim}
+\afterverb
+
+\item To pass a
+sequence of values  to a function
+as multiple arguments, one needs to can use the {\tt *} operator to \alert{scatter} the tuple.
+\beforeverb
+\begin{verbatim}
+>>> t = (7, 3)
+>>> divmod(t)
+TypeError: divmod expected 2 arguments, got 1
+>>> divmod(*t)
+(2, 1)
+\end{verbatim}
+\afterverb
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Lists and Tuples}
+\begin{itemize}
+\item The build-in function {\tt zip} takes two or more \alert{sequences} and
+``zips'' them into a \alert{list}.
+\item For a string and a list: 
+\beforeverb
+\begin{verbatim}
+>>> s = 'abc'
+>>> t = [0, 1, 2]
+>>> zip(s, t)
+[('a', 0), ('b', 1), ('c', 2)]
+\end{verbatim}
+\afterverb
+A list of tuples. 
+%
+\item Tuple assignment can be used in a {\tt for} loop to traverse a list of
+tuples:
+\beforeverb
+\begin{verbatim}
+t = [('a', 0), ('b', 1), ('c', 2)]
+for letter, number in t:
+    print number, letter
+\end{verbatim}
+\afterverb
+\end{itemize}
+
+
+\end{frame}
+
+\subsection[Dictionaries]{Dictionaries}
+\begin{frame}[fragile]
+
+\frametitle{Dictionaries}
+\begin{itemize}
+\item A \alert{dictionary} is like a list, but more general.  
+\item Unlike sequences, which are indexed by a range of numbers, dictionaries are indexed by \alert{keys}.
+\item Keys can be any \alert{immutable type}; strings and numbers can always be keys.
+\item Each key maps to a value.  The association of a key and a value is called a \alert{key-value pair}.
+\item The function {\tt dict()} creates a new dictionary with no items.
+\item The order of items in a dictionary is \alert{unpredictable}.
+
+\end{itemize}
+
+
+\end{frame}
+\begin{frame}[fragile]
+
+\begin{block}{Examples}
+\beforeverb
+\begin{verbatim}
+>>> tel = {'jack': 4098, 'sape': 4139} 
+>>> tel['guido'] = 4127 
+>>> tel 
+{'sape': 4139, 'guido': 4127, 'jack': 4098} 
+>>> tel['jack']
+4098
+>>> del tel['sape'] 
+>>> tel['irv'] = 4127 
+>>> tel 
+{'guido': 4127, 'irv': 4127, 'jack': 4098} 
+>>> tel.keys() 
+['guido', 'irv', 'jack'] 
+>>> 'guido' in tel 
+True
+\end{verbatim}
+\afterverb
+\end{block}
+
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Hashtable}
+
+\begin{itemize}
+\item 
+The {\tt in} operator works on dictionaries; it tells you whether
+something appears as a \alert{key} in the dictionary.
+\item If you use a dictionary in a {\tt for} statement, it traverses
+the \alert{keys} of the dictionary. 
+\item Use the method {\tt values} to check if something appears as a \alert{value} in a dictionary, combined with the {\tt in} operator.
+%\beforeverb
+%\begin{verbatim}
+%>>> vals = eng2sp.values()
+%>>> 'uno' in vals
+%True
+%\end{verbatim}
+%\afterverb
+%
+
+\item The {\tt in} operator uses different algorithms for lists and
+dictionaries:
+\begin{itemize}
+\item For lists, it uses a search algorithm.  As the list gets longer, the search time gets
+longer in direct proportion.  
+\item For dictionaries, Python uses an
+algorithm called a \alert{hashtable}. The
+{\tt in} operator takes about the \alert{same amount of time} no matter how
+many items there are in a dictionary. 
+\end{itemize}
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Reverse Lookup}
+\begin{itemize}
+\item Given a dictionary {\tt d} and a key {\tt k}, it is easy to
+look up the corresponding value {\tt v = d[k]} (hashtable). 
+\item If instead {\tt v} is given and you want to find {\tt k}?
+\begin{itemize}
+\item Might be more than one
+key that maps to the value {\tt v}. 
+\item No easy way to do a \alert{reverse lookup}. Have to search.
+\end{itemize}
+\item A reverse lookup is \alert{much slower} than a forward lookup.
+\item The performance
+of the program will suffer if it has to be done often, or if the dictionary gets big.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Lists and Dictionaries}
+\begin{itemize}
+\item Lists can appear as \alert{values} in a dictionary, but can not be \alert{keys}.
+\beforeverb
+\begin{verbatim}
+>>> hist = histogram('parrot')
+>>> print hist
+{'a': 1, 'p': 1, 'r': 2, 't': 1, 'o': 1}
+>>> inv = invert_dict(hist)
+>>> print inv
+{1: ['a', 'p', 't', 'o'], 2: ['r']}
+\end{verbatim}
+\afterverb
+\end{itemize}
+\centerline{\includegraphics[width=0.6\textwidth]{dict1.eps}}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Sequences of sequences}
+\begin{itemize}
+\item In many contexts, the different kinds of sequences (strings, lists and
+tuples) can be used interchangeably.
+\item  Strings are \alert{more limited} than other
+sequences because the elements have to be \alert{characters}.  They are
+also \alert{immutable}.  
+\item Lists are more common than tuples, mostly because they are \alert{mutable}.
+\item In some contexts, like a {\tt return} statement, it is
+syntactically simpler to create a \alert{tuple} than a list.  
+
+\item If one wants to use a sequence as a dictionary key,  an \alert{immutable} type like a tuple or string must be used.
+
+\item When passing a sequence as an argument to a function,
+using \alert{tuples} reduces the potential for unexpected behavior
+due to aliasing.
+\end{itemize}
+\end{frame}
+
+\end{document}
+
+
