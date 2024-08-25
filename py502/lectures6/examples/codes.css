@@ -1,0 +1,16 @@
+body {background: #fcfccc}
+
+div.main           {width: 700px; margin-left: 30px; font-family: "Arial", sans serif}
+
+div.frontpage      {width: 700px; margin-left: 30px; font-family: "Arial", sans serif; font-size: 90%}
+p.coursehead       {font-family: "Arial", sans serif; font-size: 120%; font-weight: bold; color: #CF0021}
+p.programlist      {font-family: "Times"; font-size: 105%; line-height: 1.3em}
+a.programbox       {display: block; padding: 2px; text-decoration: none; width: 672px; border: 1px outset black; margin: 2px; background: #aabafd; color: black}
+a:hover.programbox {display: block; padding: 2px; text-decoration: none; width: 672px; border: 1px outset black; margin: 2px; background: #2055dd; color: white}
+
+div.programpage    {width: 700px; margin-left: 30px; font-family: "Arial", sans serif; font-size: 90%}
+p.programhead      {font-family: "Arial", sans serif; font-size: 120%; font-weight: bold; color: #CF0021}
+p.codelist         {font-family: "Times"; font-size: 105%; line-height: 1.3em}
+a.codebox          {display: block; padding: 2px; text-decoration: none; width: 672px; border: 1px outset black; margin: 2px; background: #aabafd; color: black}
+a:hover.codebox    {display: block; padding: 2px; text-decoration: none; width: 672px; border: 1px outset black; margin: 2px; background: #2055dd; color: white}
+

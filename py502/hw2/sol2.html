@@ -1,0 +1,131 @@
+<html>
+<head>
+<title>PY 502, Homeworks solutions 2</title>
+</head>     
+
+<body bgcolor="#ffFFdd">
+
+<center><p><h3>
+Solutions for homework assignment #2
+</p></h3></center>
+
+<table border="3" cellpadding="3" cellspacing="3" width="700" align="center"
+vspace="10" bgcolor="#ddddff"><tr><td>
+
+<p>
+Gabe's solutions in a Jupyter notebook [<a href="hw2_sol.ipynb">hw2_sol.ipynb</a>]
+</p>
+      
+<h4>
+Problem1
+</h4>
+
+The purpose of this assignment was to investigate the scaling of the 
+error as a function of the number of intervals used. Below is a link to 
+an F90 program that integrates the function using both integration formulas
+in the same run. It uses a trick of using a previously calculated 
+integral when doubling the number of intervals (no need to do that but
+saves about 50% computation time)..
+
+<p>
+F90 Solution program [<a href="openint.f90">openint.f90</a>]
+</p>
+
+<h4>
+A) Non-singular integrand
+</h4>
+
+These are results along with lines with slope 2 and 3. The expected error scaling
+for small h is confirmed. Note that there are small deviations from the linear
+behavior for the largest h, showing the presence of higher-order corrections to
+the scaling.
+
+<center><img src="fig0.jpg" width="600" hspace="10" vspace="10"></center>
+
+<h4>
+B) Singular integrand
+</h4>
+
+<center><img src="page1.gif" width="600" hspace="10" vspace="10"></center>
+
+<p>
+The exponent can be extracted by plottng the logarithm of the error 
+versus log(h) [or log(N) or n].
+
+<center><img src="fig1.jpg" width="600" hspace="10" vspace="10"></center>
+
+<center><img src="fig2.jpg" width="600" hspace="10" vspace="10"></center>
+
+ Using the line fitting program from the previous assignment
+(with all errors set to 1 since they are irrelevant but should be the
+same for every point to give them equal weight in the fit) gave the
+following exponents (slopes):
+<pre>
+   alpha=1/2, 1st order: slope = 0.49983
+              2nd order: slope = 0.50003
+   alpha=3/4, 1st order: slope = 0.24996
+              2nd order: slope = 0.25001
+</pre>
+This is in very good agreement with the expectation; slope=1-alpha.
+
+</p>
+
+<h4>
+C) Almost singular integrand
+</h4>
+
+<center><img src="page2.gif" width="600" hspace="10" vspace="10"></center>
+
+<p>
+The figure below shows results using alpha=1/2 and epsilon=0.00001.
+</p>
+
+<center><img src="fig3.jpg" width="600" hspace="10" vspace="10"></center>
+
+<p>
+The lines show the expected slopes 1/2 (for h much larger than epsilon) 
+2 (for h much less than epsilon with 1st-order formula) and 3 
+(for h much less than epsilon with second-order formula).
+</p>
+
+</td></tr></table>
+
+<table border="3" cellpadding="3" cellspacing="3" width="700" align="center"
+vspace="10" bgcolor="#ddddff"><tr><td>
+
+<h4>
+Problem 2
+</h4>
+
+<p>
+F90 solution program [<a href="inertia.f90">inertia.f90</a>]
+</p>
+
+Running the program with 1 million sampling points per bin and nbi bins
+gave the following results and error bars for Iz and Iy
+
+<pre>
+  nbi =   50:  Iz = 0.00469302 +/- 0.00000081,  Ix = 0.00494854 +/- 0.00000091
+  nbi =  500:  Iz = 0.00469148 +/- 0.00000027,  Ix = 0.00494760 +/- 0.00000031    
+  nbi = 5000:  Iz = 0.00469192 +/- 0.00000009,  Ix = 0.00494771 +/- 0.00000010
+</pre>
+
+Note that when increasing the number of bins by a factor of 10, the error bar 
+is reduced approximately by sqrt(10), as expected statistically.
+
+The nbi=5000 run gave bin averages with the following distributions (using
+50 histogram bins within the range where data appeared):
+
+<center><img src="hi1.jpg" width="600" hspace="10" vspace="10"></center>
+
+<center><img src="hi2.jpg" width="600" hspace="10" vspace="10"></center>
+
+Gaussians have been fitted to the data sets, demonstrating normal distributions
+as expected by the central limit theorem when the number of points per bin is large.
+
+</table>
+
+</td></tr></table>
+
+</body>
+</html>

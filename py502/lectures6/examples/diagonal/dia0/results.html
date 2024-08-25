@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+
+<head>
+
+<title>hchain_0</title>
+
+<link rel="stylesheet" type="text/css" href="../../codes.css" />
+
+</head>
+
+<body>
+
+<div class="program">
+
+<p class="programhead">
+Exact diagonalization of the S=1/2 Heisenberg chain<br>
+(no symmetries used)
+</p>
+
+<p class="programhead">
+Program: hchan_0
+</p>
+
+<p class="program">
+<h3>Running instructions</h3>
+</p>
+
+<p class="program">
+<b>Input:</b> File <em class="program">read.in</em> containing:<br>
+<b>Column 1:</b> System size N (integer) <br>
+</p>
+
+<p>Example read.in (N=8)</p>
+<pre class="program">
+    8
+</pre>
+
+<p class="program">
+<b>Output:</b> File <em class="program">eig.dat</em> containing:<br>
+<b>Column 1:</b> Eigenvalue number; 0,...,2<sup>N</sup>-1<br>
+<b>Column 2:</b> Energy eigenvalue<br>
+<b>Column 3:</b> Total spin S expectation value; extracted from &lt;S&sdot;S&gt;=S(S+1) <br>
+<b>Column 4:</b> Magnetization (z axis) expectation value
+</p>
+
+
+<p class="program">
+<h3>Examples and comments</h3>
+</p>
+
+<p class="program">
+Periodic boundary conditions are used also for N=2, resulting in energies twice the nor
+mal
+singlet/triplet energies. The output in this case is
+</p>
+
+<pre class="program">
+    0     -1.5000000000      0.0000000000     -0.0000000000
+    1      0.5000000000      1.0000000000     -0.5000000000
+    2      0.5000000000      1.0000000000     -0.0000000000
+    3      0.5000000000      1.0000000000      0.5000000000
+</pre>
+
+<p class="program">
+For N=4, the following output results.
+Note that states 6-8 are degenerate (same energies in column 2) with the same z magneti
+zation (column 4). The total spin (column 3) 
+is not diagonal, as the non-integer expectation values do not corresponding to allowed 
+S eigenvalues. A linear combination of the 
+3 degenerate states with different S was produced by the diagonalization routine.
+<p>
+<pre class="program">
+    0     -2.0000000000      0.0000000000      0.0000000000
+    1     -1.0000000000      1.0000000000     -0.5000000000
+    2     -1.0000000000      1.0000000000      0.0000000000
+    3     -1.0000000000      1.0000000000      0.5000000000
+    4     -0.0000000000      1.0000000000     -0.5000000000
+    5     -0.0000000000      1.0000000000      0.5000000000
+    6      0.0000000000      0.5029870708     -0.0000000000
+    7      0.0000000000      0.9699263936     -0.0000000000
+    8      0.0000000000      0.7583057392      0.0000000000
+    9      0.0000000000      1.0000000000      0.5000000000
+   10      0.0000000000      1.0000000000     -0.5000000000
+   11      1.0000000000      2.0000000000     -0.5000000000
+   12      1.0000000000      2.0000000000     -1.0000000000
+   13      1.0000000000      2.0000000000      0.5000000000
+   14      1.0000000000      2.0000000000      0.0000000000
+   15      1.0000000000      2.0000000000      1.0000000000
+</pre>
+
+<p class="program">
+The following are the 16 first eigenvalues for N=8. Note the many degenerate states wit
+h identical spin (column 2) and 
+the fact that now the z-magnetization (column 4) values are in general not allowed magn
+etization eigenvalues. This is
+because the diagonalization subroutine (depending on exactly how it works) can mix stat
+es with same E, S and different
+magnetization if the hamiltonian matrix is not written in magnetization block-diagonal 
+form.
+</p>
+
+<pre class="program">
+    0     -3.6510934089      0.0000000000      0.0000000000
+    1     -3.1284190638      1.0000000000     -0.4999786387
+    2     -3.1284190638      1.0000000000     -0.0000213613
+    3     -3.1284190638      1.0000000000      0.5000000000
+    4     -2.6996281483      0.0000000000      0.0000000000
+    5     -2.4587385089      1.0000000000     -0.4482606137
+    6     -2.4587385089      1.0000000000      0.4999793383
+    7     -2.4587385089      1.0000000000     -0.0427976061
+    8     -2.4587385089      1.0000000000      0.0059285074
+    9     -2.4587385089      1.0000000000     -0.4725423843
+   10     -2.4587385089      1.0000000000      0.4576927583
+   11     -2.1451483739      1.0000000000     -0.4622747971
+   12     -2.1451483739      1.0000000000      0.3924081181
+   13     -2.1451483739      1.0000000000     -0.1595269579
+   14     -2.1451483739      1.0000000000      0.4890986185
+   15     -2.1451483739      1.0000000000     -0.1851207824
+</pre>
+
+</div>
+
+</body>
+
+</html>

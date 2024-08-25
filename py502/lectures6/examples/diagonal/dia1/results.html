@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+
+<head>
+
+<title>hchain_m results</title>
+
+<link rel="stylesheet" type="text/css" href="../../codes.css" />
+
+</head>
+
+<body>
+
+<div class="program">
+
+<p class="programhead">
+Exact diagonalization of the S=1/2 Heisenberg chain<br>
+(using magnetization conservation)
+</p>
+
+<p class="programhead">
+Program: hchan_m
+</p>
+
+<p class="program">
+<h3>Running instructions</h3>
+</p>
+
+<p class="program">
+<b>Input:</b> File <em class="program">read.in</em> containing:<br>
+<b>Column 1:</b> System size N (integer) <br>
+</p>
+
+<p>Example read.in (N=8)</p>
+<pre class="program">
+    8
+</pre>
+
+<p class="program">
+<b>Output:</b> File <em class="program">eig.dat</em> containing:<br>
+For each sector of fixed number of up spins nu:<br>
+<b>Line 1:</b> nu and the block size nst, followed by nst lines with: <br>
+<b>Column 1:</b> Eigenvalue number (integer)<br>
+<b>Column 2:</b> Energy eigenvalue (real)<br>
+<b>Column 3:</b> Spin quantum number (real)<br>
+</p>
+
+
+<p class="program">
+<h3>Examples and comments</h3>
+</p>
+
+<p class="program">
+Periodic boundary conditions are used also for N=2, resulting in energies twice the normal
+singlet/triplet energies. The output in this case is:
+</p>
+
+<pre class="program">
+ nu = 0    nst = 1
+    0      0.5000000000      1.0000000000
+ nu = 1    nst = 2
+    0     -1.5000000000      0.0000000000
+    1      0.5000000000      1.0000000000
+</pre>
+
+<p class="program">
+Following are results for N=4. Note that states 2-4 for nu=2 are degenerate (same energies in column 2). 
+The total spin (column 3) is then not diagonal. Some linear combinations of the 3 degenerate states are produced by 
+the diagonalization routine, resulting in the calculated expectation value of the total spin not being the eigenvalues:
+<p>
+
+<pre class="program">
+ nu = 0    nst = 1
+    0      1.0000000000      2.0000000000
+ nu = 1    nst = 4
+    0     -1.0000000000      1.0000000000
+    1     -0.0000000000      1.0000000000
+    2      0.0000000000      1.0000000000
+    3      1.0000000000      2.0000000000
+ nu = 2    nst = 6
+    0     -2.0000000000      0.0000000000
+    1     -1.0000000000      1.0000000000
+    2      0.0000000000      0.5029870708
+    3      0.0000000000      0.9699263936
+    4      0.0000000000      0.7583057392
+    5      1.0000000000      2.0000000000
+</pre>
+
+
+<p class="program">
+These are the lowest couple of eigenvalues for the mz=0,...,6 sectors of 12-site chain:
+</p>
+
+<pre class="program">
+ nu = 0    nst = 1
+    0      3.0000000000      6.0000000000
+ nu = 1    nst = 12
+    0      1.0000000000      5.0000000000
+    1      1.1339745962      5.0000000000
+ nu = 2    nst = 66
+    0     -0.9189859472      4.0000000000
+    1     -0.6609656356      4.0000000000
+ nu = 3    nst = 220
+    0     -2.6517399155      3.0000000000
+    1     -2.2903940178      3.0000000000
+ nu = 4    nst = 495
+    0     -4.0705293260      2.0000000000
+    1     -3.6374064252      2.0000000000
+ nu = 5    nst = 792
+    0     -5.0315434037      1.0000000000
+    1     -4.5693744108      1.0000000000
+ nu = 6    nst = 924
+    0     -5.3873909174      0.0000000000
+    1     -5.0315434037      1.0000000000
+</pre>
+
+<p class="program">
+Here the largest matrix size is already 924*924, and thus not much larger system sizes can be treated without 
+using additional symmetries for further block diagonalization.
+</p>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+
+<head>
+
+<title>hchain_mk</title>
+
+<link rel="stylesheet" type="text/css" href="../../codes.css" />
+
+</head>
+
+<body>
+
+<div class="program">
+
+<p class="programhead">
+Exact diagonalization of the S=1/2 Heisenberg chain<br>
+(using momentum states)
+</p>
+
+<p class="programhead">
+Program: hchan_mk
+</p>
+
+<p class="program">
+<h3>Running instructions</h3>
+</p>
+
+<p class="program">
+<b>Input:</b> File <em class="program">read.in</em> containing:<br>
+<b>Column 1:</b> System size N (integer) <br>
+<b>Column 2:</b> Estimated maximum block hilbert space size rm (integer)
+</p>
+
+<p>Example read.in (N=8, rm=20)</p>
+<pre class="program">
+    8  20
+</pre>
+
+
+<p class="program">
+<b>Output:</b> File <em class="program">eig.dat</em> containing:<br>
+For each sector of fixed number of up spins nu and momentum k (integer, k=0,...,N/2):<br>
+<b>Line 1:</b> nu,k and the block size nst, followed by nst lines with: <br>
+<b>Column 1:</b> Eigenvalue number (integer)<br>
+<b>Column 2:</b> Energy eigenvalue (real)<br>
+<b>Column 3:</b> Spin quantum number (real)<br>
+</p>
+
+<p class="program">
+File <em class="program">low.dat</em> containing lowest eigenstate for each sector:<br>
+<b>Column 1:</b> k (integer)<br>
+<b>Column 4:</b> Energy eigenvalue (real)<br>
+<b>Column 5:</b> Spin quantum number (real)<br>
+</p>
+
+<p class="program">
+<h3>Examples and comments</h3>
+</p>
+
+<p class="program">
+Following are results for N=6. The file eig.dat:
+<p>
+
+<pre class="program">
+ nu = 0  k =  0    nst = 1
+    0      1.5000000000      3.0000000000
+ nu = 1  k =  0    nst = 1
+    0      1.5000000000      3.0000000000
+ nu = 1  k =  1    nst = 1
+    0      1.0000000000      2.0000000000
+ nu = 1  k =  2    nst = 1
+    0     -0.0000000000      2.0000000000
+ nu = 1  k =  3    nst = 1
+    0     -0.5000000000      2.0000000000
+ nu = 2  k =  0    nst = 3
+    0     -2.1180339887      1.0000000000
+    1      0.1180339887      1.0000000000
+    2      1.5000000000      3.0000000000
+ nu = 2  k =  1    nst = 2
+    0     -1.0000000000      1.0000000000
+    1      1.0000000000      2.0000000000
+ nu = 2  k =  2    nst = 3
+    0     -1.2807764064      1.0000000000
+    1      0.0000000000      2.0000000000
+    2      0.7807764064      1.0000000000
+ nu = 2  k =  3    nst = 2
+    0     -0.5000000000      2.0000000000
+    1      0.5000000000      1.0000000000
+ nu = 3  k =  0    nst = 4
+    0     -2.1180339887      1.0000000000
+    1     -1.5000000000      0.0000000000
+    2      0.1180339887      1.0000000000
+    3      1.5000000000      3.0000000000
+ nu = 3  k =  1    nst = 3
+    0     -1.0000000000      1.0000000000
+    1     -0.5000000000      0.0000000000
+    2      1.0000000000      2.0000000000
+ nu = 3  k =  2    nst = 3
+    0     -1.2807764064      1.0000000000
+    1     -0.0000000000      2.0000000000
+    2      0.7807764064      1.0000000000
+ nu = 3  k =  3    nst = 4
+    0     -2.8027756377      0.0000000000
+    1     -0.5000000000      2.0000000000
+    2      0.5000000000      1.0000000000
+    3      0.8027756377      0.0000000000
+</pre>
+
+<p class="program">
+The file low.dat (lowest-energy state in each sector):
+</p>
+
+<pre class="program">
+    0    0    1.5000000000    3.0000000000         1
+    1    0    1.5000000000    3.0000000000         1
+    1    1    1.0000000000    2.0000000000         1
+    1    2   -0.0000000000    2.0000000000         1
+    1    3   -0.5000000000    2.0000000000         1
+    2    0   -2.1180339887    1.0000000000         3
+    2    1   -1.0000000000    1.0000000000         2
+    2    2   -1.2807764064    1.0000000000         3
+    2    3   -0.5000000000    2.0000000000         2
+    3    0   -2.1180339887    1.0000000000         4
+    3    1   -1.0000000000    1.0000000000         3
+    3    2   -1.2807764064    1.0000000000         3
+    3    3   -2.8027756377    0.0000000000         4
+</pre>
+
+<p class="program">
+For N=6 all the (mz,k) states have fixed total-spin, as can be seen in the all-integer values obtained for S.
+For larger N, there are still some cases of degeneracy of states with different S. For N=8, there is such a
+case of 3 degenerate states with nu=2, k=4, as seen in eig.dat for that sector:
+</p>
+
+<pre class="program">
+ nu = 2  k =  4    nst = 4
+    0     -0.0000000000      2.0009877794
+    1      0.0000000000      2.9990995860
+    2      0.0000000000      2.0002724281
+    3      1.0000000000      2.0000000000
+</pre>
+
+<p>
+There are such degeneracies in some other sectors as well.
+</p>
+
+</div>
+
+</body>
+
+</html>

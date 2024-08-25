@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+
+<head>
+
+<title>hchain_lanczos</title>
+
+<link rel="stylesheet" type="text/css" href="../codes.css" />
+
+</head>
+
+<body>
+
+<div class="program">
+
+<p class="programhead">
+    Lanczos diagonalization of the Heisenberg chain using magnetization 
+    conservation and semi-momentm states with parity and spin-inversion 
+    symmetry
+</p>
+
+<p class="programhead">
+Program: hchan_lanc
+</p>
+
+<p class="program">
+The program operates in the sector of magnetization mz=0, but it is
+very easy to modify it for any mz. The program only gives energies.
+</p>
+
+<p class="program">
+<h3>Running instructions</h3>
+</p>
+
+<p class="program">
+<b>Input:</b> 
+</b>
+
+<p class="program">
+File <em class="program">read.in</em> containing:<br>
+</p>
+
+<p class="program">
+N, k, p, z <br>
+mlanc, rm, hm,  vm 
+</p>
+
+<p class="program">
+<b>Line 1, Column 1:</b> System size N (integer) <br>
+<b>Line 1, Column 2:</b> Momentum index k (integer, 0,...,N/2) <br>
+<b>Line 1, Column 3:</b> parity index p (integer, +1,-1) <br>
+<b>Line 1, Column 3:</b> spin-inversion index z (integer, +1,-1) 
+</p>
+
+<p class="program">
+<b>Line 2, Column 1:</b> Number of Lanczos iterations (integer) <br>
+<b>Line 2, Column 2:</b> Maximum number of representatives <br>
+<b>Line 2, Column 2:</b> Maximum number of H-elements stored <br>
+<b>Line 2, Column 3:</b> Maximum number of different H-elements
+</p>
+
+<p>Example read.in </p>
+<pre class="program">
+  16  0     1     1
+  50  1000  10000 200  
+</pre>
+
+<p class="program">
+File <em class="program">seed.in</em>, containing an integer random number seed<br>
+</p>
+
+<p>Example read.in </p>
+<pre class="program">
+  72637361
+</pre>
+
+<p class="program">
+<b>Output:</b>
+</p>
+
+<p class="program">
+File <em class="program">log.txt</em> Information on the basis and storage requirements (actual and maximal values).<br>
+<b>Line 1:</b> Actual and maximum basis size <br>
+<b>Line 2:</b> Actual and maximum number of H-elements <br>
+<b>Line 3:</b> Actual and maximum number of different H-elements 
+</p>
+
+<p class="program">
+File <em class="program">itr.dat</em> 
+Convergence of the 5 lowest energies.
+<b>Column 1:</b> Iteration number (number of Lanczos states) <br>
+<b>Columns 2-6:</b> Five lowest eigenvalues
+</p>
+
+<p class="program">
+File <em class="program">e.dat</em> 
+All the eigenvalues of the final tri-diagonal Hamiltonian
+<b>Column 1:</b> Iteration number <br>
+<b>Column 2:</b> energy
+</p>
+
+
+<p class="program">
+<h3>Examples and comments</h3>
+</p>
+
+<p class="program">
+Note that the number of Lanczos iterations (states) cannot exceed the actual number of states in
+the block considered, because this is the maximum number of orthogonal states that can be formed.
+As an example of the behavior of the program if this rule is violated, the following is the output
+in itr.dat for N=8 in the sector k=0, p=1, z=1:
+</p>
+
+<pre class="program">
+    2   -3.1621336950   -0.2736354218    0.0000000000    0.0000000000    0.0000000000
+    3   -3.5964463541   -0.4960740597    0.5164881650    0.0000000000    0.0000000000
+    4   -3.6410241885   -1.0594470880   -0.2525265803    1.2489598038    0.0000000000
+    5   -3.6510005330   -1.7872019538   -0.4398498336    0.4218475976    1.9347353460
+    6   -3.6510929337   -1.8016145828   -0.4460035910    0.3737378380    1.2145807857
+    7   -3.6510934089   -1.8019377358   -0.7261094450   -0.4450418679    0.3772028540
+    8             NaN             NaN             NaN             NaN             NaN
+    9             NaN             NaN             NaN             NaN             NaN
+</pre>
+
+<p class="program">
+The number of blocks in the state is 7, and the energies obtained with 7 Lanczos iterations are
+exact. Continuing after 7 iterations, the calculation produces garbage.
+<p>
+
+</div>
+
+</body>
+
+</html>
