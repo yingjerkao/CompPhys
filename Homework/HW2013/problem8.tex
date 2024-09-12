@@ -1,0 +1,63 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{a4}
+\usepackage{graphicx}
+%\setlength{\oddsidemargin}{-0.5in}
+%\setlength{\evensidemargin}{-0.5in}
+%\setlength{\textwidth}{in}
+\pagestyle{empty}
+\begin{document}
+\begin{center}
+\Large
+\textbf{Numerical Analysis and Programming}\\
+\large
+Problem Set \#8\\
+Due: May 10
+\end{center}
+
+\begin{enumerate}
+\item Reverse Polish notation (RPN) is a mathematical notation which provides a method to write a mathematical expression without using parentheses and brackets. In RPN, the operators follow the operands, and  an operator always acts on the most recent numbers in the list. For example, the standard  expression
+\[
+(3 + 5) * (7 - 2)
+\]
+is written in  RPN as 
+\[
+3\  5\  +\  7\  2\  -\  *
+\]
+The expression is evaluated from left to right using a stack structure, and the following operations are performed: (1) If a value appears next in the expression, push this value on to the stack. (2) If an operator appears next, pop two items from the top of the stack and push the result of the operation on to the stack.
+
+In the above example, 3 and 5 are pushed into the stack, and  $+$  is performed, obtaining 8, which is again pushed into the stack. 7 and 2 are then pushed into the stack, and  $-$ is performed, obtaining 5, which is pushed into the stack. Finally, 5 and 8 are popped out of the stack, and $*$ is performed, obtaining 40. 
+
+\begin{enumerate}
+\item Write a function called {\small \verb!evaluate_RPN!} which takes a RPN expression and evaluate it.
+\item Write a function called {\small \verb!convert_to_RPN!} which takes a standard expression and convert it to RPN.
+\item Use the above functions, write a function to read in expressions in the standard format from a file called \verb!data.in! and evaluate the expressions, and write the output into a file called \verb!data.out!. The file format is given as follows, and each expression is delimited by {\tt ;}, 
+\[
+\begin{array}{llll}
+3*2+3; & (3+2)*(5-4); &  5*2+4/(3-4); &\cdots\\
+(5-3)/(4+2); & 8/(3*2); & 4/3+2/8; &\cdots \\
+\vdots& \vdots & \vdots & \vdots 
+\end{array}
+\]
+\end{enumerate} 
+\end{enumerate}
+Hand-In Procedure  
+\begin{enumerate}
+\item Save your code as ps8.py. 
+ Do not ignore this step or save your file(s) with different names. 
+\item Time and Collaboration Info \\
+At the start of each file, in a comment, write down the number of hours (roughly) you spent on 
+the problems in that part, and the names of the people you collaborated with. For example:
+\begin{verbatim}
+# Problem Set 8
+# ID: b982020xx
+# Collaborator's ID: b982020xx
+# Time: 3:30
+# 
+... your code goes here ...
+\end{verbatim}
+\item Upload to Ceiba.
+\end{enumerate}
+Note: Discussions are strongly encouraged, but \textbf{no copying} is allowed. All parties involved in copying will get \textbf{zero} for their homework. 
+\end{document}

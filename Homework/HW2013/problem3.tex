@@ -1,0 +1,90 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{a4}
+\usepackage{graphicx}
+%\setlength{\oddsidemargin}{-0.5in}
+%\setlength{\evensidemargin}{-0.5in}
+%\setlength{\textwidth}{in}
+\pagestyle{empty}
+\begin{document}
+\begin{center}
+\Large
+\textbf{Numerical Analysis and Programming}\\
+\large
+Problem Set \#3\\
+Due: April 25
+\end{center}
+
+\begin{enumerate} 
+\item Use Horner's algorithm together with Newton's and bisection methods  to find all  the \textbf{real} roots of a generic fifth-order polynomial:
+\[
+x^5+a_4x^4+a_3x^3+a_2x^2+a_1x+a_0=0,
+\]
+where $a_i\in \mathbb{R}$.(30pt)
+
+\item A common usage of string matching is to find a specific gene segment in a DNA sequence. A DNA sequence is commonly represented as a sequence of one of four nucleotides – adenine (A), cytosine (C), guanine (G), or thymine (T) –and hence a DNA molecule or strand is represented by a string composed of elements from an alphabet of only four symbols, for example, the string 
+\texttt{AAACAACTTCGTAAGTATA} represents a particular strand of DNA.  In this problem we will use Python string functions to perform some common tasks.(30pt)
+\begin{enumerate}
+
+\item Write a function defined as
+\begin{verbatim}
+def sequence_compare(seq1, seq2):
+\end{verbatim}
+ that compare two   sequences \verb!seq1! and \verb!seq2! and report all positions in which they fail to match. The lengths of the two sequences can be different, so you only have to compare up to the length of the shorter sequence. 
+\item Write a function defined as 
+\begin{verbatim}
+def transcribe_strand(seq):
+\end{verbatim}
+which transcribe a strand of DNA sequence to a messenger RNA (mRNA) sequence by replacing all {\tt T} with {\tt U} in the original sequence. 
+\item The genetic code, which translates the nucleotide sequences of genes to  and the amino-acid sequences of proteins,  consists of three-letter 'words' called \textit{codons} formed from a sequence of three nucleotides (e.g. ACT, CAG, TTT). A dictionary called \verb!codons! is provided in the template, which gives a transcript to translate a nucleotide triplet to an amino acid. For example, \verb!codons['AUG'] = 'M'! (Methionine).  There are several codons which marks the start and the end of the transcribing process. 
+The \textit{start codon} is the first codon of a mRNA transcript to be translated, and the most common start codon is AUG. The \textit{stop codon} marks the end of the coding, and there are three stop condons:  UAG, UAA and UGA.
+
+Write a function, defined as 
+\begin{verbatim}
+def translate_rna(rna):  
+\end{verbatim} 
+which translates an RNA sequence to an amino acid sequence. It should not start coding until encountering a start codon, and stops coding at the stop codons.
+\end{enumerate}
+
+\item Reverse Polish notation (RPN) is a mathematical notation which provides a method to write a mathematical expression without using parentheses and brackets. In RPN, the operators follow the operands, and  an operator always acts on the most recent numbers in the list. For example, the standard  expression
+\[
+(3 + 5) * (7 - 2)
+\]
+is written in  RPN as 
+\[
+3\  5\  +\  7\  2\  -\  *
+\]
+The expression is evaluated from left to right using a stack structure, and the following operations are performed: (1) If a value appears next in the expression, push this value on to the stack. (2) If an operator appears next, pop two items from the top of the stack and push the result of the operation on to the stack.
+
+In the above example, 3 and 5 are pushed into the stack, and  $+$  is performed, obtaining 8, which is again pushed into the stack. 7 and 2 are then pushed into the stack, and  $-$ is performed, obtaining 5, which is pushed into the stack. Finally, 5 and 8 are popped out of the stack, and $*$ is performed, obtaining 40. (0pt)
+
+\begin{enumerate}
+\item Write a function called {\small \verb!evaluate_RPN!} which takes a RPN expression and evaluate it.
+\item Write a function called {\small \verb!convert_to_RPN!} which takes a standard expression and convert it to RPN.
+\item Use the above functions, write a function called\\ {\small \verb!my_eval(inputFileName, outputFileName)!} to read in expressions in the standard format from a file called \verb!inputFileName! and evaluate the expressions, and write the output into a file called \verb!outFileName!. The file format is given as follows, and each expression is delimited by {\tt ;},\\
+Note: Please remember to "close" the files you opened.\\
+Note: There may have space in the input file, and the last character in the input file may be {\tt ;}.
+Example for input:
+\[
+\begin{array}{llll}
+3*2+3; & (3+2)*(5-4); &  5*2+4/(3-4); &\cdots\\
+(5-3)/(4+2); & 8/(3*2); & 4/3+2/8; &\cdots \\
+\vdots& \vdots & \vdots & \vdots 
+\end{array}
+\]
+Example for output:
+\[
+\begin{array}{llll}
+9\\
+5\\
+6\\
+\vdots
+\end{array}
+\]
+
+\end{enumerate} 
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,102 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{a4}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{algpseudocode}
+%\setlength{\oddsidemargin}{-0.5in}
+%\setlength{\evensidemargin}{-0.5in}
+%\setlength{\textwidth}{in}
+\begin{document}
+\begin{center}
+\Large
+\textbf{Numerical Analysis and Programming}\\
+\large
+Problem Set \#2\\
+Due: April 4
+\end{center}
+\begin{enumerate}
+%\item Another way to solve the number of spiders, rabbits and chickens for given numbers of heads and legs is to use the \texttt{solve} function which solves the problem with only rabbits and chickens. Write a function \texttt{solve3} to obtain all the solutions for given heads and legs. (Save as \textit{ps4a.py})
+%\small
+%\begin{verbatim}
+%def solve(numHeads, numLegs):
+%    for numChickens in range(numHeads+1): 
+%        numRabbits=numHeads-numChickens
+%        totalLegs=4*numRabbits+2*numChickens
+%        if totalLegs==numLegs:
+%            return [numRabbits,numChickens]
+%    return [None, None]
+%\end{verbatim}
+\item
+A simple sorting algorithm called \href{http://en.wikipedia.org/wiki/Bubble_sort}{\textit{bubble sort}}. Repeatedly through a list to be sorted, compare each pair and switch them if they are wrong ordered. Described by the following pseudocode
+
+\begin{algorithmic}[1]
+\Function{bubbleSort}{$A: array_like$}
+\Repeat
+\State swapped = false
+\For {$i = 1$ to $length(A) - 1$ inclusive}
+\If{$A[i-1] > A[i]$}
+\State swap( A[i-1], A[i] )
+\State swapped = true
+\EndIf
+\EndFor
+
+\Until{not swapped}
+end procedure
+\EndFunction
+%\State{()}
+%\State{$A[i]$:True, $i=2,\ldots,n$} 
+%
+% 
+%\For {$i \gets 2, 3, 4, \ldots, \sqrt{n} $}
+%\If {$ A[i]==$ true}
+%\For{$j \gets  i^2, i^2+i, i^2+2i,\ldots, n$}
+%      \State{$A[j] \gets $ false}
+%\EndFor
+%\EndIf
+%\EndFor
+%\For {$i \gets 2, \ldots n$}
+%\If {$A[i]$==True}
+%\State{ $i$ is a prime}
+%\EndIf
+%\EndFor
+\end{algorithmic}
+Write a function called \texttt{bubble\_sort(a)}  based on the above pseudocode. 
+
+\item 
+The greatest common divisor (GCD) of $a$ and $b$ is the largest number
+that divides both of them with no remainder.
+One way to find the GCD of two numbers is Euclid's algorithm,
+which is based on the observation that if $r$ is the remainder
+when $a$ is divided by $b$, then $gcd(a, b) = gcd(b, r)$.
+As a base case, we can consider $gcd(a, 0) = a$.
+Write two functions called
+\verb"gcd_recursive(a,b)" and \verb"gcd_iteration(a,b)" that takes parameters {\tt a} and {\tt b}
+and returns their greatest common divisor using the \textit{recursive} and \textit{iteration} methods.
+\item $\pi$ can be approximated by the following algorithm which calculates the perimeters of polygons inscribing and circumscribing a circle, starting with hexagons, and successively doubling the number of sides.
+\begin{eqnarray}
+t_0&=\frac{1}{\sqrt{3}}\nonumber\\
+t_{i+1}&=\frac{\sqrt{t_i^2+1}-1}{t_i}\label{form1}\\
+          &=\frac{t_i}{\sqrt{t_i^2+1}+1}\label{form2}
+\end{eqnarray}
+and $\pi \sim 6 \times 2^i\times t_i$.\\
+Write a function called \texttt{pi\_approx(n, i)} to calculate $\pi$ using both Eqs.~(\ref{form1}) and (\ref{form2}). Where $n$ means the n-th approximation, and $i$ means which equation you used. Write another function called \texttt{pi\_error(i)} to determine for which the number of sides $n$, the round-off error blows up for each equation.
+
+\end{enumerate} 
+
+\textbf{Hand-In Procedure}  
+ \begin{enumerate}
+\item Please write two problems in a \textbf{single} \texttt{.py} file and summit the executable \texttt{.py} file. 
+\item Follow the format of following picture.  Please use the provided \textbf{template}.
+\item Summit the file to the website at \url{http://gandalf.phys.ntu.edu.tw}
+\item You have \textbf{ten} chances to summit your answer and the score of your last answer will
+  be your final score.
+\item Please go to the website for more details.
+\end{enumerate}
+
+\includegraphics[width=1.0\textwidth]{prob2.jpg}
+
+Note: Discussions are strongly encouraged, but \textbf{plagiarism} is strictly forbidden. All parties involved in copying will get \textbf{zero} for their homework.
+
+\end{document}

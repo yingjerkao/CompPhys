@@ -1,0 +1,75 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{a4}
+\usepackage{graphicx}
+%\setlength{\oddsidemargin}{-0.5in}
+%\setlength{\evensidemargin}{-0.5in}
+%\setlength{\textwidth}{in}
+\pagestyle{empty}
+\begin{document}
+\begin{center}
+\Large
+\textbf{Numerical Analysis and Programming}\\
+\large
+Problem Set \#6\\
+Due: April 19
+\end{center}
+A palindrome is a word that is spelled the same backward and
+forward, like ``noon'' and ``redivider''.  Recursively, a word
+is a palindrome if the first and last letters are the same
+and the middle is a palindrome. 
+
+\begin{enumerate} 
+\item Use Horner's algorithm together with Newton's and bisection methods  to find all  the \textbf{real} roots of a generic fifth-order polynomial:
+\[
+x^5+a_4x^4+a_3x^3+a_2x^2+a_1x+a_0=0,
+\]
+where $a_i\in \mathbb{R}$.
+
+\item Use the function \verb"is_palindrome" written in Lab 5 to write a function \verb"has_palindrome" defined as 
+\begin{verbatim}
+def has_palindrome(s, start, len):
+\end{verbatim}
+which determines if the  substring of string \verb!s! starting from \verb!start! with length \verb!len! is palindrome, and  use\verb"has_palindrome" to solve the following puzzler:
+\begin{quote}
+``I was driving on the highway the other day and I happened to
+notice my odometer. Like most odometers, it shows six digits,
+in whole miles only. So, if my car had 300,000
+miles, for example, I'd see 3-0-0-0-0-0.
+
+``Now, what I saw that day was very interesting. I noticed that the
+last 4 digits were palindromic; that is, they read the same forward as
+backward. For example, 5-4-4-5 is a palindrome, so my odometer
+could have read 3-1-5-4-4-5.
+
+``One mile later, the last 5 numbers were palindromic. For example, it
+could have read 3-6-5-4-5-6.  One mile after that, the middle 4 out of
+6 numbers were palindromic.  And you ready for this? One mile later,
+all 6 were palindromic!
+
+``The question is, what was on the odometer when I first looked?''
+\end{quote}
+Write a function \verb!puzzle_solver()! which  tests all six-digit numbers and return the possible numbers that satisfy these requirements.
+\end{enumerate} 
+\newpage
+Hand-In Procedure  
+\begin{enumerate}
+\item Use the provided template \textit{ps6.py}. 
+ Do not  save your file with different names. 
+\item Time and Collaboration Info \\
+At the start of each file, in a comment, write down the number of hours (roughly) you spent on 
+the problems in that part, and the names of the people you collaborated with. For example:
+\begin{verbatim}
+# Problem Set 6
+# ID: b982020xx
+# Collaborators' ID: b982020xx
+# Time: 3:30
+# 
+... your code goes here ...
+\end{verbatim}
+\item Upload to Ceiba.
+\end{enumerate}
+Note: Discussions are strongly encouraged, but \textbf{no copying} is allowed. All parties involved in copying will get \textbf{zero} for their homework. 
+\end{document}

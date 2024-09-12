@@ -1,0 +1,29 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{a4}
+\usepackage{graphicx}
+\usepackage{verbatim}
+%\setlength{\oddsidemargin}{-0.5in}
+%\setlength{\evensidemargin}{-0.5in}
+%\setlength{\textwidth}{in}
+\begin{document}
+\begin{center}
+\Large
+\textbf{Numerical Analysis and Programming}\\
+\large
+Problem Set \#5\\
+Due: May 23
+\end{center}
+\begin{enumerate}
+\item The radar array with radar stations A and B, separated by the distance $a=100$m, track the plane C by recording the angles $\alpha$ and $\beta$ at 1-second intervals. Implement the \verb!Radar_Array! class to  update the speed $v$ of the plane and the climb angle $\gamma$. 
+
+The coordinates of the plane can be shown to be 
+\[
+x=a\frac{\tan \beta}{\tan \beta-\tan \alpha},\; y=a\frac{\tan\alpha \tan \beta}{\tan \beta-\tan \alpha}
+\]
+\end{enumerate}
+\begin{figure}[hbp]
+\centerline{\includegraphics[width=0.5\textwidth]{HW5Fig}}
+\end{figure}
+\end{document}

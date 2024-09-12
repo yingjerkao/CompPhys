@@ -1,0 +1,58 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{a4}
+\usepackage{graphicx}
+%\setlength{\oddsidemargin}{-0.5in}
+%\setlength{\evensidemargin}{-0.5in}
+%\setlength{\textwidth}{in}
+\pagestyle{empty}
+\begin{document}
+\begin{center}
+\Large
+\textbf{Numerical Analysis and Programming}\\
+\large
+Problem Set \#7\\
+Due: May 3
+\end{center}
+
+\begin{enumerate}
+
+\item A common usage of string matching is to find a specific gene segment in a DNA sequence. A DNA sequence is commonly represented as a sequence of one of four nucleotides – adenine (A), cytosine (C), guanine (G), or thymine (T) –and hence a DNA molecule or strand is represented by a string composed of elements from an alphabet of only four symbols, for example, the string 
+\texttt{AAACAACTTCGTAAGTATA} represents a particular strand of DNA. 
+
+Write two functions, called {\small \tt countSubStringMatch} \\ and 
+{\small\tt countSubStringMatchRecursive} 
+\\that 
+take two arguments, a key string and a target string.  These functions iteratively and recursively count 
+the number of instances of the key in the target string. Your functions should be able to handle key and target strings in both upper and lower cases or mixture of both.
+
+Complete definitions for 
+{\small \tt def countSubStringMatch(target,key): }\\
+and 
+{\small \tt def countSubStringMatchRecursive (target, key):}\\
+
+\item  \textit{Using Lists as Stacks}
+The list methods make it very easy to use a list as a stack, where the last element added is the first element retrieved (''last-in, first-out''). To add an item to the top of the stack, use \texttt{append()}. To retrieve an item from the top of the stack, use \texttt{pop()} without an explicit index. It is easy to implement non-recursive version of recursive function using stacks. Implement \texttt{factorial(n)} for non-negative integer $n$ using a stack. You may want to go back to study the recursive version of \texttt{factorial(n)}.
+
+\end{enumerate} 
+
+Hand-In Procedure  
+\begin{enumerate}
+\item Save your code as ps7.py.
+ Do not ignore this step or save your file(s) with different names. 
+\item Time and Collaboration Info \\
+At the start of each file, in a comment, write down the number of hours (roughly) you spent on 
+the problems in that part, and the names of the people you collaborated with. For example:
+\begin{verbatim}
+# Problem Set 7
+# ID: b982020xx
+# Collaborators' ID: b982020xx
+# Time: 3:30
+# 
+... your code goes here ...
+\end{verbatim}
+\item Upload to Ceiba.
+\end{enumerate}
+Note: Discussions are strongly encouraged, but \textbf{no copying} is allowed. All parties involved in copying will get \textbf{zero} for their homework. 
+\end{document}

@@ -1,0 +1,80 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{a4}
+%\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+%\setlength{\oddsidemargin}{-0.5in}
+%\setlength{\evensidemargin}{-0.5in}
+%\setlength{\textwidth}{in}
+\begin{document}
+\begin{center}
+\Large
+\textbf{Numerical Analysis and Programming}\\
+\large
+Problem Set \#1\\
+Due: March 21
+\end{center}
+\begin{enumerate}
+\item A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself. The simplest algorithm to check if a natural number $y$ is a prime number can be described by the pseudocode:
+\begin{algorithmic}[1]
+
+\For {$i \gets 1, y$}
+\If {$ y=0 \mod{i}$}
+\State \Return $y$ is not prime
+\EndIf
+\EndFor
+\State \Return $y$ is prime
+\end{algorithmic}
+
+\begin{itemize}
+\item The algorithm works but is not efficient. Explore ways to improve the efficiency of the algorithm, and  write a program to find the  1000th prime number.
+\end{itemize}
+\item  A result from number theory  states that for sufficiently large $n$, the product of
+the primes less than $n$ is less than or equal to $e^n$ and that as $n$ grows, this becomes a tight
+bound (that is, the ratio of the product of the primes to $e^n$ gets close to 1 as $n$ grows).
+\begin{itemize}
+\item Write a program that computes the sum of the logarithms of all the primes from 2 to some
+number $n$, and output the sum of the logs of the primes, the number $n$, and the ratio of these
+two quantities. Test this for different values of $n$.
+\end{itemize}
+\end{enumerate}
+To finish homework, you need to know two statements:\texttt{for} and \texttt{if}. Please read the book and  google for information.
+
+
+Hand-In Procedure
+
+\begin{enumerate}
+\item Please write two problems in a \textbf{single} .py file and summit the executable .py file. Print $1000^{th}$ prime number first.
+\item Follow the format of following picture.( use the \textbf{template})
+\item Summit the file to the website at \url{http://gandalf.phys.ntu.edu.tw}
+\item You have \textbf{ten} chances to summit your answer and the score of your last answer will
+  be your final score.
+\item Please go to the website for more details.
+\end{enumerate}
+\includegraphics[width=0.8\textwidth]{hw1exp.png}
+
+Samples for problem 1\\
+
+\begin{minipage}{0.5\textwidth}
+Sample input:\\
+5\\
+666\\
+1984\\
+140112\\
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+Sample output:\\
+3.40119738166 5 0.680239476332\\
+640.374463324 666 0.961523218204\\
+1909.44761907 1984 0.962423195097\\
+139714.259984 140112 0.997161270869\\
+
+\end{minipage}
+\\
+\\
+Note: Discussions are strongly encouraged, but \textbf{plagiarism} is strictly forbidden. All parties involved in copying will get \textbf{zero} for their homework.
+\end{document}

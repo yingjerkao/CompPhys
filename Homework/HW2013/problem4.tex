@@ -1,0 +1,46 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{a4}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{hyperref}
+%\setlength{\oddsidemargin}{-0.5in}
+%\setlength{\evensidemargin}{-0.5in}
+%\setlength{\textwidth}{in}
+\begin{document}
+\begin{center}
+\Large
+\textbf{Numerical Analysis and Programming}\\
+\large
+Problem Set \#4\\
+Due: May 16
+\end{center}
+
+This problem set is adapted from this website \url{http://norvig.com/sudoku.html}, and the original source code is available at \url{http://norvig.com/sudopy.shtml}
+
+A Sudoku puzzle is a grid of 81 squares. We can label the columns 1-9, the rows A-I, and call a collection of nine squares (column, row, or box) a \textit{unit} and the squares that share a unit the \textit{peers}. A puzzle leaves some squares blank and fills others with digits, and
+a puzzle is solved if the squares in each unit are filled with a permutation of the digits 1 to 9.
+That is, no digit can appear twice in a unit, and every digit must appear once. This implies that each square must have a different value from any of its peers. 
+
+Here we define a class \verb!Board! to represent the board of the puzzle and a class \verb!Sudoku! inherited from \verb!Board! to solve the puzzle.
+\begin{enumerate}
+\item Implement the  \verb!test! method in \verb!Board! to perform  consistency checks for the units.
+\item One of the method in solving a Sudoku puzzle is elimination, based on the following principles: (1) If a square has only one possible value, then eliminate that value from the square's peers. (2) If a unit has only one possible place for a value, then put the value there. 
+
+Implement the \verb!assign! and \verb!eliminate! methods in   \verb!Sudoku! based on these rules.
+\item The other route is to search for a solution: to systematically try all possibilities until we hit one that works. We will implement \textit{depth-first} search using recursion. We start by making sure we haven't already found a solution or a contradiction. If not, we choose one unfilled square and consider all its possible values. One at a time, try assigning the square each value, and searching from the resulting position. In other words, we search for a value $d$ such that we can successfully search for a solution from the result of assigning square $s$ to $d$. If the search leads to an failed position, go back and consider another value of $d$. 
+
+Implement the \verb!search! , \verb!solve! and \verb!solve_all! in \verb!Sudoku! based on this algorithm.
+\item Implement the utility functions \verb!from_file! and \verb!to_file! which will read in the puzzles from a file and write the solutions to another file.  The puzzle is given as, starting from A1, A2, \ldots, I9, 
+\begin{scriptsize}
+\begin{verbatim}
+4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......
+\end{verbatim}
+\end{scriptsize}
+where \verb!.! represents an empty square. 
+\item Notice that some puzzles might have typos or mistakes, and your code should be able to catch them without blocking the solutions for the following puzzles. In addition, the provided methods might be incomplete, so you need to make appropriate modifications. 
+\end{enumerate} 
+
+
+\end{document}
