@@ -1,0 +1,49 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{a4}
+\usepackage{graphicx}
+\setlength{\oddsidemargin}{-0.2in}
+\pagestyle{empty}
+%\setlength{\evensidemargin}{-0.5in}
+\setlength{\textwidth}{6.5in}
+\begin{document}
+\begin{center}
+\Large
+\textbf{Numerical Analysis and Programming}\\
+\large
+Lab Worksheet \#5
+\end{center}
+\begin{enumerate}
+\item The following function approximately determines the \textit{machine epsilon} ($\epsilon$) for a given type (defaults to \verb!float!), using the definition that $\epsilon$ is the smallest positive number such that $1+\epsilon\ne 1$. 
+\small
+\begin{verbatim}
+def machineEpsilon(func=float):
+    machine_epsilon = func(1)
+    while func(1)+func(machine_epsilon) != func(1):
+        machine_epsilon_last = machine_epsilon
+        machine_epsilon = func(machine_epsilon) / func(2)
+    return machine_epsilon_last
+\end{verbatim}
+\normalsize
+Understand what the function does,  and determine $\epsilon$ for \verb!int!,  \verb!float!, and \verb!complex!. How is \verb!float! in Python represented, single or double precision? 
+
+
+\item Determine the machine representation in hexidecimals in IEEE single precision for the following decimal numbers:
+a. $2^{−30}$,\;	b. 64.015625,\;	c. $−8\times 2^{−24}$.
+%You can check your results using \verb!float.hex()! function in Python.
+
+\item Determine the decimal numbers that have the following machine representations: a. [3F27E520]$_{16}$,\;	b. [3BCDCA00]$_{16}$,\;	c. [BF4F9680]$_{16}$.
+\item In the homework, you are required to write programs to perform the conversions above. Explore the \verb!struct! module in Python. Learn to use two functions in the module: \verb!pack! and \verb!unpack!. 
+Try the following code
+\begin{verbatim}
+import struct
+ss=struct.pack("I",0xBF4F9680)
+print "ss", ss
+output, =struct.unpack("I", ss)
+print output
+\end{verbatim}
+What does the code do? What if you change the format string \verb!"I"! to \verb!"i"!?
+%You can check your results using \verb!float.fromhex()! function in Python.  Notice a prefix \verb!0x! needs to be added in front of a hexadecimal number in Python.
+\end{enumerate}
+\end{document}	

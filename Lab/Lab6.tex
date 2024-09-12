@@ -1,0 +1,45 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{a4}
+\usepackage{graphicx}
+\setlength{\oddsidemargin}{-0.2in}
+%\setlength{\evensidemargin}{-0.5in}
+\setlength{\textwidth}{6.5in}
+\begin{document}
+\begin{center}
+\Large
+\textbf{Numerical Analysis and Programming}\\
+\large
+Lab Worksheet \#6
+\end{center}
+\begin{enumerate}
+\item \textit{List Comprehension}
+List comprehensions provide a concise way to create lists. Each list comprehension consists of an expression followed by a  {\tt for} clause, then zero or more {\tt for} or {\tt if} clauses. The result will be a list resulting from evaluating the expression in the context of the  {\tt for} and {\tt if}  clauses which follow it. If the expression would evaluate to a tuple, it must be parenthesized. Here are some examples:
+\small
+\begin{verbatim}
+>>> vec = [2, 4, 6]
+>>> [3*x for x in vec]
+[6, 12, 18]
+>>> [3*x for x in vec if x > 3]
+[12, 18]
+>>> [3*x for x in vec if x < 2]
+[]
+>>> [[x,x**2] for x in vec]
+[[2, 4], [4, 16], [6, 36]]
+\end{verbatim}
+\normalsize
+Using list comprehension to generate the transpose matrix and trace of the matrix,
+\small
+\begin{verbatim}
+>>> M=[[1,2,3],
+   [4,5,6],
+   [7,8,9]]
+\end{verbatim}
+\item \textit{Data Analysis} The data file \verb!Data.in! contains the exam scores of a class, in the comma-separated-value (csv) format.
+Each row corresponds to the scores of a student, and each column is  the score that the student got for each problem. Write a short program to perform the following tasks:
+\item Find the maximum, minimum, average, median, and standard deviation of the exam scores, using \verb!numpy! supplied functions.
+\item Use the function \verb!hist! in \textit{matplotlib}  to plot the histogram of the score distribution with 10-point bin intervals.
+
+\end{enumerate}
+\end{document}

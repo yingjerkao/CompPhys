@@ -1,0 +1,1193 @@
+%!PS-Adobe-2.0 EPSF-1.2
+%%Title: logtau3d.ps
+%%Creator: xmgr
+%%CreationDate: Fri May 10 22:20:15 2002
+%%For:sandviksandvik sandvik
+%%Pages: 1
+%%DocumentFonts: Times-Italic-ISOLatin1 Helvetica-ISOLatin1 Times-Roman-ISOLatin1 Symbol
+%%BoundingBox: 44 126 508 548
+save
+countdictstack
+mark
+newpath
+/showpage {} def
+%%EndProlog
+%%Page 1 1
+80 dict begin
+/Pat0 { 0.000000 setgray } def
+/Pat1 { 0.062500 setgray } def
+/Pat2 { 0.125000 setgray } def
+/Pat3 { 0.187500 setgray } def
+/Pat4 { 0.250000 setgray } def
+/Pat5 { 0.312500 setgray } def
+/Pat6 { 0.375000 setgray } def
+/Pat7 { 0.437500 setgray } def
+/Pat8 { 0.500000 setgray } def
+/Pat9 { 0.562500 setgray } def
+/Pat10 { 0.625000 setgray } def
+/Pat11 { 0.687500 setgray } def
+/Pat12 { 0.750000 setgray } def
+/Pat13 { 0.812500 setgray } def
+/Pat14 { 0.875000 setgray } def
+/Pat15 { 0.937500 setgray } def
+/setpattern { } def
+/m {moveto} bind def
+/l {lineto} bind def
+/s {stroke} bind def
+% Symbol fill
+/f { gsave fill grestore stroke } bind def
+% Opaque symbol
+/o { gsave 1.000000 1.000000 1.000000 setrgbcolor
+     fill grestore stroke } bind def
+% Circle symbol
+/a { 3 -1 roll 0 360 arc } bind def
+/da { a s } bind def
+/fa { a f } bind def
+/oa { a o } bind def
+% Square symbol
+/sq { moveto dup dup rmoveto 2 mul
+      dup neg 0 rlineto dup neg 0 exch rlineto
+      0 rlineto closepath } bind def
+/dsq { sq s } bind def
+/fsq { sq f } bind def
+/osq { sq o } bind def
+% Triangle symbols
+/t1 { moveto dup 0 exch rmoveto
+      dup neg dup 2 mul rlineto 2 mul 0 rlineto
+      closepath } bind def
+/dt1 { t1 s } bind def
+/ft1 { t1 f } bind def
+/ot1 { t1 o } bind def
+/t2 { moveto dup neg 0 rmoveto
+      dup dup 2 mul exch neg rlineto
+      2 mul 0 exch rlineto closepath } bind def
+/dt2 { t2 s } bind def
+/ft2 { t2 f } bind def
+/ot2 { t2 o } bind def
+/t3 { moveto dup neg 0 exch rmoveto
+      dup dup 2 mul rlineto neg 2 mul 0 rlineto
+      closepath } bind def
+/dt3 { t3 s } bind def
+/ft3 { t3 f } bind def
+/ot3 { t3 o } bind def
+/t4 { moveto dup 0 rmoveto
+      dup dup -2 mul exch rlineto
+      -2 mul 0 exch rlineto closepath } bind def
+/dt4 { t4 s } bind def
+/ft4 { t4 f } bind def
+/ot4 { t4 o } bind def
+% Diamond symbol
+/di { moveto dup 0 exch rmoveto
+      dup neg dup rlineto dup dup neg rlineto
+      dup dup rlineto closepath } bind def
+/ddi { di s } bind def
+/fdi { di f } bind def
+/odi { di o } bind def
+% Plus symbol
+/pl { dup 0 rmoveto dup -2 mul 0 rlineto
+      dup dup rmoveto -2 mul 0 exch rlineto
+    } bind def
+/dpl { m pl s } bind def
+% x symbol
+/x { dup dup rmoveto dup -2 mul dup rlineto
+     2 mul dup 0 rmoveto dup neg exch rlineto
+   } bind def
+/dx { m x s } bind def
+% Splat symbol
+/dsp { m dup pl dup 0 exch rmoveto 0.707 mul x s
+     } bind def
+/RJ {
+ stringwidth neg exch neg exch
+ rmoveto
+} bind def
+/CS {
+ stringwidth
+ 2 div neg exch 2 div neg exch
+ rmoveto
+} bind def
+0.24 0.24 scale
+1 setlinecap
+
+	mark             
+	/ISOLatin1Encoding 
+	  8#000 1 8#054 {StandardEncoding exch get} for 
+	  /minus 
+	  8#056 1 8#217 {StandardEncoding exch get} for 
+	  /dotlessi 
+	  8#301 1 8#317 {StandardEncoding exch get} for 
+	  /space /exclamdown /cent /sterling /currency /yen /brokenbar /section 
+	  /dieresis /copyright /ordfeminine /guillemotleft /logicalnot /hyphen 
+	  /registered /macron /degree /plusminus /twosuperior /threesuperior /acute 
+	  /mu /paragraph /periodcentered /cedilla /onesuperior /ordmasculine 
+	  /guillemotright /onequarter /onehalf /threequarters /questiondown /Agrave 
+	  /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla /Egrave /Eacute
+	  /Ecircumflex /Edieresis /Igrave /Iacute /Icircumflex /Idieresis /Eth /Ntilde
+	  /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply /Oslash /Ugrave 
+	  /Uacute /Ucircumflex /Udieresis /Yacute /Thorn /germandbls /agrave /aacute 
+	  /acircumflex /atilde /adieresis /aring /ae /ccedilla /egrave /eacute 
+	  /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis /eth /ntilde
+	  /ograve /oacute /ocircumflex /otilde /odieresis /divide /oslash /ugrave 
+	  /uacute /ucircumflex /udieresis /yacute /thorn /ydieresis 
+	  /ISOLatin1Encoding where not {256 array astore def} if 
+	 cleartomark 
+
+	/makeISOEncoded 
+	{ findfont /curfont exch def 
+	  /newfont curfont maxlength dict def  
+	  /ISOLatin1 (-ISOLatin1) def
+	  /curfontname curfont /FontName get dup length string cvs def 
+	  /newfontname curfontname length ISOLatin1 length add string 
+    	 dup 0                  curfontname putinterval 
+    	 dup curfontname length ISOLatin1   putinterval 
+	  def 
+	  curfont   
+	  { exch dup /FID ne  
+    	{ dup /Encoding eq  
+    	  { exch pop ISOLatin1Encoding exch }  
+    	  if  
+    	  dup /FontName eq  
+    	  { exch pop newfontname exch }  
+    	  if  
+    	  exch newfont 3 1 roll put  
+    	}  
+    	{ pop pop }  
+    	ifelse  
+	  }  
+	  forall 
+	  newfontname newfont definefont 
+	} def 
+
+	/Times-Roman makeISOEncoded pop 
+	/Times-Bold makeISOEncoded pop 
+	/Times-Italic makeISOEncoded pop 
+	/Times-BoldItalic makeISOEncoded pop 
+	/Helvetica makeISOEncoded pop 
+	/Helvetica-Bold makeISOEncoded pop 
+	/Helvetica-Oblique makeISOEncoded pop 
+	/Helvetica-BoldOblique makeISOEncoded pop 
+0.000000 0.000000 0.000000 setrgbcolor
+1 setlinewidth
+/Times-Italic-ISOLatin1 findfont 60 scalefont setfont
+[] 0 setdash
+721 705 m
+721 715 l
+721 2279 m
+721 2269 l
+s
+596 705 m
+596 725 l
+721 705 m
+721 725 l
+823 705 m
+823 725 l
+910 705 m
+910 725 l
+985 705 m
+985 725 l
+1051 705 m
+1051 725 l
+1110 705 m
+1110 725 l
+1373 705 m
+1373 725 l
+1601 705 m
+1601 725 l
+1762 705 m
+1762 725 l
+1887 705 m
+1887 725 l
+1989 705 m
+1989 725 l
+596 2279 m
+596 2259 l
+721 2279 m
+721 2259 l
+823 2279 m
+823 2259 l
+910 2279 m
+910 2259 l
+985 2279 m
+985 2259 l
+1051 2279 m
+1051 2259 l
+1110 2279 m
+1110 2259 l
+1373 2279 m
+1373 2259 l
+1601 2279 m
+1601 2259 l
+1762 2279 m
+1762 2259 l
+1887 2279 m
+1887 2259 l
+1989 2279 m
+1989 2259 l
+/Times-Italic-ISOLatin1 findfont 71 scalefont setfont
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+s
+596 645 m
+gsave
+596 645 translate
+0 rotate
+0 -23  m
+(4) CS
+(4) show
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+721 645 m
+gsave
+721 645 translate
+0 rotate
+0 -23  m
+() CS
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+823 645 m
+gsave
+823 645 translate
+0 rotate
+0 -23  m
+(6) CS
+(6) show
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+910 645 m
+gsave
+910 645 translate
+0 rotate
+0 -23  m
+() CS
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+985 645 m
+gsave
+985 645 translate
+0 rotate
+0 -23  m
+(8) CS
+(8) show
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+1051 645 m
+gsave
+1051 645 translate
+0 rotate
+0 -23  m
+() CS
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+1110 645 m
+gsave
+1110 645 translate
+0 rotate
+0 -23  m
+(10) CS
+(10) show
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+1373 645 m
+gsave
+1373 645 translate
+0 rotate
+0 -23  m
+(16) CS
+(16) show
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+1601 645 m
+gsave
+1601 645 translate
+0 rotate
+0 -23  m
+(24) CS
+(24) show
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+1762 645 m
+gsave
+1762 645 translate
+0 rotate
+0 -23  m
+(32) CS
+(32) show
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+1887 645 m
+gsave
+1887 645 translate
+0 rotate
+0 -23  m
+(40) CS
+(40) show
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+1989 645 m
+gsave
+1989 645 translate
+0 rotate
+0 -23  m
+(48) CS
+(48) show
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+1274 525 m
+gsave
+1274 525 translate
+0 rotate
+0 0  m
+(L) CS
+/Times-Roman-ISOLatin1 findfont 71 scalefont setfont
+(L) show
+grestore
+newpath
+434 705 m
+444 705 l
+2114 705 m
+2104 705 l
+s
+434 705 m
+454 705 l
+434 898 m
+454 898 l
+434 1062 m
+454 1062 l
+434 1204 m
+454 1204 l
+434 1329 m
+454 1329 l
+434 1441 m
+454 1441 l
+434 1543 m
+454 1543 l
+434 1635 m
+454 1635 l
+434 1720 m
+454 1720 l
+434 1799 m
+454 1799 l
+434 1872 m
+454 1872 l
+434 1941 m
+454 1941 l
+434 2005 m
+454 2005 l
+434 2066 m
+454 2066 l
+434 2124 m
+454 2124 l
+434 2178 m
+454 2178 l
+434 2230 m
+454 2230 l
+2114 705 m
+2094 705 l
+2114 898 m
+2094 898 l
+2114 1062 m
+2094 1062 l
+2114 1204 m
+2094 1204 l
+2114 1329 m
+2094 1329 l
+2114 1441 m
+2094 1441 l
+2114 1543 m
+2094 1543 l
+2114 1635 m
+2094 1635 l
+2114 1720 m
+2094 1720 l
+2114 1799 m
+2094 1799 l
+2114 1872 m
+2094 1872 l
+2114 1941 m
+2094 1941 l
+2114 2005 m
+2094 2005 l
+2114 2066 m
+2094 2066 l
+2114 2124 m
+2094 2124 l
+2114 2178 m
+2094 2178 l
+2114 2230 m
+2094 2230 l
+/Times-Roman-ISOLatin1 findfont 72 scalefont setfont
+/Helvetica-ISOLatin1 findfont 72 scalefont setfont
+s
+391 705 m
+gsave
+391 705 translate
+0 rotate
+0 -24  m
+(0.5) RJ
+(0.5) show
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+391 898 m
+gsave
+391 898 translate
+0 rotate
+0 -23  m
+(0.6) RJ
+(0.6) show
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+391 1062 m
+gsave
+391 1062 translate
+0 rotate
+0 -23  m
+(0.7) RJ
+(0.7) show
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+391 1204 m
+gsave
+391 1204 translate
+0 rotate
+0 -23  m
+(0.8) RJ
+(0.8) show
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+391 1329 m
+gsave
+391 1329 translate
+0 rotate
+0 -23  m
+(0.9) RJ
+(0.9) show
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+391 1441 m
+gsave
+391 1441 translate
+0 rotate
+0 -23  m
+(1.0) RJ
+(1.0) show
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+391 1543 m
+gsave
+391 1543 translate
+0 rotate
+0 -23  m
+() RJ
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+391 1635 m
+gsave
+391 1635 translate
+0 rotate
+0 -23  m
+() RJ
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+391 1720 m
+gsave
+391 1720 translate
+0 rotate
+0 -23  m
+() RJ
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+391 1799 m
+gsave
+391 1799 translate
+0 rotate
+0 -23  m
+() RJ
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+391 1872 m
+gsave
+391 1872 translate
+0 rotate
+0 -23  m
+(1.5) RJ
+(1.5) show
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+391 1941 m
+gsave
+391 1941 translate
+0 rotate
+0 -23  m
+() RJ
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+391 2005 m
+gsave
+391 2005 translate
+0 rotate
+0 -23  m
+() RJ
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+391 2066 m
+gsave
+391 2066 translate
+0 rotate
+0 -23  m
+() RJ
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+391 2124 m
+gsave
+391 2124 translate
+0 rotate
+0 -23  m
+() RJ
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+391 2178 m
+gsave
+391 2178 translate
+0 rotate
+0 -23  m
+(2.0) RJ
+(2.0) show
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+391 2230 m
+gsave
+391 2230 translate
+0 rotate
+0 -23  m
+() RJ
+/Helvetica-ISOLatin1 findfont 71 scalefont setfont
+0 0 rmoveto
+() show
+grestore
+newpath
+/Helvetica-ISOLatin1 findfont 76 scalefont setfont
+237 1492 m
+gsave
+237 1492 translate
+90 rotate
+0 0  m
+(tint[cs], tint[rs]) CS
+/Symbol findfont 
+76 scalefont
+ setfont
+(t) show
+/Times-Roman-ISOLatin1 findfont 76 scalefont setfont
+/Times-Roman-ISOLatin1 findfont 45 scalefont setfont
+0 -22 rmoveto
+(int) show
+/Times-Roman-ISOLatin1 findfont 75 scalefont setfont
+0 22 rmoveto
+([) show
+/Symbol findfont 
+75 scalefont
+ setfont
+(c) show
+/Times-Roman-ISOLatin1 findfont 75 scalefont setfont
+/Times-Roman-ISOLatin1 findfont 45 scalefont setfont
+0 -22 rmoveto
+(s) show
+/Times-Roman-ISOLatin1 findfont 75 scalefont setfont
+0 22 rmoveto
+(], ) show
+/Symbol findfont 
+75 scalefont
+ setfont
+(t) show
+/Times-Roman-ISOLatin1 findfont 75 scalefont setfont
+/Times-Roman-ISOLatin1 findfont 45 scalefont setfont
+0 -22 rmoveto
+(int) show
+/Times-Roman-ISOLatin1 findfont 75 scalefont setfont
+0 22 rmoveto
+([) show
+/Symbol findfont 
+75 scalefont
+ setfont
+(r) show
+/Times-Roman-ISOLatin1 findfont 75 scalefont setfont
+/Times-Roman-ISOLatin1 findfont 45 scalefont setfont
+0 -22 rmoveto
+(s) show
+/Times-Roman-ISOLatin1 findfont 75 scalefont setfont
+0 22 rmoveto
+(]) show
+grestore
+newpath
+596 1317 m
+596 1322 l
+823 1431 m
+823 1437 l
+985 1530 m
+985 1538 l
+1110 1603 m
+1110 1610 l
+1212 1653 m
+1212 1661 l
+1373 1735 m
+1373 1748 l
+1601 1813 m
+1601 1826 l
+1762 1873 m
+1762 1898 l
+1887 1888 m
+1887 1915 l
+1989 1919 m
+1989 1959 l
+s
+572 1317 m
+620 1317 l
+572 1322 m
+620 1322 l
+799 1431 m
+847 1431 l
+799 1437 m
+847 1437 l
+961 1530 m
+1009 1530 l
+961 1538 m
+1009 1538 l
+1086 1603 m
+1134 1603 l
+1086 1610 m
+1134 1610 l
+1188 1653 m
+1236 1653 l
+1188 1661 m
+1236 1661 l
+1349 1735 m
+1397 1735 l
+1349 1748 m
+1397 1748 l
+1577 1813 m
+1625 1813 l
+1577 1826 m
+1625 1826 l
+1738 1873 m
+1786 1873 l
+1738 1898 m
+1786 1898 l
+1863 1888 m
+1911 1888 l
+1863 1915 m
+1911 1915 l
+1965 1919 m
+2013 1919 l
+1965 1959 m
+2013 1959 l
+s
+596 1320 m
+823 1434 l
+985 1534 l
+1110 1606 l
+1212 1657 l
+1373 1741 l
+1601 1819 l
+1762 1886 l
+1887 1902 l
+1989 1940 l
+/Times-Roman-ISOLatin1 findfont 51 scalefont setfont
+s
+17 596 1320 fa
+17 823 1434 fa
+17 985 1534 fa
+17 1110 1606 fa
+17 1212 1657 fa
+17 1373 1741 fa
+17 1601 1819 fa
+17 1762 1886 fa
+17 1887 1902 fa
+17 1989 1940 fa
+/Times-Roman-ISOLatin1 findfont 76 scalefont setfont
+596 1634 m
+596 1640 l
+823 1767 m
+823 1774 l
+985 1853 m
+985 1862 l
+1110 1918 m
+1110 1926 l
+1212 1958 m
+1212 1966 l
+1373 2010 m
+1373 2022 l
+1601 2072 m
+1601 2084 l
+1762 2113 m
+1762 2135 l
+1887 2094 m
+1887 2128 l
+1989 2100 m
+1989 2140 l
+s
+572 1634 m
+620 1634 l
+572 1640 m
+620 1640 l
+799 1767 m
+847 1767 l
+799 1774 m
+847 1774 l
+961 1853 m
+1009 1853 l
+961 1862 m
+1009 1862 l
+1086 1918 m
+1134 1918 l
+1086 1926 m
+1134 1926 l
+1188 1958 m
+1236 1958 l
+1188 1966 m
+1236 1966 l
+1349 2010 m
+1397 2010 l
+1349 2022 m
+1397 2022 l
+1577 2072 m
+1625 2072 l
+1577 2084 m
+1625 2084 l
+1738 2113 m
+1786 2113 l
+1738 2135 m
+1786 2135 l
+1863 2094 m
+1911 2094 l
+1863 2128 m
+1911 2128 l
+1965 2100 m
+2013 2100 l
+1965 2140 m
+2013 2140 l
+s
+596 1637 m
+823 1771 l
+985 1857 l
+1110 1922 l
+1212 1962 l
+1373 2016 l
+1601 2078 l
+1762 2124 l
+1887 2111 l
+1989 2120 l
+/Times-Roman-ISOLatin1 findfont 51 scalefont setfont
+s
+17 596 1637 da
+17 823 1771 da
+17 985 1857 da
+17 1110 1922 da
+17 1212 1962 da
+17 1373 2016 da
+17 1601 2078 da
+17 1762 2124 da
+17 1887 2111 da
+17 1989 2120 da
+/Times-Roman-ISOLatin1 findfont 76 scalefont setfont
+596 792 m
+596 796 l
+823 834 m
+823 838 l
+985 871 m
+985 879 l
+1110 891 m
+1110 895 l
+1212 898 m
+1212 902 l
+1373 923 m
+1373 933 l
+1601 940 m
+1601 950 l
+1762 931 m
+1762 945 l
+1887 923 m
+1887 943 l
+1989 907 m
+1989 931 l
+s
+572 792 m
+620 792 l
+572 796 m
+620 796 l
+799 834 m
+847 834 l
+799 838 m
+847 838 l
+961 871 m
+1009 871 l
+961 879 m
+1009 879 l
+1086 891 m
+1134 891 l
+1086 895 m
+1134 895 l
+1188 898 m
+1236 898 l
+1188 902 m
+1236 902 l
+1349 923 m
+1397 923 l
+1349 933 m
+1397 933 l
+1577 940 m
+1625 940 l
+1577 950 m
+1625 950 l
+1738 931 m
+1786 931 l
+1738 945 m
+1786 945 l
+1863 923 m
+1911 923 l
+1863 943 m
+1911 943 l
+1965 907 m
+2013 907 l
+1965 931 m
+2013 931 l
+s
+596 794 m
+823 836 l
+985 875 l
+1110 893 l
+1212 900 l
+1373 928 l
+1601 945 l
+1762 938 l
+1887 933 l
+1989 919 l
+/Times-Roman-ISOLatin1 findfont 52 scalefont setfont
+s
+14 596 794 fsq
+14 823 836 fsq
+14 985 875 fsq
+14 1110 893 fsq
+14 1212 900 fsq
+14 1373 928 fsq
+14 1601 945 fsq
+14 1762 938 fsq
+14 1887 933 fsq
+14 1989 919 fsq
+/Times-Roman-ISOLatin1 findfont 76 scalefont setfont
+596 898 m
+596 902 l
+823 925 m
+823 928 l
+985 938 m
+985 942 l
+1110 945 m
+1110 952 l
+1212 945 m
+1212 952 l
+1373 962 m
+1373 972 l
+1601 960 m
+1601 970 l
+1762 960 m
+1762 974 l
+1887 926 m
+1887 947 l
+1989 962 m
+1989 995 l
+s
+572 898 m
+620 898 l
+572 902 m
+620 902 l
+799 925 m
+847 925 l
+799 928 m
+847 928 l
+961 938 m
+1009 938 l
+961 942 m
+1009 942 l
+1086 945 m
+1134 945 l
+1086 952 m
+1134 952 l
+1188 945 m
+1236 945 l
+1188 952 m
+1236 952 l
+1349 962 m
+1397 962 l
+1349 972 m
+1397 972 l
+1577 960 m
+1625 960 l
+1577 970 m
+1625 970 l
+1738 960 m
+1786 960 l
+1738 974 m
+1786 974 l
+1863 926 m
+1911 926 l
+1863 947 m
+1911 947 l
+1965 962 m
+2013 962 l
+1965 995 m
+2013 995 l
+s
+596 900 m
+823 926 l
+985 940 l
+1110 948 l
+1212 948 l
+1373 967 l
+1601 965 l
+1762 967 l
+1887 937 l
+1989 978 l
+/Times-Roman-ISOLatin1 findfont 51 scalefont setfont
+s
+14 596 900 dsq
+14 823 926 dsq
+14 985 940 dsq
+14 1110 948 dsq
+14 1212 948 dsq
+14 1373 967 dsq
+14 1601 965 dsq
+14 1762 967 dsq
+14 1887 937 dsq
+14 1989 978 dsq
+/Times-Roman-ISOLatin1 findfont 76 scalefont setfont
+[20 20] 0 setdash
+-181 967 m
+434 1264 m
+2114 2075 l
+s
+[] 0 setdash
+[20 20] 0 setdash
+-181 1299 m
+434 1591 m
+1887 2279 l
+s
+[] 0 setdash
+434 705 m
+434 2279 l
+2114 2279 l
+2114 705 l
+434 705 l
+s
+/Times-Roman-ISOLatin1 findfont 67 scalefont setfont
+/Helvetica-ISOLatin1 findfont 67 scalefont setfont
+/Helvetica-ISOLatin1 findfont 67 scalefont setfont
+1514 1523 m
+1631 1523 l
+s
+17 1514 1523 fa
+17 1631 1523 fa
+1670 1523 m
+gsave
+1670 1523 translate
+0 rotate
+0 -22  m
+/Symbol findfont 
+67 scalefont
+ setfont
+(c) show
+/Times-Roman-ISOLatin1 findfont 67 scalefont setfont
+/Times-Roman-ISOLatin1 findfont 40 scalefont setfont
+0 -20 rmoveto
+(s) show
+/Times-Roman-ISOLatin1 findfont 67 scalefont setfont
+0 20 rmoveto
+(, ) show
+/Symbol findfont 
+67 scalefont
+ setfont
+(e) show
+/Times-Roman-ISOLatin1 findfont 67 scalefont setfont
+(=0) show
+grestore
+newpath
+/Times-Roman-ISOLatin1 findfont 67 scalefont setfont
+/Helvetica-ISOLatin1 findfont 67 scalefont setfont
+1514 1439 m
+1631 1439 l
+s
+17 1514 1439 da
+17 1631 1439 da
+1670 1439 m
+gsave
+1670 1439 translate
+0 rotate
+0 -22  m
+/Symbol findfont 
+67 scalefont
+ setfont
+(r) show
+/Times-Roman-ISOLatin1 findfont 67 scalefont setfont
+/Times-Roman-ISOLatin1 findfont 40 scalefont setfont
+0 -20 rmoveto
+(s) show
+/Times-Roman-ISOLatin1 findfont 67 scalefont setfont
+0 20 rmoveto
+(, ) show
+/Symbol findfont 
+67 scalefont
+ setfont
+(e) show
+/Times-Roman-ISOLatin1 findfont 67 scalefont setfont
+(=0) show
+grestore
+newpath
+/Times-Roman-ISOLatin1 findfont 67 scalefont setfont
+/Helvetica-ISOLatin1 findfont 67 scalefont setfont
+1514 1355 m
+1631 1355 l
+s
+14 1514 1355 fsq
+14 1631 1355 fsq
+1670 1355 m
+gsave
+1670 1355 translate
+0 rotate
+0 -22  m
+/Symbol findfont 
+67 scalefont
+ setfont
+(c) show
+/Times-Roman-ISOLatin1 findfont 67 scalefont setfont
+/Times-Roman-ISOLatin1 findfont 40 scalefont setfont
+0 -20 rmoveto
+(s) show
+/Times-Roman-ISOLatin1 findfont 67 scalefont setfont
+0 20 rmoveto
+(, ) show
+/Symbol findfont 
+67 scalefont
+ setfont
+(e) show
+/Times-Roman-ISOLatin1 findfont 67 scalefont setfont
+(=1/4) show
+grestore
+newpath
+/Times-Roman-ISOLatin1 findfont 67 scalefont setfont
+/Helvetica-ISOLatin1 findfont 67 scalefont setfont
+1514 1271 m
+1631 1271 l
+s
+14 1514 1271 dsq
+14 1631 1271 dsq
+1670 1271 m
+gsave
+1670 1271 translate
+0 rotate
+0 -22  m
+/Symbol findfont 
+67 scalefont
+ setfont
+(r) show
+/Times-Roman-ISOLatin1 findfont 67 scalefont setfont
+/Times-Roman-ISOLatin1 findfont 40 scalefont setfont
+0 -20 rmoveto
+(s) show
+/Times-Roman-ISOLatin1 findfont 67 scalefont setfont
+0 20 rmoveto
+(, ) show
+/Symbol findfont 
+67 scalefont
+ setfont
+(e) show
+/Times-Roman-ISOLatin1 findfont 67 scalefont setfont
+(=1/4) show
+grestore
+newpath
+end
+showpage
+%%Trailer
+cleartomark
+countdictstack exch sub { end } repeat
+restore
+%%EOF

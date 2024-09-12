@@ -1,0 +1,31 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{a4}
+\usepackage{graphicx}
+\setlength{\oddsidemargin}{-0.2in}
+%\setlength{\evensidemargin}{-0.5in}
+\setlength{\textwidth}{6.5in}
+\begin{document}
+\begin{center}
+\Large
+\textbf{Numerical Analysis and Programming}\\
+\large
+Lab Worksheet \#11
+\end{center}
+In this exercise, you will learn how to use Scipy to perform integration and solve ODE.
+\begin{enumerate}
+\item Use {\tt fixed\_quad} function (fixed order Gaussian quadrature) with order $n=3,4,5$ in {\tt scipy.integrate} to perform the definite integral
+\[
+\frac{2}{\sqrt{\pi}}\int_0^1 e^{-x^2} dx
+\]
+and compare with the true solution $\mathrm{erf}(1)$ (error function) in {\tt scipy.special}.
+\item Repeat the same calculation using {\tt romb} function instead. 
+\item How many function evaluations is required for each method to reach the accuracy in the 4th decimal place? 
+\item Use {\tt ode} function to solve the second order differential equation with $x(0)=0, \dot{x}(0)=0.2$, and plot the solution,
+\[
+\ddot{x}+0.25\dot{x}+x=\sin 0.8 t
+\]
+(Hint: This can be separated into two coupled 1st order ODE)
+\end{enumerate}
+\end{document}	

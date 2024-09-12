@@ -1,0 +1,45 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{a4}
+\usepackage{graphicx}
+%\setlength{\oddsidemargin}{-0.5in}
+%\setlength{\evensidemargin}{-0.5in}
+%\setlength{\textwidth}{in}
+\usepackage{hyperref}
+\begin{document}
+\begin{center}
+\Large
+\textbf{Numerical Analysis and Programming}\\
+\large
+Lab Worksheet \#1
+\end{center}
+\begin{enumerate}
+\item Familiarize yourself with IDLE. You can consult the user manual at \url{http://docs.python.org/2/library/idle.html}.
+\item Start the Python interpreter and type \texttt{help()} to start the online
+help utility.  For example,  you can type \verb"help('keywords')" to get all the Python keywords.
+\item Start the Python interpreter and use it as a calculator.
+Python's syntax for math operations is almost the same as
+standard mathematical notation.  For example, the symbols
+\texttt{+}, \texttt{-} and \texttt{/} denote addition, subtraction
+and division, as you would expect.  The symbol for
+multiplication is \texttt{*}.
+\begin{enumerate}
+\item Find the definition of operators  \texttt{//} and \texttt{\%} from the python documentation.
+\item Find the values of \texttt{5/3} and \texttt{5.0/3}.
+\item Find the values of \texttt{5//3}  and \texttt{5.0//3}. 
+\item Find the values of \texttt{5\%3} and \texttt{5.0\%3}. 
+\item Find the values of \texttt{5.0/-3}, \texttt{5.0//-3} and \texttt{5.0\%-3}.
+\item Use the built-in function \texttt{divmod()} to find the quotient and remainder of \texttt{5.0/-3}. You can use \texttt{help} to find the definition of \texttt{divmod()}.  
+\end{enumerate}
+\item You need to import the \texttt{math} library to perform the following tasks.
+\begin{verbatim}
+>>> import math
+\end{verbatim} 
+\begin{enumerate}
+\item Explore the math library by using the command {\tt dir}. Print out the value of $\sin (0.3\pi)$.
+\item Evaluate the expressions \texttt{math.floor(5.0/3)} and \texttt{math.floor(5.0/-3)}.
+\item Show that \texttt{a//b=math.floor(a/b)} and \texttt{a\%b=a-math.floor(a/b)*b}.
+\end{enumerate}
+\end{enumerate}
+\end{document}

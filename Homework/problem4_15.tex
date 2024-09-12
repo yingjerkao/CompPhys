@@ -1,0 +1,42 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{a4}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage[colorlinks=true]{hyperref}
+
+%\setlength{\textwidth}{6in}
+\setlength{\textheight}{9in}
+\pagestyle{empty}
+%\setlength{\oddsidemargin}{0.5in}
+%\setlength{\evensidemargin}{-0.5in}
+%\setlength{\textwidth}{in}
+\begin{document}
+
+\begin{center}
+\Large
+\textbf{Computational Manybody Physics}\\
+\large
+Problem Set \#4\\
+
+
+\end{center}
+
+
+\begin{enumerate}
+\item Use the exact diagonalization to a $J_1$-$J_2$ chain 
+\begin{equation}
+H=J_1\sum_{i} \mathbf{S}_i\cdot \mathbf{S}_{i+1}+J_2\sum_{i} \mathbf{S}_i\cdot \mathbf{S}_{i+2}
+\end{equation}
+\begin{enumerate}
+\item Compute the ground state energy for  $N=32$ as  a function of $g=J_2/J_1$.
+\item  Plot the spin and dimer correlations  defined as 
+\begin{equation}
+D(r) = \langle B_iB_{i+r}\rangle =\langle ({\bf S}_i \cdot {\bf S}_{i+1})({\bf S}_{i+r} \cdot {\bf S}_{i+1+r}) \rangle.
+\label{drdef}
+\end{equation}
+ at three different coupling ratios $g=0, g_c \approx 0.2411, 0.4$. 
+\end{enumerate}
+\end{enumerate}
+\end{document}

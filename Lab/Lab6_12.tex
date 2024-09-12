@@ -1,0 +1,40 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{a4}
+\usepackage{graphicx}
+\setlength{\oddsidemargin}{-0.2in}
+%\setlength{\evensidemargin}{-0.5in}
+\setlength{\textwidth}{6.5in}
+\begin{document}
+\begin{center}
+\Large
+\textbf{Numerical Analysis and Programming}\\
+\large
+Lab Worksheet \#6
+\end{center}
+\begin{enumerate}
+\item This exercise will be useful for problem 1 in the assignment. The following are functions that take a string argument and
+return the first, last, and middle letters:
+
+
+\begin{verbatim}
+def first(word):
+    return word[0]
+
+def last(word):
+    return word[-1]
+
+def middle(word):
+    return word[1:-1]
+\end{verbatim}
+
+
+ Type these functions into a file named {\tt palindrome.py}
+and test them out.  What happens if you call {\tt middle} with
+a string with two letters?  One letter?  What about the empty
+string, which is written \verb"''" and contains no letters?
+\item Use string methods to write a \verb!has_palindrome! function, which find the part of a string which is a palindrome. For example, 'afternoon' is not a palindrome, but 'noon' is. Test your function with 'afternoon', and  'class'.   
+
+\end{enumerate}
+\end{document}	

@@ -1,0 +1,50 @@
+%!PS-Adobe-2.0 EPSF-1.2
+%%Title: triangles.ps
+%%Creator: Ghostscript ps2epsi from triangles.ps
+%%CreationDate: Apr 18 12:23
+%%For:sandvik sandvik
+%%Pages: 1
+%%DocumentFonts:
+%%BoundingBox: 88 377 438 498
+%%EndComments
+
+%%BeginProlog
+save countdictstack mark newpath /showpage {} def /setpagedevice {pop} def
+%%EndProlog
+%%Page 1 1
+%!
+100 400 translate 5 5 scale 0.2 setlinewidth
+
+/arrow {gsave translate 0.15 0.15 scale rotate 0 0 0 setrgbcolor
+3 setlinewidth -30 0 moveto 50 0 rlineto currentpoint stroke moveto
+0 -7.5 rmoveto 0 15 rlineto 15 -7.5 rlineto closepath fill grestore} def
+
+gsave 0 -1.2 translate
+0 0 moveto 20 0 rlineto -10 17.32 rlineto closepath stroke
+gsave 1 0 0 setrgbcolor
+newpath 0 0 2 0 360 arc fill
+newpath 10 17.32 2 0 360 arc fill
+20 0 2 0 360 arc fill
+gsave 1 1 1 setrgbcolor
+20 0 1.6 0 360 arc fill
+grestore
+grestore
+grestore
+
+45 0 translate
+
+0 0 moveto 20 0 rlineto -10 17.32 rlineto closepath stroke
+120 0 0 arrow
+-120 20 0 arrow
+0 10 17.32 arrow
+gsave 1 0 0 setrgbcolor
+newpath 0 0 1 0 360 arc fill
+newpath 10 17.32 1 0 360 arc fill
+newpath 20 0 1 0 360 arc fill
+grestore
+
+
+showpage
+%%Trailer
+cleartomark countdictstack exch sub { end } repeat restore
+%%EOF

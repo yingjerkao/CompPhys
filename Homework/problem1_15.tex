@@ -1,0 +1,35 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{a4}
+\usepackage{graphicx}
+\usepackage{subfigure}
+
+%\setlength{\textwidth}{6in}
+\setlength{\textheight}{9in}
+\pagestyle{empty}
+%\setlength{\oddsidemargin}{0.5in}
+%\setlength{\evensidemargin}{-0.5in}
+%\setlength{\textwidth}{in}
+\begin{document}
+
+\begin{center}
+\Large
+\textbf{Computational Manybody Physics}\\
+\large
+Problem Set \#1
+
+
+\end{center}
+In this problem set, we will implement a Monte Carlo simulation of a 2D-Ising model
+\[
+H=-\sum_{\langle ij\rangle} \sigma_i \sigma_j - h \sum_{i} \sigma_i
+\]
+on a square lattice with dimensions $L\times L$ with periodic boundary condition. 
+\begin{enumerate} 
+\item Use Jupyter notebook to plot $m$ vs $T$, $|m|$ vs $T$, $E$ vs $T$, $C_v$ vs $T$, $\chi$ vs $T$, and $U_2$ vs $T$  for system sizes of $L=8, 16, 32, 64$. Determine $T_c$.  
+\item Implement the Wolff cluster update with improved estimator $\chi$. Compare with the result you obtained previously.
+\item  Measure the autocorrelation time of $E$ and $|m|$ for the Metropolis and Wolff updates.
+\item Using the simulation data, determine the critical exponents $\alpha$,$\beta$,  $\gamma$ and $\nu$. Plot the data collapse for $|m|$, $\chi$, and $C_v$
+\end{enumerate}
+\end{document}

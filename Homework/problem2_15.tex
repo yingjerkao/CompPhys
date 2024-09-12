@@ -1,0 +1,31 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{a4}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage[colorlinks=true]{hyperref}
+
+%\setlength{\textwidth}{6in}
+\setlength{\textheight}{9in}
+\pagestyle{empty}
+%\setlength{\oddsidemargin}{0.5in}
+%\setlength{\evensidemargin}{-0.5in}
+%\setlength{\textwidth}{in}
+\begin{document}
+
+\begin{center}
+\Large
+\textbf{Computational Manybody Physics}\\
+\large
+Problem Set \#2\\
+
+
+\end{center}
+Use stochastic series expansion method to study the XXZ model in two dimension. \footnote{See Prof. Anders Sandvik's \href{http://physics.bu.edu/~sandvik/vietri/index.html}{website} for a F90 sample code.}
+\[
+H=J_1\sum_{\langle ij\rangle} \mathbf{S}_i \cdot \mathbf{S}_j ,
+\]
+Compute the energy per site $E/N$, specific heat $C_v/N$, staggered magnetization $\langle m_s^2 \rangle$, and susceptibility $\chi(0,0)$ 
+for $L=6, 8, 10$.\footnote{See Chapter 5 of A. W. Sandvik, \href{http://arxiv.org/abs/1101.3281}{AIP Conf. Proc. 1297, 135 (2010)} for the definitions of the estimators.}
+\end{document}

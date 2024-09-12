@@ -1,0 +1,36 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{a4}
+\usepackage{graphicx}
+\setlength{\oddsidemargin}{-0.2in}
+%\setlength{\evensidemargin}{-0.5in}
+\setlength{\textwidth}{6.5in}
+\begin{document}
+\begin{center}
+\Large
+\textbf{Numerical Analysis and Programming}\\
+\large
+Lab Worksheet \#12
+\end{center}
+ We will simulate a spontaneous decay process of nuclei in this exercise. The decay rate of the radioactive nuclei is given by
+\[
+\frac{dN}{dt}=-\frac{1}{\tau} N
+\]
+where $N$ is the number of undecayed nuclei at time $t$, and $\tau$ is the life-time.
+Rewrite the equation in the discrete time, and set $\Delta t=1$, we have
+\[
+\Delta N = -\frac{1}{\tau} N =-\lambda N
+\]
+The probability of a nucleus to decay per generation is then $\lambda$ with $0\le \lambda\le 1$.
+\begin{enumerate}
+\item Assume at the beginning we have $N_0=10000$ Co$^{60}$ nuclei with a half-life $t_{1/2}=  5.27$ years. Notice $t_{1/2}=\tau \ln(2)$. Write a program to simulate
+the decay process with the updating scheme:
+\begin{enumerate}
+\item Scan through each nucleus. Examine whether the nucleus has decayed. If not, generate a random number $r$ between 0 and 1.
+\item If $r < \lambda $ then mark the nucleus as decayed, otherwise the nucleus remains undecayed.
+\item Repeat the process until no nucleus is found undecayed.
+\end{enumerate}
+Assume $\Delta t $= 1 month and monitor the number of the undecayed  nuclei. Estimate the half-life from your data.
+\end{enumerate}
+\end{document}

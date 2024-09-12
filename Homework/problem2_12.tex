@@ -1,0 +1,37 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{a4}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{hyperref}
+
+%\setlength{\textwidth}{6in}
+\setlength{\textheight}{9in}
+\pagestyle{empty}
+%\setlength{\oddsidemargin}{0.5in}
+%\setlength{\evensidemargin}{-0.5in}
+%\setlength{\textwidth}{in}
+\begin{document}
+
+\begin{center}
+\Large
+\textbf{Computational Manybody Physics}\\
+\large
+Problem Set \#2\\
+Due: Oct 25, in class
+
+\end{center}
+In this problem set, we will implement an exact-diagonalization for the frustrated Heisenberg chain, 
+\[
+H=J_1\sum_{\langle ij\rangle} \mathbf{S}_i \cdot \mathbf{S}_j +J_2 \sum_{\langle\langle ij\langle\rangle} \mathbf{S}_i \cdot \mathbf{S}_j ,
+\]
+based on the exact-diagonalization source code for the Heisenberg chain.\footnote{ See Prof. Anders Sandvik's website \textit{http://physics.bu.edu/~sandvik/vietri/index.html}}. 
+
+\begin{enumerate} 
+\item Using Lanczos method to find the energy of the ground state and lowest excited singlet ($S=0$) and triplet ($S=1$) for $L=4, 8, 16, 20$. Locate the critical point $g=J_2/J_1=g_c$ by the level crossing of the excited states.
+\item Compute the spin correlation functions for $g=0,g_c,0.40,0.45,0.50$. Plot $C(N/2)(N/2)$ vs $1/N$.
+\item Compute the dimer correlation functions for $g=0,g_c,0.40,0.45,0.50$. Plot $D(N/2)-D(N/2-1)$ vs $1/N$.
+\item Show that at the Majumdar-Ghosh point $g=0.5$, $D(N/2)-D(N/2-1)$ is size independent.
+\end{enumerate}
+\end{document}

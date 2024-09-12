@@ -1,0 +1,52 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{a4}
+\usepackage{graphicx}
+\setlength{\oddsidemargin}{-0.2in}
+%\setlength{\evensidemargin}{-0.5in}
+\setlength{\textwidth}{6.5in}
+\begin{document}
+\begin{center}
+\Large
+\textbf{Numerical Analysis and Programming}\\
+\large
+Lab Worksheet \#10\\
+
+\end{center}
+
+\begin{enumerate}
+\item In final presentation, we will use something like this: \
+First, we know that the gravity is the constant $g$, and the constant of air resistance is $b$. Both $g\approx10.0$ and $b\approx0.1$ are unknown. 
+\begin{equation}
+\left\{\begin{array}{ll}\frac{d^2x}{dt^2}=-b\frac{dx}{dt}\\
+						\frac{d^2y}{dt^2}=-b\frac{dy}{dt}-g
+	   \end{array} \right.
+\end{equation}
+\begin{equation}
+\left\{\begin{array}{ll}\frac{dx}{dt}=v_{x0}e^{-bt}\\
+						\frac{dy}{dt}=(v_{y0}+\frac{g}{b})e^{-bt}-\frac{g}{b}
+	   \end{array} \right.
+\end{equation}
+\begin{equation}
+\left\{\begin{array}{ll}x=-\frac{v_{x0}}{b}e^{-bt}+\frac{v_{x0}}{b}\\
+						y=-\frac{(v_{y0}+\frac{g}{b})}{b}e^{-bt}-\frac{g}{b}t+\frac{(v_{y0}+\frac{g}{b})}{b}
+	   \end{array} \right.
+\end{equation}
+At origin, if you shoot something in the air with velocity $v_0=15m/s$ angle $a=45\deg$, then you got the data in \verb'data_lab10.dat' in form \verb't x y'. Now you can use function \verb'curve_fit()' to get $g$ and $b$.\\
+You can also compare the data and the fitting function by matplotlib.
+%
+%\begin{scriptsize}
+%\begin{verbatim}
+%def fx(t, b):
+%	return -vx0/b*np.exp(-t*b)+vx0/b
+%bb, = curve_fit(fx, ts, xs, p0=[.1])[0]
+%print bb
+%def fy(t, g):
+%	return -(vy0+g/bb)/bb*np.exp(-bb*t) + (vy0+g/bb)/bb - g/bb*t
+%	
+%
+%\end{verbatim}
+%\end{scriptsize}
+\end{enumerate}
+\end{document}	

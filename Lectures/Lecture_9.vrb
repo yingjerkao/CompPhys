@@ -1,0 +1,10 @@
+\frametitle{Higher Derivatives: $O(h^2)$}
+
+\begin{itemize}
+\item Forward finite difference approximations of $O(h^2)$
+\end{itemize}
+\centerline{\includegraphics[width=0.8\textwidth]{Lec9_Tab4}}
+\begin{itemize}
+\item Backward finite difference approximations of $O(h^2)$
+\end{itemize}
+\centerline{\includegraphics[width=0.8\textwidth]{Lec9_Tab5}}

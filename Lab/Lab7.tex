@@ -1,0 +1,65 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{a4}
+\usepackage{graphicx}
+\setlength{\oddsidemargin}{-0.2in}
+%\setlength{\evensidemargin}{-0.5in}
+\setlength{\textwidth}{6.5in}
+\begin{document}
+\begin{center}
+\Large
+\textbf{Numerical Analysis and Programming}\\
+\large
+Lab Worksheet \#7\\
+Exception Handling
+\end{center}
+\begin{enumerate}
+\item Consider the following code segment:
+\begin{scriptsize}
+\begin{verbatim}
+def menu(alist, question):
+    for entry in alist:
+        print 1 + alist.index(entry),
+        print ") " + entry
+
+    return input(question) - 1
+
+# main program
+
+answer = menu(['Red','Blue','Purple','Gray','Black','Orange','White','Yellow'],\
+'Which is your favorite color')
+
+print 'You picked answer ' + (answer + 1)
+\end{verbatim}
+\end{scriptsize}
+Run the program and enter a number when prompted. The code should run smoothly. What happens if you enter a letter?  
+\item Redefine \verb!menu! as 
+\begin{scriptsize}
+\begin{verbatim}
+def menu(alist, question):
+    for entry in alist:
+        print 1 + alist.index(entry),
+        print ") " + entry
+    try:
+        return input(question) - 1
+    except NameError:
+        print "Enter a correct number"
+\end{verbatim}
+\end{scriptsize}
+Try enter both a number and a letter when prompted. Understand why this happens. 
+\item Change the main program to 
+\begin{scriptsize}
+\begin{verbatim}
+answer = menu(['Red','Blue','Purple','Gray','Black','Orange','White','Yellow'],\
+'Which is your favorite color?')
+try:
+    print 'You picked answer', (answer + 1)
+except:
+    print '\nincorrect answer.'
+\end{verbatim}
+\end{scriptsize}
+Try enter a number and a letter when prompted. 
+\item By now, you would conclude that the error is handled. Actually no. Run the program again and enter a \verb!*! when prompted. How do you handle this error? 
+\end{enumerate}
+\end{document}	

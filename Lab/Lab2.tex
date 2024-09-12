@@ -1,0 +1,63 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{a4}
+\usepackage{graphicx}
+\usepackage{CJK}
+\setlength{\oddsidemargin}{-0.2in}
+%\setlength{\evensidemargin}{-0.5in}
+\setlength{\textwidth}{6.5in}
+\begin{document}
+\begin{center}
+\Large
+\textbf{Numerical Analysis and Programming}\\
+\large
+Lab Worksheet \#2
+\end{center}
+\begin{enumerate}
+\item When defining a function, it is possible to specify a \textit{default value} for one or more arguments. This creates a function that can be called with fewer arguments than it is defined to allow. For example,
+\small
+\begin{verbatim}
+def ask_ok(prompt, retries=4, complaint='Yes or no, please!'): 
+    while True:
+        ok = raw_input(prompt) 
+        if ok in ('y', 'ye', 'yes'):
+            return True 
+        if ok in ('n', 'no', 'nop', 'nope'):
+            return False 
+        retries = retries - 1 
+        if retries < 0:
+            raise IOError('refuse user') 
+        print complaint
+\end{verbatim}
+\normalsize
+Try the following possibilities and find the outputs.
+
+\begin{itemize}\small
+\item \verb!ask_ok('Do you really want to quit?')!
+\item \verb!ask_ok('OK to overwrite the file?', 2)!
+\item \verb"ask_ok('OK to overwrite the file?', 2, 'Come on, only yes or no!')"
+\end{itemize}
+\item Using the following examples to understand the scope ideas.
+\begin{verbatim}
+x=99
+def func(y):
+    z=x+y
+    return z
+\end{verbatim}
+Run the command 
+\begin{verbatim}
+>>> print x, func(x)
+\end{verbatim}
+Explain how Python gets the results, and which variables are local to \verb"func". 
+A slight modification of the code gives, 
+\begin{verbatim}
+x=99
+def func(y):
+    x=1
+    z=x+y
+    return z
+\end{verbatim}
+Run the \verb!print! command again. Explain how Python gets the results, and which variables are local to \verb"func".
+\end{enumerate}
+\end{document}	

@@ -1,0 +1,177 @@
+\contentsline {section}{\numberline {1}Introduction}{4}
+\contentsline {paragraph}{Topics}{5}
+\contentsline {paragraph}{Outline}{6}
+\contentsline {section}{\numberline {2}Quantum spin models, their ground states and quantum phase transitions}{6}
+\contentsline {paragraph}{Section Outline}{7}
+\contentsline {subsection}{\numberline {2.1}The N\'eel state and its quantum fluctuations}{7}
+\contentsline {subsubsection}{\numberline {2.1.1}spin wave theory}{8}
+\contentsline {subsubsection}{\numberline {2.1.2}Destruction of the N\'eel order}{11}
+\contentsline {subsection}{\numberline {2.2}Spin liquids and valence-bond solids}{12}
+\contentsline {paragraph}{Valence-bond states}{13}
+\contentsline {subsection}{\numberline {2.3}One-dimensional systems}{14}
+\contentsline {subsection}{\numberline {2.4}Models with quantum phase transitions in two dimensions}{15}
+\contentsline {subsubsection}{\numberline {2.4.1}Dimerized systems}{16}
+\contentsline {subsubsection}{\numberline {2.4.2}Frustrated systems}{18}
+\contentsline {subsubsection}{\numberline {2.4.3}The J-Q class of models}{20}
+\contentsline {paragraph}{Order parameters}{21}
+\contentsline {section}{\numberline {3}Classical phase transitions, Monte Carlo simulations, and finite-size scaling}{22}
+\contentsline {paragraph}{Section outline}{23}
+\contentsline {subsection}{\numberline {3.1}Mean-field theory of the Ising model}{24}
+\contentsline {subsection}{\numberline {3.2}Monte Carlo simulations of the Ising model}{27}
+\contentsline {paragraph}{The Metropolis algorithm}{27}
+\contentsline {paragraph}{Symmetry-breaking and finite systems}{29}
+\contentsline {paragraph}{Autocorrelations and statistical errors}{30}
+\contentsline {subsection}{\numberline {3.3}Finite-size scaling and critical exponents}{32}
+\contentsline {subsubsection}{\numberline {3.3.1}Scaling and critical exponents}{34}
+\contentsline {subsubsection}{\numberline {3.3.2}The finite-size scaling hypothesis}{35}
+\contentsline {paragraph}{Practical definitions of the correlation length}{37}
+\contentsline {paragraph}{Binder ratio and cumulant}{39}
+\contentsline {paragraph}{Finite-size scaling in practice}{40}
+\contentsline {paragraph}{Corrections to scaling }{42}
+\contentsline {subsection}{\numberline {3.4}First-order transitions}{42}
+\contentsline {subsubsection}{\numberline {3.4.1}Phase coexistence}{43}
+\contentsline {subsubsection}{\numberline {3.4.2}Frustrated Ising model}{44}
+\contentsline {paragraph}{Order-parameter distribution}{45}
+\contentsline {paragraph}{Binder cumulant}{45}
+\contentsline {paragraph}{Discontinuities and finite-size scaling}{46}
+\contentsline {subsection}{\numberline {3.5}Spin stiffness and the Kosterliz-Thouless transition}{46}
+\contentsline {subsubsection}{\numberline {3.5.1}Definition of the spin stiffness}{47}
+\contentsline {paragraph}{The stiffness at $T=0$}{47}
+\contentsline {paragraph}{The stiffness at $T>0$}{49}
+\contentsline {paragraph}{Relation to superfluidity and superconductivity}{50}
+\contentsline {paragraph}{Spin stiffness scaling}{51}
+\contentsline {subsubsection}{\numberline {3.5.2}Kosterliz-Thouless transition in two dimensions}{51}
+\contentsline {subsection}{\numberline {3.6}Quantum Phase Transitions}{53}
+\contentsline {paragraph}{The dynamic critical exponent}{54}
+\contentsline {section}{\numberline {4}Exact diagonalization methods}{55}
+\contentsline {paragraph}{Block diagonalization}{55}
+\contentsline {paragraph}{Outline of this Section}{56}
+\contentsline {subsection}{\numberline {4.1}Diagonalization of the Heisenberg chain}{57}
+\contentsline {subsubsection}{\numberline {4.1.1}Representations of states and symmetries}{57}
+\contentsline {paragraph}{Lattice transformations}{57}
+\contentsline {paragraph}{Spin quantum numbers}{58}
+\contentsline {paragraph}{Bit representation of spin states}{59}
+\contentsline {subsubsection}{\numberline {4.1.2}Computer generation of the hamiltonian}{60}
+\contentsline {paragraph}{Using fixed-magnetization blocks}{60}
+\contentsline {subsubsection}{\numberline {4.1.3}Momentum states}{62}
+\contentsline {paragraph}{Normalization and excluded representatives}{62}
+\contentsline {paragraph}{The hamiltonian matrix}{63}
+\contentsline {paragraph}{Constructing the momentum-state basis in a program}{65}
+\contentsline {paragraph}{Constructing the hamiltonian matrix}{67}
+\contentsline {subsubsection}{\numberline {4.1.4}Reflection symmetry and semi-momentum states}{67}
+\contentsline {paragraph}{States with parity}{68}
+\contentsline {paragraph}{Semi-momentum states and parity}{68}
+\contentsline {paragraph}{Incorporating parity}{69}
+\contentsline {paragraph}{Orthogonality and normalization of semi-momentum states}{70}
+\contentsline {paragraph}{The semi-momentum hamiltonian}{70}
+\contentsline {paragraph}{Degeneracies}{72}
+\contentsline {paragraph}{Constructing the basis of semi-momentum states}{72}
+\contentsline {paragraph}{Constructing the semi-momentum hamiltonian}{74}
+\contentsline {subsubsection}{\numberline {4.1.5}Spin-inversion symmetry}{75}
+\contentsline {paragraph}{Spin-inversion symmetry with semi-momentum states}{76}
+\contentsline {paragraph}{Program implementation; combining all symmetries}{77}
+\contentsline {paragraph}{Examples of state block sizes}{78}
+\contentsline {subsubsection}{\numberline {4.1.6}Expectation values and thermodynamics}{79}
+\contentsline {paragraph}{Total spin}{80}
+\contentsline {paragraph}{Magnetic susceptibility and specific heat}{81}
+\contentsline {subsection}{\numberline {4.2}The Lanczos method}{83}
+\contentsline {subsubsection}{\numberline {4.2.1}The Krylov space}{83}
+\contentsline {subsubsection}{\numberline {4.2.2}The Lanczos basis and hamiltonian}{84}
+\contentsline {paragraph}{Generation of the Lanczos basis}{84}
+\contentsline {paragraph}{The hamiltonian in the Lanczos basis}{85}
+\contentsline {paragraph}{Alternative formulation with normalized vectors}{86}
+\contentsline {paragraph}{Degenerate states}{87}
+\contentsline {paragraph}{Loss and restoration of orthogonality}{87}
+\contentsline {paragraph}{Eigenstates and expectation values}{88}
+\contentsline {subsubsection}{\numberline {4.2.3}Programming the Lanczos method}{89}
+\contentsline {paragraph}{Lanczos basis construction and eigenstates}{90}
+\contentsline {paragraph}{Expectation values}{91}
+\contentsline {paragraph}{Compact storage of the hamiltonian}{92}
+\contentsline {subsubsection}{\numberline {4.2.4}Convergence of Lanczos calculations}{95}
+\contentsline {paragraph}{Loss and recovery of orthogonality}{96}
+\contentsline {subsection}{\numberline {4.3}1D states and quantum phase transitions}{97}
+\contentsline {subsubsection}{\numberline {4.3.1}Ground state and excitations of the Heisenberg chain}{97}
+\contentsline {paragraph}{Ground state and low-energy excitations}{98}
+\contentsline {paragraph}{Spin correlation function}{99}
+\contentsline {subsubsection}{\numberline {4.3.2}Frustration-driven quantum phase transition}{101}
+\contentsline {paragraph}{The Majumdar-Ghosh point}{101}
+\contentsline {paragraph}{Dimer order parameter}{102}
+\contentsline {paragraph}{Finite-size extrapolations of spin and dimer correlations}{103}
+\contentsline {paragraph}{Determining the dimerization transition point}{104}
+\contentsline {paragraph}{Finite-size gaps in the VBS phase}{105}
+\contentsline {subsubsection}{\numberline {4.3.3}Chains with long-range interactions}{106}
+\contentsline {paragraph}{Evolution of the dimerization transition}{107}
+\contentsline {paragraph}{First-order N\'eel--VBS transition}{109}
+\contentsline {paragraph}{QLRO--N\'eel transition}{111}
+\contentsline {paragraph}{Technical notes}{113}
+\contentsline {subsection}{\numberline {4.4}Two-dimensional systems}{113}
+\contentsline {paragraph}{Defining the lattice}{114}
+\contentsline {subsubsection}{\numberline {4.4.1}Momentum states in two dimensions}{114}
+\contentsline {paragraph}{Incorporating other lattice symmetries}{116}
+\contentsline {paragraph}{Implementation}{118}
+\contentsline {paragraph}{Example of block sizes}{119}
+\contentsline {subsubsection}{\numberline {4.4.2}The N\'eel state and its quantum rotor excitations}{120}
+\contentsline {paragraph}{Two-spin model of quantum-rotor states}{120}
+\contentsline {paragraph}{Transverse susceptibility}{122}
+\contentsline {paragraph}{Sublattice magnetization}{123}
+\contentsline {section}{\numberline {5}Quantum Monte Carlo simulations and the Stochastic Series Expansion method}{123}
+\contentsline {subsection}{\numberline {5.1}Path integral and series expansion formulations \\ of quantum statistical mechanics}{124}
+\contentsline {subsubsection}{\numberline {5.1.1}The imaginary-time path integral}{125}
+\contentsline {paragraph}{Boson path integral and world lines}{126}
+\contentsline {paragraph}{Expectation values and their world line estimators}{129}
+\contentsline {paragraph}{Diagonal operators}{129}
+\contentsline {paragraph}{The kinetic energy}{130}
+\contentsline {paragraph}{Off-diagonal operators and broken world lines}{131}
+\contentsline {paragraph}{The path integral including interactions}{132}
+\contentsline {paragraph}{The continuum limit}{132}
+\contentsline {subsubsection}{\numberline {5.1.2}The Suzuki-Trotter decomposition}{134}
+\contentsline {paragraph}{Application to the Heisenberg model}{136}
+\contentsline {subsubsection}{\numberline {5.1.3}The series expansion representation}{137}
+\contentsline {subsection}{\numberline {5.2}SSE method for the $S=1/2$ Heisenberg model}{140}
+\contentsline {subsubsection}{\numberline {5.2.1}Configuration space}{140}
+\contentsline {paragraph}{Series expansion of the partition function}{141}
+\contentsline {paragraph}{Frustrated interactions and the ``sign problem''}{143}
+\contentsline {paragraph}{Linked-vertex storage of the configurations}{144}
+\contentsline {subsubsection}{\numberline {5.2.2}Monte Carlo sampling procedures}{146}
+\contentsline {paragraph}{Diagonal updates}{147}
+\contentsline {paragraph}{Off-diagonal updates}{148}
+\contentsline {paragraph}{Operator-loop updates}{149}
+\contentsline {subsubsection}{\numberline {5.2.3}Computer implementation}{150}
+\contentsline {paragraph}{Diagonal update}{150}
+\contentsline {paragraph}{Construction of the linked vertex list}{151}
+\contentsline {paragraph}{Implementation of the operator-loop update}{152}
+\contentsline {paragraph}{Equilibration and expansion truncation}{154}
+\contentsline {subsubsection}{\numberline {5.2.4}Estimators for physical observables}{154}
+\contentsline {paragraph}{Energy and specific heat}{155}
+\contentsline {paragraph}{Diagonal operators}{155}
+\contentsline {paragraph}{Susceptibilities}{157}
+\contentsline {paragraph}{Spin stiffness}{159}
+\contentsline {subsubsection}{\numberline {5.2.5}Improved estimators}{160}
+\contentsline {subsubsection}{\numberline {5.2.6}Program verification}{161}
+\contentsline {paragraph}{Test results}{162}
+\contentsline {subsection}{\numberline {5.3}Applications of SSE to 1D and 2D systems}{163}
+\contentsline {subsubsection}{\numberline {5.3.1}The Heisenberg chain}{164}
+\contentsline {paragraph}{Spin correlations at $T=0$}{164}
+\contentsline {paragraph}{Low-temperature magnetic susceptibility}{165}
+\contentsline {subsubsection}{\numberline {5.3.2}Ladder systems}{166}
+\contentsline {paragraph}{Spin correlations}{167}
+\contentsline {paragraph}{Susceptibility}{168}
+\contentsline {subsubsection}{\numberline {5.3.3}Long-range order in two dimensions}{170}
+\contentsline {paragraph}{Data fitting issues}{171}
+\contentsline {paragraph}{Ground state energy and spin stiffness}{172}
+\contentsline {paragraph}{Properties at $T>0$}{173}
+\contentsline {subsubsection}{\numberline {5.3.4}Quantum phase transition in a dimerized system}{176}
+\contentsline {paragraph}{SSE method}{176}
+\contentsline {paragraph}{Finite-size scaling for $T \to 0$}{176}
+\contentsline {paragraph}{Quantum critical scaling at $T>0$}{181}
+\contentsline {subsubsection}{\numberline {5.3.5}N\'eel--VBS transitions in J-Q models}{184}
+\contentsline {paragraph}{SSE implementation for the J-Q model}{185}
+\contentsline {paragraph}{Continuous quantum phase transition in the J-Q model}{187}
+\contentsline {paragraph}{Quantum critical susceptibility scaling at $T>0$}{190}
+\contentsline {paragraph}{Emergent U(1) symmetry in the VBS}{191}
+\contentsline {paragraph}{Other critical exponents}{194}
+\contentsline {paragraph}{Applications of other methods to the J-Q model}{194}
+\contentsline {paragraph}{First-order transition in a staggered J-Q model}{195}
+\contentsline {section}{\numberline {6}Survey of related computational methods}{197}
+\contentsline {paragraph}{Directed loop QMC algorithms}{198}
+\contentsline {paragraph}{QMC algorithms in the valence-bond basis}{199}

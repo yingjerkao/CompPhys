@@ -1,0 +1,17 @@
+\BOOKMARK [1][-]{section.1}{Importing the NumPy module }{}% 1
+\BOOKMARK [1][-]{section.2}{Basics}{}% 2
+\BOOKMARK [1][-]{section.3}{Example}{}% 3
+\BOOKMARK [1][-]{section.4}{Array Creation}{}% 4
+\BOOKMARK [1][-]{section.5}{Basic Operations}{}% 5
+\BOOKMARK [1][-]{section.6}{Universal Functions}{}% 6
+\BOOKMARK [1][-]{section.7}{Array mathematics }{}% 7
+\BOOKMARK [1][-]{section.8}{Vector and matrix mathematics }{}% 8
+\BOOKMARK [1][-]{section.9}{Indexing, Slicing and Iterating}{}% 9
+\BOOKMARK [1][-]{section.10}{Shape Manipulation}{}% 10
+\BOOKMARK [2][-]{subsection.10.1}{Changing the shape of an array}{section.10}% 11
+\BOOKMARK [2][-]{subsection.10.2}{Stacking together different arrays}{section.10}% 12
+\BOOKMARK [2][-]{subsection.10.3}{Splitting one array into several smaller ones}{section.10}% 13
+\BOOKMARK [1][-]{section.11}{Copies and Views}{}% 14
+\BOOKMARK [2][-]{subsection.11.1}{No Copy at All}{section.11}% 15
+\BOOKMARK [2][-]{subsection.11.2}{View or Shallow Copy}{section.11}% 16
+\BOOKMARK [2][-]{subsection.11.3}{Deep Copy}{section.11}% 17

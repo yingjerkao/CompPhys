@@ -1,0 +1,59 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{a4}
+\usepackage{graphicx}
+\usepackage{subfigure}
+
+%\setlength{\textwidth}{6in}
+\setlength{\textheight}{9in}
+\pagestyle{empty}
+%\setlength{\oddsidemargin}{0.5in}
+%\setlength{\evensidemargin}{-0.5in}
+%\setlength{\textwidth}{in}
+\begin{document}
+
+\begin{center}
+\Large
+\textbf{Computational Manybody Physics}\\
+\large
+Suggested Projects
+\date{today}
+\end{center}
+\begin{itemize}
+\item Classical Monte Carlo
+\begin{enumerate}
+\item Kinetic Monte Carlo:
+A. B. Bortz and M. H. Kalos and J. L. Lebowitz, "A new algorithm for Monte Carlo simulation of Ising spin systems", Journal of Computational Physics \textbf{17}, 10 (1975) 
+\item Wang-Landau Algorithm: Fugao Wang and D. P. Landau, "Efficient, Multiple-Range Random Walk Algorithm to Calculate the Density of States", Phys. Rev. Lett. \textbf{86}, 2050 (2001)
+\item Parallel tempering algorithm:  David J. Earl and Michael W. Deem (2005) "Parallel tempering: Theory, applications, and new perspectives", Phys. Chem. Chem. Phys., 7, 3910 (2005).
+\item Multicanonical Monte Carlo:    Bernd A. Berg and Thomas Neuhaus , "Multicanonical ensemble: A new approach to simulate first-order phase transitions", Phys. Rev. Lett. \textbf{68}, 9 (1992); B. A Berg, "Introduction to multicanonical Monte Carlo", arXiv: cond-mat/9909236
+%The conventional Metropolis Monte Carlo, designed for equilibrium systems, is not suitable  to simulate the real-time evolution of some processes occurring in nature; in particular, the non-equilibrium processes such as diffusion, nucleation, and so on. 
+\end{enumerate}
+\item Exact Diagonalization
+\begin{enumerate}
+\item Dynamical Correlation Functions
+\item Finite Temperature Lanczos Method
+\end{enumerate}
+\item DMRG
+\begin{enumerate}
+\item Transfer-Matrix DMRG: Stefan Glocke, Andreas Kl\"{u}mper, and Jesko Sirker, "The density-matrix renormalization group applied to transfer matrices: Static and dynamical properties of one-dimensional quantum systems at finite temperature", arXiv: cond-mat/0610689, Lecture Notes in Physics, Vol. 739: Computational Many-Particle Physics (Springer, Berlin, 2008)
+\item Finite Temperature DMRG
+\item Time-dependent DMRG
+\end{enumerate}
+\item Quantum Monte Carlo
+\begin{enumerate}
+\item Parallel tempering SSE: R. G. Melko, "Simulations of quantum XXZ models on two-dimensional frustrated lattices", J. Phys. Condens. Matter \textbf{19}, 145203 (2007).
+\item Stochastic cluster series expansion: Kim Louis and C. Gros , "Stochastic cluster series expansion for quantum spin systems", Phys. Rev. B \textbf{70}, 100410(R) (2004).
+\item Hybrid Monte Carlo
+%\href{http://www.mcmchandbook.net/HandbookChapter5.pdf}{MCMC Using Hamiltonian Dynamics}
+\item Variational Monte Carlo
+\item Auxiliary field Monte Carlo
+\item Directed loop algorithm in SSE
+\item Worm Algorithm
+\item Determinant Monte Carlo
+\item Diffusion Monte Carlo
+
+\end{enumerate}
+\end{itemize}
+\end{document}

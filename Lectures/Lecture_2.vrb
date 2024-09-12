@@ -1,0 +1,15 @@
+\frametitle{ Hello World ! (Python) }
+In IDLE,
+\begin{verbatim}
+>>> print "Hello World!"
+\end{verbatim}
+\vspace*{0.1in}
+or as a file,
+\begin{verbatim}
+#!/usr/bin/python
+print "Hello World!"
+\end{verbatim}
+\begin{itemize}
+\item Some people judge the quality of a programming language by the simplicity of the ``Hello, World!'' program.
+\item By this standard, Python does about as well as possible.
+\end{itemize}

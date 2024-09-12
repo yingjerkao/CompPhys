@@ -1,0 +1,32 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{a4}
+\usepackage{graphicx}
+\usepackage{hyperref}
+%\setlength{\oddsidemargin}{-0.2in}
+%\setlength{\evensidemargin}{-0.5in}
+%\setlength{\textwidth}{6.5in}
+\begin{document}
+\begin{center}
+\Large
+\textbf{Numerical Analysis and Programming}\\
+\large
+Lab Worksheet \#8\\
+\end{center}
+We will use the \verb|Gui| module provided in Think Python to experiment how to program a graphical user interface (GUI).
+It is a wrapper for Python's  GUI module \verb!Tkinter!, which provides all sorts of widgets that you can use for GUI programming. 
+Documentation of \verb!Gui! is available at \url{http://www.greenteapress.com/thinkpython/swampy/Gui.html}
+
+Make sure that  \verb|Gui.py| and \verb!Lab8.py! is in the same directory. \verb!Lab8.py! provides a typical example of a GUI application. In this case, the program takes an integer $n$ as input and compute the factorial of $n$. We define a class called \verb!FactorialGUI! with several methods. Notice that the main event loop is implemented inside  \verb!__init__()!.  There are three widgets: one ``Compute" button, one entry for input and one ``Quit" button.  
+
+ 
+\begin{enumerate}
+\item Test the application with several integers. You can either press Enter or press the Compute button to perform computation. What happens if your input is not an integer?
+\item  There are two callback functions: \verb!compute! for the Compute button widget and \verb!compute2! which is bound to the keyboard \textit{event} of pressing Return/Enter. \verb!compute2! takes an extra parameter \verb!event!, which is an object instance with a number of attributes describing the event. \verb!event.x!, and \verb!event.y! give the $x$ and $y$ coordinate of the mouse position when the event (pressing Return) occurs. Remove \verb!###! in the first line of  \verb!compute2!, and try several inputs with different cursor positions. Observe the output at your python shell.  What happens if you use the Compute button instead?    
+\item Try to resize the window by click-drag the shaded triangle at the bottom-right corner of the window. What happens to the widgets? If you this line of code  \verb!self.g.gr(10,[0,0,0],[0])! to \verb!self.g.gr(10,[0,0,1],[0])!? Experiment with several inputs for \verb!gr!.
+Use \verb!help(Gui.gr)! to find the meaning of the parameters.
+\item Now the output text is inside the entry box, which is a bit annoying. Use \verb!Gui.te()! to create a text entry widget to print the output in the format of \verb|6!=24|. Position the text entry above  all the buttons we created. What happens if the screen becomes full? You might want to resize the window or use a scrollable text entry. 
+\end{enumerate}
+
+\end{document}	
