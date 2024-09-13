@@ -352,20 +352,78 @@ curve, and thus safer to extrapolate.
 \end{itemize}
 \end{frame}
 \subsection[Cubic Spline Interpolation]{Cubic Spline Interpolation}
-\begin{frame}{Cubic Spline Interpolation}
-\begin{itemize}
-  \item A \alert{cubic spline} is a piecewise cubic polynomial that is continuous in the first and second derivatives.
-  \item A cubic spline is defined by $n$ data points $(x_i, y_i), i=0,1,\ldots,n$.
-  \item 
-  
-\end{itemize}
-\centerline{\includegraphics[width=0.6\textwidth]{Lec9_Fig6.pdf}}
-\end{frame}
 \begin{frame}
-  \frametitle{Cubic Spline Interpolation}
+  \frametitle{Spline Interpolation}
+  \begin{block}{Spline of degree $k$}
+    A function $f$ is called a spline of degree $k$ if:
+    \begin{enumerate}
+    \item The domain of $f$ is an interval $[a, b]$.
+    \item $f, f^{\prime}, f^{\prime \prime}, \ldots, f^{(k-1)}$ are all continuous functions on $[a, b]$.
+    \item There are points $x_i$ (the knots of $f$ ) such that $a=x_0<x_1<\cdots<x_n=b$ and such that $f$ is a polynomial of degree at most $k$ on each subinterval $\left[x_i, x_{i+1}\right]$.
+  \end{enumerate}
+  \end{block}
+  The most common spline is the \alert{cubic spline}, which is a piecewise cubic polynomial that is continuous in the first and second derivatives.
+\end{frame}
+
+\begin{frame}{Cubic Spline Interpolation}
+  \centerline{\includegraphics[width=0.5\textheight]{Lec9_Fig6.pdf}
+   }
+  
+      \begin{itemize}
+        \item A cubic spline is a piecewise cubic polynomial that is continuous in the first and second derivatives.
+        \item   Denoting the second derivative of the spline at knot $i$ by $k_i$ , continuity of second derivatives requires that 
+        \[
+        f_{i-1, i}^{\prime \prime}\left(x_i\right)=f_{i, i+1}^{\prime \prime}\left(x_i\right)=k_i
+        \]
+        \item At the end points, we have the natural boundary conditions $k_0=k_n=0$.
+      \end{itemize}
+\end{frame}
+
+\begin{frame}{Cubic Spline Algorithm}
   \begin{itemize}
-    \item 
+    \item The starting point for computing the coefficients of $f_{i, i+1}(x)$ is the expression for $f_{i, i+1}^{\prime \prime}(x)$, which we know to be linear. 
+    \item Using Lagrange's two-point interpolation, we can write  
+    \[ 
+    f_{i, i+1}^{\prime \prime}(x)=k_i \ell_i(x)+k_{i+1} \ell_{i+1}(x)
+    \]
+    where 
+    \[
+      \ell_i(x)=\frac{x-x_{i+1}}{x_i-x_{i+1}} \quad \ell_{1+1}(x)=\frac{x-x_i}{x_{i+1}-x_i}
+    \]
+    \item We have 
+    \[ 
+    f_{i, i+1}^{\prime \prime}(x)=\frac{k_i\left(x-x_{i+1}\right)-k_{i+1}\left(x-x_i\right)}{x_i-x_{i+1}}
+    \]
   \end{itemize}
+\end{frame}  
+\begin{frame}{Cubic Spline Algorithm}
+  \begin{itemize}
+    \item Integration and use $f_{i, i+1}(x_i)=y_i$ to obtain
+    \[ 
+    \begin{aligned}
+      f_{i, i+1}(x)= & \frac{k_i}{6}\left[\frac{\left(x-x_{i+1}\right)^3}{x_i-x_{i+1}}-\left(x-x_{i+1}\right)\left(x_i-x_{i+1}\right)\right] \\
+      & -\frac{k_{i+1}}{6}\left[\frac{\left(x-x_i\right)^3}{x_i-x_{i+1}}-\left(x-x_i\right)\left(x_i-x_{i+1}\right)\right] \\
+      & +\frac{y_i\left(x-x_{i+1}\right)-y_{i+1}\left(x-x_i\right)}{x_i-x_{i+1}}
+      \end{aligned}
+      \]
+      
+  \end{itemize}
+\end{frame}  
+
+
+\begin{frame}{Cubic Spline Algorithm}
+  \begin{itemize}
+  
+
+  \item $k_i$ are determined by the condition that the slope   $f_{i-1, i}^{\prime}\left(x_i\right)=f_{i, i+1}^{\prime}\left(x_i\right)$  is continuous at $x_i$ for $i=1,2, \ldots, n-1$.
+  \[
+    \begin{aligned} 
+      & k_{i-1}\left(x_{i-1}-x_i\right)+2 k_i\left(x_{i-1}-x_{i+1}\right)+k_{i+1}\left(x_i-x_{i+1}\right) \\ 
+      = & 6\left(\frac{y_{i-1}-y_i}{x_{i-1}-x_i}-\frac{y_i-y_{i+1}}{x_i-x_{i+1}}\right), \quad i=1,2, \cdots, n-1
+    \end{aligned}
+  \]
+   $k_i$ can be determined by solving a tridiagonal system of equations.
+\end{itemize}
 \end{frame}
 
 \section[Numerical Differentiation]{Numerical Differentiation}
