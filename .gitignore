@@ -163,3 +163,8 @@ cython_debug/
 .aux
 .toc
 .dvi
+.nav
+.out
+.snm
+.synctex.gz
+.vrb
