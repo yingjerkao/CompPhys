@@ -271,19 +271,19 @@ a_0=y_0,\; a_1=\nabla y_1, \; a_2=\nabla^2 y_2, \;\cdots\; a_n=\nabla^n y_n
   
 \end{frame}
 
-% \begin{frame}{Neville's Method}
-% \begin{itemize}
-% \item Neville's method is a recursive method to evaluate the polynomial at a given $x$.
-% \item Let $P_k\left[x_i, x_{i+1}, \ldots, x_{i+k}\right]$ denote the polynomial of degree $k$ that passes through the $k+1$ data points 
-% $\left(x_i, y_i\right),\left(x_{i+1}, y_{i+1}\right), \ldots,\left(x_{i+k}, y_{i+k}\right)$. 
-% \item For a single point $P_0\left[x_i\right]=y_i$.
-% \item The polynomial can be evaluated backwards with the recurrence relation:
-% \[
-% P_0(x)=y_i,\quad P_k(x)=P_{k-1}(x)\frac{x-x_{i+k}}{x_i-x_{i+k}}+P_k(x)\frac{x-x_i}{x_{i+k}-x_i}
-% \]
-% for $k=1,2,\ldots,n$.
-% \end{itemize}
-% \end{frame}
+\begin{frame}{Neville's Method}
+\begin{itemize}
+\item Neville's method is a recursive method to evaluate the polynomial at a given $x$.
+\item Let $P_k\left[x_i, x_{i+1}, \ldots, x_{i+k}\right]$ denote the polynomial of degree $k$ that passes through the $k+1$ data points 
+$\left(x_i, y_i\right),\left(x_{i+1}, y_{i+1}\right), \ldots,\left(x_{i+k}, y_{i+k}\right)$. 
+\item For a single point $P_0\left[x_i\right]=y_i$.
+\item The polynomial can be evaluated backwards with the recurrence relation:
+\[
+P_0(x)=y_i,\quad P_k(x)=P_{k-1}(x)\frac{x-x_{i+k}}{x_i-x_{i+k}}+P_k(x)\frac{x-x_i}{x_{i+k}-x_i}
+\]
+for $k=1,2,\ldots,n$.
+\end{itemize}
+\end{frame}
 
 
 \begin{frame}{Errors in Polynomial Interpolation}
@@ -347,8 +347,13 @@ curve, and thus safer to extrapolate.
   \item   Some data are better interpolated by rational functions rather than polynomials.
   \item  A rational function $R(x)$ is a ratio of two polynomials:
   \[
-    R(x) = \frac{P_m(x)}{Q_n(x)}=\frac{a_1 x^m+a_2 x^{m-1}+\cdots+a_m x+a_{m+1}}{b_1 x^n+b_2 x^{n-1}+\cdots+b_n x+b_{n+1}}
+    R(x) = \frac{P_m(x)}{Q_n(x)}=\frac{a_1 x^m+a_2 x^{m-1}+
+    \cdots+a_m x+a_{m+1}}{b_1 x^n+b_2 x^{n-1}+\cdots+b_n x+b_{n+1}}
   \]
+  \item We can rescale the coeffecients by setting  $b_{n+1}=1$ and this leaves $m+n+1$ undetermined 
+  coefficients that must be computed by forcing $R(x)$ through $m+n+1$ data points.
+  \item A popular version of $R(x)$ is the so-called diagonal rational function, where the degree of 
+  the numerator is equal to that of the denominator $(m=n)$ if $m+n$ is even, or less by one ( $m=n-1$ ) if $m+n$ is odd. 
 \end{itemize}
 \end{frame}
 \subsection[Cubic Spline Interpolation]{Cubic Spline Interpolation}
