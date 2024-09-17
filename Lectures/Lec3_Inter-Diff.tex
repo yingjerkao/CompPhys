@@ -223,7 +223,7 @@ P_3(x)&=a_0+(x-x_0)P_2(x)
 \begin{itemize}
 \item For arbitrary $n$, 
 \[
-P_0(x)=a_n\; P_k(x)=a_{n-k}+ (x-x_{n-k})P_{k-1}(x), \;\; k=1,2,\ldots,n
+P_0(x)=a_n, \; P_k(x)=a_{n-k}+ (x-x_{n-k})P_{k-1}(x), \;\; k=1,2,\ldots,n
 \]
 \item The coefficients of $P_n$ are determined by the condition $y_i=P_n(x_i), i=0, 1, \ldots,n$. This yields the coupled equations
 \begin{align*}
@@ -719,7 +719,7 @@ f'(x)\approx p_2'(x)=f[x_1,x_2]+f[x_1,x_2,x_3](2x-x_1-x_2).
 G=g(h)+E(h).
 \]
 \item For a given  $h=h_1$,  
-$G=g(h_1)+ch_1^p$, and for $h=h_2$, $G=g(h_2)+ch_2^2$.
+$G=g(h_1)+ch_1^p$, and for $h=h_2$, $G=g(h_2)+ch_2^p$.
 \item Eliminating $c$ and solving for $G$, we obtain the \alert{Richardson extrapolation formula},
 \[
 G=\frac{\left(\frac{h_1}{h_2}\right)^p g(h_2)-g(h_1)}{\left(\frac{h_1}{h_2}\right)^p-1}.
