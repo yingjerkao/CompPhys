@@ -1,10 +1,10 @@
-% $Header: /home/vedranm/bitbucket/beamer/solutions/generic-talks/generic-ornate-15min-45min.en.tex,v 90e850259b8b 2007/01/28 20:48:30 tantau $
 \documentclass{beamer}
 %\documentclass[handout]{beamer}
 \usefonttheme[onlymath]{serif}
 % This file is a solution template for:
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{multicol}
 % - Giving a talk on some subject.
 % - The talk is between 15min and 45min long.
 % - Style is ornate.
@@ -121,7 +121,8 @@
 % - At *most* three subsections per section.
 % - Talk about 30s to 2min per frame. So there should be between about
 %   15 and 30 frames, all told.
-\section[Introduction]{Introduction}
+\section[Curve Fitting]{Curve Fitting}
+\subsection{Introduction}
 \begin{frame}{Introduction}
 \begin{itemize}
 \item Typical data obtained from experiments normally contain a significant amount of random noise due to measurement errors. 
@@ -164,7 +165,7 @@ $x_i$ & $y_i$ & $x_i$ & $y_i$
 \item However, it still does not capture the general trend of the data
 \end{itemize}
 \end{frame}
-\section[Least-Squares Fit]{Least-Squares Fit}
+\subsection[Least-Squares Fit]{Least-Squares Fit}
 \begin{frame}{Least-Squares Fit}
 \begin{itemize}
 \item  $f(x)=f(x;a_0,a_1,\ldots,a_m)$ is the function to be fitted to the $n+1$ data points $(x_i,y_i),i=0,1,\ldots,n$.
@@ -336,6 +337,20 @@ R_i &=\ln y_i-F(x_i)=\ln y_i-(\ln a + b x_i )\\
 \end{itemize}
 \end{frame}
 
+\section[Root Finding]{Root Finding}
+\subsection{Introduction}
+\begin{frame}{Introduction}
+\begin{itemize}
+\item The root of a function $f(x)$ is the value of $x$ for which $f(x)=0$.
+\item   The root of a function is also called a \alert{zero} or a \alert{solution} of the function.
+\item  All methods of finding roots are iterative procedures that require a starting point.
+\item In general, an equation might have any number of \alert{real} roots, including none, one, or many.
+\item For example,$\sin x - x =0$ has a root at $x=0$, and $\tan x-x=0$ has roots at $x=0,\pm \pi, \pm 2\pi, \ldots$.
+\end{itemize}
+
+\end{frame}
+
+\subsection{Bisection Method}
 \begin{frame}{Bisection Method}
   \begin{itemize}
     \item The bisection method is a simple and robust method for finding the root of a function $f(x)$.
@@ -345,7 +360,8 @@ R_i &=\ln y_i-F(x_i)=\ln y_i-(\ln a + b x_i )\\
 \end{frame}
 
 \begin{frame}[fragile]{Bisection Method}
-  \tiny
+  \begin{multicols}{2}
+  \scriptsize
     \begin{algorithmic}
     \Procedure{Bisection}{$f, a, b, n\_max, \varepsilon$}
       \State \textbf{Input:} $f, a, b, n\_max, \varepsilon$
@@ -377,6 +393,16 @@ R_i &=\ln y_i-F(x_i)=\ln y_i-(\ln a + b x_i )\\
       \EndFor
     \EndProcedure
     \end{algorithmic}
+  \end{multicols}
+\end{frame}
+\begin{frame}{Convergence Analysis}
+  \centerline{ \includegraphics[height=1in]{Lec11_fig4.pdf}}
+  \begin{itemize}
+  \item If $f(a_0) f(b_0)<0$, then the root is bracketed by $a_0$ and $b_0$.
+  \item If we use midpoint $c_0=(a_0+b_0)/2$ as our estimate for the solution $r$, then the error is $|r-c_0| \leq (b_0-a_0)/2$.
+  \item  The error is reduced by a factor of 2 at each iteration, after $n$ iterations
+  \[\left|r-c_n\right| \leqq \frac{b_0-a_0}{2^{n+1}} \]
+  \end{itemize}
 \end{frame}
 \begin{frame}{Convergence Analysis}
 \begin{block}{Theorem}
@@ -384,17 +410,235 @@ R_i &=\ln y_i-F(x_i)=\ln y_i-(\ln a + b x_i )\\
   where $f(a) f(b)<0$, then, after $n$ steps, an approximate root will have been computed with 
   error at most $(b-a) / 2^{n+1}$.
   \end{block}
+\begin{itemize}
+\item If an error tolerance has been prescribed in advance, it is possible to determine the number of steps required in the bisection method.
+\item If we want $\left|r-c_n\right|<\epsilon$, then we require that $(b_0-a_0)/2^{n+1}<\epsilon$, or $n>\log_2[(b_0-a_0)/\epsilon]-1$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{When to use the Bisection Method}
+\begin{itemize}
+\item The bisection method is a robust method for finding the root of a function.
+\item The method is guaranteed to converge to a root if the function is continuous and the root is bracketed by two points.
+\item The method is slow compared to other methods, but it is reliable and easy to implement.
+\item The bisection method is used to get close to the root before switching to a faster method.
+\end{itemize}
+\end{frame}
+\subsection{Newton's Method}
+
+\begin{frame}{Newton's Method}
+\centerline{\includegraphics[height=1.2in]{Lec11_fig5.pdf}}  
+\begin{itemize} 
+  \item  Newton's method requires that the function $f(x)$ be differtiable.
+  \item  At a point $(x_0, f (x_0))$, the tangent $l(x)$ is a  good approximation to the curve in the vicinity of that point,
+ $$
+l(x)=f^{\prime}\left(x_0\right)\left(x-x_0\right)+f\left(x_0\right),
+$$
+which intersects the $x$-axis at $x_1=x_0-\frac{f\left(x_0\right)}{f^{\prime}\left(x_0\right)}$.
+\end{itemize}
 \end{frame}
 \begin{frame}{Newton's Method}
-\begin{itemize} 
-  \item Newton's method is a powerful method for finding the root of a function $f(x)$.
-  \item  The method requires that the function $f(x)$ be continuous and that the derivative $f'(x)$ be continuous.
-  \item   The method is based on the Taylor expansion of $f(x)$ about a point $x_0$,
-  \[
-    f\left(x_{i+1}\right)=f\left(x_i\right)+f^{\prime}\left(x_i\right)\left(x_{i+1}-x_i\right)+O\left(x_{i+1}-x_i\right)^2
-  \]
-  \item The meothd is based on the assumption that the function $f(x)$ can be approximated by a straight line in the neighborhood of the root.
+  \begin{itemize}
+    \item If Newton's method is applied to the function $f(x)$, the iteration formula is
+    $$
+x_{n+1}=x_n-\frac{f\left(x_n\right)}{f^{\prime}\left(x_n\right)}, \quad \lim_{n \to \infty} x_n=r,
+$$
+    where $r$ is the root of $f(x)$. 
   \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Newton-Raphson Method}
+  \scriptsize 
+\begin{algorithmic}
+\Procedure{Newton}{$f, f', x, n\_max, \varepsilon, \delta$}
+  \State \textbf{Input:} $f, f', x, n\_max, \varepsilon, \delta$
+  \State \textbf{Output:} Root of $f$
+  \State $fx \gets f(x)$
+  \State \textbf{output} $0, x, fx$
+  \For {$n = 1$ to $n\_max$}
+    \State $fp \gets f'(x)$
+    \If {$|fp| < \delta$}
+      \State \textbf{output} "small derivative"
+      \State \textbf{return}
+    \EndIf
+    \State $d \gets fx / fp$
+    \State $x \gets x - d$
+    \State $fx \gets f(x)$
+    \State \textbf{output} $n, x, fx$
+    \If {$|d| < \varepsilon$}
+      \State \textbf{output} "convergence"
+      \State \textbf{return}
+    \EndIf
+  \EndFor
+\EndProcedure
+\end{algorithmic}
+\end{frame}
+\begin{frame}{Convergence Analysis}
+  \begin{itemize}
+    \item The error in the estimate $x_n$ is $|r-x_n| \leq |r-x_{n-1}|^2/|f^{\prime}(x_{n-1})|$, which converges quadratically.
+    \item The error is reduced by a factor of $|f^{\prime}(x_{n-1})|$ at each iteration.
+    \item If the error tolerance is $\epsilon$, then we require that $|r-x_n|<\epsilon$, or $|r-x_{n-1}|^2/|f^{\prime}(x_{n-1})|<\epsilon$.
+    \item The number of iterations required to achieve the error tolerance is $n>\log_2(|r-x_0|/\epsilon)$.
+  \end{itemize}
+\end{frame}
+\begin{frame}{Convergence Analysis}
+  \begin{block}{Newton's Method Theorem}
+    If $f, f^{\prime}$, and $f^{\prime \prime}$ are continuous in a neighborhood of a root $r$ of $f$ and if $f^{\prime}(r) \neq 0$, then there is a positive $\delta$ with the following property: If the initial point in Newton's method satisfies $\left|r-x_0\right| \leqq \delta$, then all subsequent points $x_n$ satisfy the same inequality, converge to $r$, and do so quadratically; that is,
+
+$$
+\left|r-x_{n+1}\right| \leqq c(\delta)\left|r-x_n\right|^2
+$$
+where $c(\delta)$ is a constant that depends on $\delta$.
+  \end{block}
+\end{frame}
+\begin{frame}{Choice of Initial Guess}
+  \centerline{\includegraphics[height=1.5in]{Lec11_fig6.pdf}}
+  \begin{itemize}
+    \item In the use of Newton's method, consideration must be given to the proper choice of a starting point. 
+    \item  Its convergence depends upon hypotheses that are difficult to verify a priori.
+  \end{itemize}
+\end{frame}
+
+\subsection{Zeros of Polynomials}
+\begin{frame}{Zeros of Polynomials}
+\begin{itemize}
+  \item A polynomial of degree $n$ has the form 
+    $$
+    P_n(x)=a_0+a_1 x+a_2 x^2+\cdots+a_n x^n,
+    $$
+     where the coefficients $a_i$ may be real or complex.
+  \item $P_n(x)=0$ has $n$ roots, which may be real or complex.
+  \item If the coefficients $a_i$ are real, then the roots of $P_n(x)$ are either real or occur in complex conjugate pairs.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{ Evaluation of Polynomials}
+\begin{itemize}
+  \item If we naively evaluate  $P_n(x)$ at a point $x$ by the simple algorithm
+  \begin{verbatim}
+    p=0.0
+    for i in range(n+1):
+        p+=a[i]*x**i
+    \end{verbatim}
+  \item The number of multiplications is $n(n+1)/2$ and the number of additions is $n$.
+  \item The Horner's method is a more efficient way to evaluate a polynomial.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Horner's Algorithm}
+$$
+\begin{aligned}
+p(x) & =a_0+a_1 x+a_2 x^2+\cdots+a_{n-1} x^{n-1}+a_n x^n \\
+& =a_0+x\left(a_1+x\left(a_2+\cdots+x\left(a_{n-1}+x\left(a_n\right)\right) \cdots\right)\right)
+\end{aligned}
+$$
+\begin{itemize}
+  \item Exponentiations are dangerous.
+  \item The algorithm can be used to deflate a polynomial
+\end{itemize}
+
+\[
+\begin{gathered}
+p(x)=(x-r) q(x)+p(r) \\
+q(x)=b_0+b_1 x+b_2 x^2+\cdots+b_{n-1} x^{n-1}
+\end{gathered}
+\]
+
+\end{frame}
+\begin{frame}{Polynomial Division}
+$$
+\begin{aligned}
+p(x) & =a_0+a_1 x+a_2 x^2+\cdots+a_{n-1} x^{n-1}+a_n x^n \\
+& =a_0+x\left(a_1+x\left(a_2+\cdots+x\left(a_{n-1}+x\left(a_n\right)\right) \cdots\right)\right)
+\end{aligned}
+$$
+$$
+\begin{aligned}
+p\left(x_0\right) & =a_0+x_0\left(a_1+x_0\left(a_2+\cdots+x_0\left(a_{n-1}+b_n x_0\right) \cdots\right)\right) \\
+& =a_0+x_0\left(a_1+x_0\left(a_2+\cdots+x_0\left(b_{n-1}\right) \cdots\right)\right) \\
+& \vdots \\
+& =a_0+x_0\left(b_1\right) \\
+& =b_0
+\end{aligned}
+$$
+$$
+b_n  =a_n, \quad b_{n-1}=a_{n-1}+b_n x_0, \quad \ldots, \quad b_0=a_0+b_1 x_0
+$$
+
+$$
+p(x)=\left(x-x_0\right)\left(b_n x^{n-1}+b_{n-1} x^{n-2}+\cdots+b_1\right)+b_0
+$$
+\end{frame}
+
+\begin{frame}{Lagguerre's Method}
+  \begin{itemize}
+    \item Laguerre's method is a root-finding algorithm that is particularly effective for finding the roots of polynomials.
+    \item Consider a special polynomial $P_n(x)=(x-r)(x-q)^{n-1}$, where $r$ and $q$ are the roots of $P_n(x)$.
+    \item Given $P_n(x)=a_0+a_1 x+a_2 x^2+\cdots+a_n x^n$, find the root $r$ of $P_n(x)$ (assuming $q$ is unknown).
+    \item We can show 
+    $$
+    \frac{P_n^{\prime}(x)}{P_n(x)}=\frac{1}{x-r}+\frac{n-1}{x-q}, \quad \frac{P_n^v(x)}{P_n(x)}-\left[\frac{P_n^v(x)}{P_n(x)}\right]^2=-\frac{1}{(x-r)^2}-\frac{n-1}{(x-q)^2}.
+    $$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lagguerre's Method}
+  \begin{itemize}
+    \item Define $G(x)=\frac{P_n^{\prime}(x)}{P_n(x)} \quad H(x)=G^2(x)-\frac{P_n^{\prime \prime}(x)}{P_n(x)}$. 
+    $$
+G(x)=\frac{1}{x-r}+\frac{n-1}{x-q}, \quad H(x) =\frac{1}{(x-r)^2}+\frac{n-1}{(x-q)^2}.
+$$
+\item Eliminatng $x-q$ from $G(x)$ and $H(x)$, we obtain
+$$
+x-r=\frac{n}{G(x) \pm \sqrt{(n-1)\left[n H(x)-G^2(x)\right]}}
+$$
+  \end{itemize}
+\end{frame}
+\begin{frame}{Lagguerre's Method}
+  \begin{multicols}{2}
+    
+\tiny
+  \begin{algorithmic}
+  \State \textbf{Input:} $P(x)$: Polynomial of degree $n$
+  \State \textbf{Input:} $x_0$: Initial guess for the root
+  \State \textbf{Input:} $max\_iter$: Maximum number of iterations
+  \State \textbf{Input:} $tol$: Tolerance for convergence
+  \State \textbf{Output:} Approximate root of the polynomial $P(x)$
+  
+  \State Define $P'(x)$ as the first derivative of $P(x)$
+  \State Define $P''(x)$ as the second derivative of $P(x)$
+  \State Set $x = x_0$
+      
+  \For{$k = 1$ to $max\_iter$}
+      \State Compute $G = \frac{P'(x)}{P(x)}$
+      \State Compute $H = G^2 - \frac{P''(x)}{P(x)}$
+      
+      \State Set $n$ as the degree of the polynomial $P(x)$
+      
+      \State Compute $D_1 = G + \sqrt{(n-1)\left(nH - G^2\right)}$
+      \State Compute $D_2 = G - \sqrt{(n-1)\left(nH - G^2\right)}$
+      
+      \If{$|D_1| > |D_2|$}
+          \State Set $D = D_1$
+      \Else
+          \State Set $D = D_2$
+      \EndIf
+      
+      \State Update $x_{\text{new}} = x - \frac{n}{D}$
+      
+      \If{$|x_{\text{new}} - x| < tol$}
+          \State \Return $x_{\text{new}}$ (Root found)
+      \EndIf
+      
+      \State Set $x = x_{\text{new}}$
+  \EndFor
+  
+  \State \Return failure if no root found within $max\_iter$ iterations.
+  
+  \end{algorithmic}
+\end{multicols}
+
 \end{frame}
 \end{document}
 
