@@ -1,4 +1,4 @@
-% $Header: /home/vedranm/bitbucket/beamer/solutions/generic-talks/generic-ornate-15min-45min.en.tex,v 90e850259b8b 2007/01/28 20:48:30 tantau $
+
 \documentclass{beamer}
 %\documentclass[handout]{beamer}
 \usefonttheme[onlymath]{serif}
@@ -126,15 +126,44 @@
 \begin{itemize}
 \item Numerical integration, or \alert{quadrature}, approximates the definite integral 
 \[
-\int_a^b f(x)\; dx
-\]
-by 
-\[
-I=\sum_{i=0}^n A_i f(x_i)
+\int_a^b f(x)\; dx \quad \quad \text{by } I=\sum_{i=0}^n A_i f(x_i).
 \]
 \item The \alert{nodal abscissas} $x_i$ and \alert{weights} $A_i$ depend on the particular rule used for the quadrature.
 \item All rules of quadrature are derived from \alert{ polynomial interpolation} of the integrand.
 \end{itemize}
+\end{frame}
+\begin{frame}{Upper and Lower Sums}
+  \begin{itemize} 
+    \item Given a partition of the interval $[a,b]$, 
+    \[
+    P=\left\{a=x_0<x_1<x_2<\cdots<x_{n-1}<x_n=b\right\},
+    \]
+   the \alert{upper sum} and \alert{lower sum} of the function $f(x)$ are defined as
+      \beforeverb
+      \begin{align*}
+        U(f,P)&=\sum_{i=1}^n M_i \Delta x_i\\
+        L(f,P)&=\sum_{i=1}^n m_i \Delta x_i
+      \end{align*}
+      \afterverb
+      where $M_i=\sup_{x\in[x_{i-1},x_i]} f(x)$ and $m_i=\inf_{x\in[x_{i-1},x_i]} f(x)$.
+
+     \[
+     L(f ; P) \leqq \int_a^b f(x) d x \leqq U(f ; P)
+     \]
+  \end{itemize}
+\end{frame}
+\begin{frame}{Upper and Lower Sums}
+\centerline{\includegraphics[height=2.9in]{Lec12_Fig0}}
+\end{frame}
+\begin{frame}{Riemann Integral}
+  \begin{itemize}
+    \item The \alert{Riemann integral} of $f(x)$ over $[a,b]$ is defined as
+      \[
+      \int_a^b f(x) d x =\lim_{\|P\|\rightarrow 0} U(f,P)=\lim_{\|P\|\rightarrow 0} L(f,P)
+      \]
+    \item The Riemann integral exists if the upper and lower sums converge to the same value as the mesh size $\|P\|\rightarrow 0$.
+    \item The Riemann integral exists if $f(x)$ is \alert{bounded} and has a \alert{finite number of discontinuities} on $[a,b]$.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Quadrature}
@@ -332,6 +361,36 @@ I=[f(x_0)+3f(x_1)+3f(x_2)+f(x_3)]\frac{3h}{8}
 \] 
 \end{itemize}
 \end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Open-interval formulas}
+  \begin{itemize}
+    \item The \alert{open-interval} formulas are used when the integral is over an open interval $(a,b)$.
+    \item  For the mid-point rule, all the points are weighted equally, and the formula is
+    \beforeverb
+    \[
+    \int_{x_0}^{x_N} f(x) d x=h\left(f_{1 / 2}+f_{3 / 2}+, \ldots+f_{N-3 / 2}+f_{N-1 / 2}\right)+O\left(h^2\right)
+    \]
+    \afterverb
+    where $f_{i+1/2}=f(x_i+h/2)$.
+    \item Other low-order open formulas are
+    \beforeverb
+    \begin{align*}
+    \int_{x_0}^{x_N} f(x) d x&=h\left(\frac{3}{2} f_1+f_2+f_3+\ldots+f_{N-2}+\frac{3}{2} f_{N-1}\right)+O\left(h^2\right) 
+    \end{align*}
+    \afterverb
+    where $f_i=f(x_i)$, and  all the interior points are weighted with 1
+    
+  \end{itemize}
+\end{frame}
+\begin{frame}{Integrable Singularities}
+  \begin{itemize}
+  \item Open formulas can be used in cases where there are integrable \alert{singularities} at the end-points.
+  \item Note that there will be \alert{larger contributions} to the errors coming from the singularities. 
+    \item If a singularity cannot be transformed away, it may be possible to subtract off an asymptotic divergent form, which itself may be analytically integrable, leaving an integral with no singularities that can be treated numerically. 
+    \item In cases where such tricks are not possible, the above open formulas (or ones of higher order) can be used but the convergence may be very slow. More sophisticated methods may then be necessary.\
+  \end{itemize}
+\end{frame}
 \section[Gaussian Quadrature]{Gaussian Quadrature}
 \subsection[Gaussian Integration Formula]{Gaussian Integration Formula}
 \begin{frame}{Gaussian Quadrature}
@@ -348,6 +407,7 @@ I=\sum_{i=0}^n A_i f(x_i).
 \item The nodes $x_i$ and weights $A_i$ are determined in Gaussian quadrature such that $I$ yields the exact integral if $f(x)$ is a polynomial of degree $\le 2n +1$.
 \end{itemize}
 \end{frame}
+
 \begin{frame}{Gaussian Quadrature Theorem}
 \begin{theorem}
 
