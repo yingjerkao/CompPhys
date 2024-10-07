@@ -1,6 +1,0 @@
-\beamer@endinputifotherversion {3.36pt}
-\select@language {english}
-\beamer@sectionintoc {1}{Classical Spin Models}{3}{0}{1}
-\beamer@sectionintoc {2}{Ising Model}{5}{0}{2}
-\beamer@subsectionintoc {2}{1}{Introduction}{5}{0}{2}
-\beamer@subsectionintoc {2}{2}{Mean-field theory}{7}{0}{2}

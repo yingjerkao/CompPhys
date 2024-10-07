@@ -1,4 +1,0 @@
-\babel@toc {english}{}\relax 
-\beamer@sectionintoc {1}{Classes}{3}{0}{1}
-\beamer@subsectionintoc {1}{1}{Classes}{3}{0}{1}
-\beamer@subsectionintoc {1}{2}{Attributes}{6}{0}{1}

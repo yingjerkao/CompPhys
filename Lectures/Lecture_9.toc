@@ -1,6 +1,0 @@
-\babel@toc {english}{}\relax 
-\beamer@sectionintoc {1}{Interpolation}{3}{0}{1}
-\beamer@subsectionintoc {1}{1}{Polynomial Interpolation}{3}{0}{1}
-\beamer@sectionintoc {2}{Numerical Differentiation}{15}{0}{2}
-\beamer@subsectionintoc {2}{1}{Finite Difference Approximations}{15}{0}{2}
-\beamer@subsectionintoc {2}{2}{Richardson's Extrapolation}{32}{0}{2}
