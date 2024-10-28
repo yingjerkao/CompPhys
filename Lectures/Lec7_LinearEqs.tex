@@ -123,6 +123,15 @@
 %   15 and 30 frames, all told.
 \section[Introduction]{Introduction}
 \begin{frame}{Introduction}
+\begin{itemize}
+  \item Linear equations exists in almost all branches of science and engineering.
+  \item The numerical solution of a system of linear equations is a fundamental problem in numerical analysis.
+  \item If the system is discrete, such as a truss or an electric circuit, then its analysis leads directly to linear algebraic equations.
+  \item Continuous systems are described normally by differential equations.
+  \item Since numerical analysis can deal only with discrete variables, it is first necessary to approximate a differential equation with a system of algebraic equations.
+\end{itemize}
+\end{frame}
+\begin{frame}{Introduction}
 \begin{block}{Electrical Network}
 \begin{columns}
 \begin{column}{0.35\textwidth}
@@ -189,6 +198,27 @@ b_n
 \end{frame}
 
 \section[Direct Methods]{Direct Methods}
+\begin{frame}{Direct Methods}
+  \begin{itemize}
+    
+    \item These methods are called \alert{direct methods} because they compute the solution in a \alert{finite number of steps}.
+    \item  There are three popular methods to solve a system of linear equations: Gaussian elimination, LU decomposition, and Gauss-Jordan elimination.
+    
+  \vspace{0.5cm}
+
+  \begin{tabular}{|c|c|c|}
+    \hline { Method } &  { Initial form } &  { Final form } \\
+    \hline \hline { Gauss elimination } & $\mathbf{A x}=\mathbf{b}$ & $\mathbf{U x}=\mathbf{c}$ \\
+    \hline  { LU decomposition } & $\mathbf{A x}=\mathbf{b}$ & $\mathbf{L U x}=\mathbf{b}$ \\
+    \hline  { Gauss-Jordan elimination } & $\mathbf{A x}=\mathbf{b}$ & $\mathbf{I x}=\mathbf{c}$ \\
+    \hline
+    \end{tabular}
+
+    \vspace{0.5cm}
+
+      \item  $\mathbf{U}$ represents an upper triangular matrix, $\mathbf{L}$ is a lower triangular marix, and $\mathbf{I}$ denotes the identity matrix.
+    \end{itemize}
+\end{frame}
 \subsection[Gaussian Elimination]{Gaussian Elimination}
 \begin{frame}{Naive Gaussian Elimination}
 \begin{itemize}
@@ -870,21 +900,32 @@ x_1=\frac{1}{1-\epsilon}\approx 1, \quad x_2=\frac{1-2\epsilon}{1-\epsilon}\appr
 \item The difficulty in the example is because $\epsilon$ is small relative to other coefficients in the same row.
 \end{itemize}
 \end{frame}
+\begin{frame}{Diagonal Dominance}
+  \begin{itemize}
+    \item An $n\times n$ matrix $\mathbf{A}$ is said to be diagonally dominant if each diagonal element is larger than the sum of the other elements in the same row.
+    $$
+  \left|A_{i i}\right|>\sum_{\substack{j=1 \\ j \neq i}}^n\left|A_{i j}\right|(i=1,2, \ldots, n)
+  $$
+  \item If the coefficient matrix of the equations $\mathbf{Ax} = \mathbf{b}$ is diagonally
+  dominant, then the solution does not benefit from pivoting; that is, the equations are already arranged in the optimal order. 
+  \end{itemize}
+  \end{frame}
+
 \begin{frame}{Gaussian Elimination with Scaled Row Pivoting}
 \begin{itemize}
 \item The purpose of pivoting is to improve \alert{diagonal dominance} of the coefficient matrix by making the \alert{pivot element} as \alert{large} as possible in comparison to other elements in the pivot row.
 \item For a given $\mathbf{A}$, we construct a vector $\mathbf{s}$ with elements $s_i$, the \alert{scale factor for row $i$}, defined as, 
-\beforeverb
+
 \[
 s_i=\max_{j}|A_{ij}|, i=1,2,\ldots,n
 \]
-\afterverb
+
 \item The relative size of an element $A_{ij}$ can be defined as 
-\beforeverb
+
 \[
 r_{ij}=\frac{|A_{ij}|}{s_i}.
 \]
-\afterverb
+
 \end{itemize}
 \end{frame}
 \begin{frame}{Gaussian Elimination with Scaled Row Pivoting}
@@ -909,15 +950,17 @@ r_{pk}=\max_j r_{jk},\quad j\le k
 \begin{frame}{To Pivot or Not to Pivot?}
 \begin{itemize}
 \item Pivoting  increases cost of computation.
-\item  Pivoting destroys the symmetry and banded structure of the coefficient matrix. In scientific computing,  the coefficient matrices are frequently banded and symmetric, which can be  utilized in the solution. 
-\item Fortunately, these matrices are often diagonally dominant as well, so that they would not benefit from pivoting anyway.
+\item  Pivoting \alert{destroys} the symmetry and banded structure of the coefficient matrix. 
+\item In scientific computing,  the coefficient matrices are frequently banded and symmetric, which can be  utilized in the solution. 
+\item Fortunately, these matrices are often \alert{diagonally dominant} as well, so that they would not benefit from pivoting anyway.
 \item No well-defined rules for determining when pivoting should be used.
 \end{itemize}
 
 \end{frame}
-\begin{frame}{Symmetric and Banded Coefficient Matrices}
+\section{Symmetric and Banded Matrices}
+\begin{frame}{Symmetric and Banded Matrices}
     \begin{itemize}
-        \item Symmetric and banded coefficient matrices are common in scientific computing.
+        \item Symmetric and band matrices are common in scientific computing.
         \[
             \mathbf{A}=\left[\begin{array}{lllll}
                 X & X & 0 & 0 & 0 \\
@@ -957,17 +1000,209 @@ r_{pk}=\max_j r_{jk},\quad j\le k
     \end{itemize}
 \end{frame}
 \begin{frame}{Tridiagonal  Matrix}
-\begin{itemize}
-\item The solution of a tridiagonal system of equations can be obtained by a specialized algorithm called the \alert{Thomas algorithm}.
-\item The Thomas algorithm is a simplified form of the LU decomposition, and is particularly efficient for tridiagonal systems.
-\item The Thomas algorithm is based on the observation that the elimination phase of the Gaussian elimination can be carried out in a \alert{single pass}.
-\item The Thomas algorithm is particularly useful for solving the \alert{heat conduction equation} in one dimension.
-\item The Thomas algorithm is also used in the \alert{finite difference method} for solving partial differential equations.
-\item The Thomas algorithm is also known as the \alert{tridiagonal matrix algorithm} (TDMA).
-\item The Thomas algorithm is a \alert{special case} of the LU decomposition.
-
-\end{itemize} 
+ Consider the tridiagonal matrix 
+$$
+\mathbf{A}=\left[\begin{array}{cccccc}
+d_1 & e_1 & 0 & 0 & \cdots & 0 \\
+c_1 & d_2 & e_2 & 0 & \cdots & 0 \\
+0 & c_2 & d_3 & e_3 & \cdots & 0 \\
+0 & 0 & c_3 & d_4 & \cdots & 0 \\
+\vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \ldots & 0 & c_{n-1} & d_n
+\end{array}\right]
+$$
+where we can store the elements $c_i$, $d_i$, and $e_i$ in three vectors.
+$$
+\mathbf{c}=\left[\begin{array}{c}
+c_1 \\
+c_2 \\
+\vdots \\
+c_{n-1}
+\end{array}\right] \quad \mathbf{d}=\left[\begin{array}{c}
+d_1 \\
+d_2 \\
+\vdots \\
+d_{n-1} \\
+d_n
+\end{array}\right] \quad \mathbf{e}=\left[\begin{array}{c}
+e_1 \\
+e_2 \\
+\vdots \\
+e_{n-1}
+\end{array}\right]
+$$
+ 
 \end{frame}
+\begin{frame}{Tridiagonal  Matrix: Gaussian Elimination}
+\begin{itemize}
+\item The elimination phase of the Gaussian elimination for a tridiagonal matrix is straightforward.
+\item The first step is to eliminate the $c_1$ elements in the first column.
+\item The $i$th step eliminates the $c_i$ elements in the $i$th column, given by
+$$
+\left\{\begin{array}{l}
+d_i \leftarrow d_i-\left(\frac{c_{i-1}}{d_{i-1}}\right) e_{i-1} \\
+b_i \leftarrow b_i-\left(\frac{c_{i-1}}{d_{i-1}}\right) b_{i-1} \quad(2 \leqq i \leqq n)
+\end{array}\right.
+$$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Tridiagonal  Matrix: Gaussian Elimination}
+
+   At the end of the elimination phase, the matrix $\mathbf{A}$ is transformed into an upper triangular matrix $\mathbf{U}$.
+    $$
+  \left[\begin{array}{llllllll}
+  d_1 & e_1 & & & & & & \\
+  & d_2 & e_2 & & & & & \\
+  & & & \ddots & \ddots & & & \\
+  & & & & d_i & c_i & & \\
+  & & & & & \ddots & \ddots & \\
+  & & & & & & d_{n-1} & e_{n-1} \\
+  & & & & & & & d_n
+  \end{array}\right]\left[\begin{array}{l}
+  x_1 \\
+  x_2 \\
+  \vdots \\
+  x_i \\
+  \vdots \\
+  x_{n-1} \\
+  x_n
+  \end{array}\right]=\left[\begin{array}{l}
+  b_1 \\
+  b_2 \\
+  \vdots \\
+  b_i \\
+  \vdots \\
+  b_{n-1} \\
+  b_n
+  \end{array}\right]
+  $$
+
+  Notice that $b_i$'s and $d_i$'s are the same as the original $b_i$'s and $d_i$'s, but the $e_i$'s are. 
+\end{frame}
+
+\begin{frame}{Tridiagonal  Matrix: Gaussian Elimination}
+
+  The back substitution phase is also straightforward.
+
+\begin{align}
+& x_n \leftarrow \frac{b_n}{d_n} \\
+& x_{n-1} \leftarrow \frac{1}{d_{n-1}}\left(b_{n-1}-e_{n-1} x_n\right)
+\end{align}
+Finally, we obtain the solution $x_i$ by
+\begin{align}
+& x_i \leftarrow \frac{1}{d_i}\left(b_i-e_i x_{i+1}\right) \quad (i=n-1,n-2,\ldots,1)
+\end{align}
+
+\end{frame}
+
+\begin{frame}{Tridiagonal  Matrix: LU Decomposition}
+\begin{itemize}
+\item The LU decomposition of a tridiagonal matrix is also tridiagonal.
+\item Doolittle's decomposition of a tridiagonal matrix $\mathbf{A}$ is 
+$$
+\text { row } k \leftarrow \operatorname{row} k-\left(c_{k-1} / d_{k-1}\right) \times \operatorname{row}(k-1), \quad k=2,3, \ldots, n
+$$
+such that 
+$$
+d_k \leftarrow d_k-\left(c_{k-1} / d_{k-1}\right) e_{k-1}
+$$
+where $e_k$ is not affected. 
+\item We store the multipliers $c_{k-1} / d_{k-1}$ in the vector $\mathbf{c}$, 
+$$
+c_{k-1} \leftarrow c_{k-1} / d_{k-1}
+$$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Tridiagonal  Matrix: LU Decomposition}
+  \begin{itemize}
+  \item The solution phase $\mathbf{L}\mathbf{y}=\mathbf{b}$ is solved by forward substitution, followed by the back substitution phase $\mathbf{U}\mathbf{x}=\mathbf{y}$.
+
+\item  The augmented coefficient matrix $\mathbf{L}\mathbf{y}=\mathbf{b}$ is given by 
+$$
+[\mathbf{L} \mid \mathbf{b}]=\left[\begin{array}{cccccc|c}
+1 & 0 & 0 & 0 & \ldots & 0 & b_1 \\
+c_1 & 1 & 0 & 0 & \cdots & 0 & b_2 \\
+0 & c_2 & 1 & 0 & \ldots & 0 & b_3 \\
+\vdots & \vdots & \vdots & \vdots & \ldots & \vdots & \vdots \\
+0 & 0 & \cdots & 0 & c_{n-1} & 1 & b_n
+\end{array}\right]
+$$
+\item Notice that the original $\mathbf{c}$ is replaced by the multipliers.
+\item Forward substitution gives
+\begin{align*}
+y_1&=b_1\\
+y_k&=b_k-c_{k-1}y_{k-1} \quad  (k=2,\ldots,n)
+\end{align*}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Tridiagonal  Matrix: LU Decomposition}
+  \begin{itemize}
+\item  The augmented coefficient matrix $\mathbf{U}\mathbf{x}=\mathbf{y}$ is given by 
+$$
+[\mathbf{U} \mid \mathbf{y}]=\left[\begin{array}{cccccc|c}
+d_1 & e_1 & 0 & \cdots & 0 & 0 & y_1 \\
+0 & d_2 & e_2 & \cdots & 0 & 0 & y_2 \\
+0 & 0 & d_3 & \cdots & 0 & 0 & y_3 \\
+\vdots & \vdots & \vdots & & \vdots & \vdots & \vdots \\
+0 & 0 & 0 & \cdots & d_{n-1} & e_{n-1} & y_{n-1} \\
+0 & 0 & 0 & \cdots & 0 & d_n & y_n
+\end{array}\right]
+$$
+\item Notice that the original $\mathbf{d}$ is changed by the elimination process.
+\item Back substitution gives
+\begin{align*}
+x_n&=y_{n}/d_n\\
+x_k&=(y_k-e_k x_{k+1})/d_k \quad  (k=n-1,\ldots,1)
+\end{align*}
+
+\end{itemize}
+\end{frame}
+\begin{frame}{Symmetric Matrices}
+\begin{itemize}
+\item A symmetric matrix $\mathbf{A}$ is a square matrix that is equal to its transpose, i.e. $\mathbf{A}=\mathbf{A}^T$.
+\item The LU decomposition of a symmetric matrix $\mathbf{A}$ is given by
+$$
+\mathbf{A}=\mathbf{L} \mathbf{U}=\mathbf{L D L}^T,
+$$
+where $D$ is a diagonal matrix.
+$$
+\mathbf{U}=\mathbf{D L}^T=\left[\begin{array}{ccccc}
+D_1 & 0 & 0 & \cdots & 0 \\
+0 & D_2 & 0 & \cdots & 0 \\
+0 & 0 & D_3 & \cdots & 0 \\
+\vdots & \vdots & \vdots & \cdots & \vdots \\
+0 & 0 & 0 & \cdots & D_n
+\end{array}\right]\left[\begin{array}{ccccc}
+1 & L_{21} & L_{31} & \cdots & L_{n 1} \\
+0 & 1 & L_{32} & \cdots & L_{n 2} \\
+0 & 0 & 1 & \cdots & L_{n 3} \\
+\vdots & \vdots & \vdots & \cdots & \vdots \\
+0 & 0 & 0 & \cdots & 1
+\end{array}\right]
+$$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Symmetric Matrices:LU Decomposition}
+  \begin{itemize}
+  \item We arrive at the matrix $\mathbf{U}$, 
+$$
+\mathbf{U}=\left[\begin{array}{ccccc}
+D_1 & D_1 L_{21} & D_1 L_{31} & \cdots & D_1 L_{n 1} \\
+0 & D_2 & D_2 L_{32} & \cdots & D_2 L_{n 2} \\
+0 & 0 & D_3 & \cdots & D_3 L_{3 n} \\
+\vdots & \vdots & \vdots & \cdots & \vdots \\
+0 & 0 & 0 & \cdots & D_n
+\end{array}\right]
+$$
+\item Decomposition of a symmetric matrix only $\mathbf{U}$ has to be stored because $\mathbf{U}$ and  $\mathbf{L}$ can be easily restored.
+\end{itemize}
+  \end{frame}
 \end{document}
 
 
