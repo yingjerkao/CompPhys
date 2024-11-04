@@ -437,11 +437,12 @@ For large $|\phi|$, we should use $t\approx -1/\phi$ to prevent overflow.
 \end{frame}
 \begin{frame}{Householder Matrix}
     \begin{itemize}
-        \item Each Householder transformation uses the Householder matrix
+        \item  Householder transformation uses the Householder matrix
         \[
-            \mathbf{Q}=\mathbf{I}-\frac{\mathbf{u} \mathbf{u}^T}{H}
+            \mathbf{Q}=\mathbf{I}-\frac{\mathbf{u} \mathbf{u}^T}{H}= \mathbf{I}-2 {\mathbf{v} \mathbf{v}^T},
         \] 
-        where $\mathbf{u}$ is a unit vector and $H=\mathbf{u}^T \mathbf{u}$. $\mathbf{u} \mathbf{u}^T= \mathbf{u}\otimes \mathbf{u}^T$ is the outer product. 
+        where  $H=\mathbf{u}^T \mathbf{u}$ and $\mathbf{v}=\mathbf{u}/|\mathbf{u}|$ is a unit vector. \\
+        $\mathbf{u} \mathbf{u}^T= \mathbf{u}\otimes \mathbf{u}^T$  denotes the outer product. 
         \item $\mathbf{Q}$ is symmetric ($\mathbf{Q}^T=\mathbf{Q}$) and orthogonal ($\mathbf{Q}^T \mathbf{Q}=\mathbf{I}$),
         \begin{align*}
             \mathbf{Q}^T \mathbf{Q} & =\mathbf{Q} \mathbf{Q}=\left(\mathbf{I}-\frac{\mathbf{u} \mathbf{u}^T}{H}\right)\left(\mathbf{I}-\frac{\mathbf{u} \mathbf{u}^T}{H}\right)=\mathbf{I}-2 \frac{\mathbf{u} \mathbf{u}^T}{H}+\frac{\mathbf{u}\left(\mathbf{u}^T \mathbf{u}\right) \mathbf{u}^T}{H^2} \\
@@ -449,6 +450,11 @@ For large $|\phi|$, we should use $t\approx -1/\phi$ to prevent overflow.
         \end{align*}
     \end{itemize}
 \end{frame}
+\begin{frame}{Householder Matrix}
+    \centerline{
+\includegraphics[width=0.8\textwidth]{hhreflect.pdf}    }
+\end{frame}
+
 \begin{frame}{Householder Matrix}
     \begin{itemize}
         \item Let $\mathbf{x}$  be an arbitrary vector and consider the transformation  $\mathbf{Q x}$.
@@ -712,20 +718,30 @@ tridiagonalizes the first row as well as the first column of $\mathbf{A}$.
 \begin{frame}{Eigenvalues of Symmetric Tridiagonal Matrices}
     \begin{itemize}
         \item The eigenvalues of a symmetric tridiagonal matrix can be computed by the QR or QL algorithms.
-        \item Any real symmetric matrix $\mathbf{A}$ can be decomposed as 
+        \item The QR algorithm is based on the QR decomposition of a matrix.
         \[
-        \mathbf{A}= \mathbf{Q} \mathbf{R},
+        \mathbf{A}=\mathbf{Q} \mathbf{R}
         \]
-        where $\mathbf{Q}$ is orthogonal and $\mathbf{R}$ is upper triangular.
-    \item Consider another matrix $\mathbf{A}^\prime=\mathbf{R} \mathbf{Q}$. Since $\mathbf{Q}$ is orthogonal, 
-    $\mathbf{R}= \mathbf{Q}^T \mathbf{A}$, and 
-     \[
-     \mathbf{A}^\prime =\mathbf{Q}^T \mathbf{A} \mathbf{Q}.
-     \]
-     \item A QR transformation preserves the following properties of
-     a matrix: symmetry, tridiagonal form, and Hessenberg form.
-     \item Likewise, $\mathbf{A}=\mathbf{Q} \mathbf{L}$, where $\mathbf{L}$ is lower triangular.
     \end{itemize}
+\end{frame}
+
+\begin{frame}{QR decomposition}
+\begin{itemize}
+    \item  Any real symmetric matrix $\mathbf{A}$ can be decomposed as 
+    \[
+    \mathbf{A}= \mathbf{Q} \mathbf{R},
+    \]
+    where $\mathbf{Q}$ is orthogonal and $\mathbf{R}$ is upper triangular.
+\item Consider another matrix $\mathbf{A}^\prime=\mathbf{R} \mathbf{Q}$. Since $\mathbf{Q}$ is orthogonal, 
+$\mathbf{R}= \mathbf{Q}^T \mathbf{A}$, and 
+ \[
+ \mathbf{A}^\prime =\mathbf{Q}^T \mathbf{A} \mathbf{Q}.
+ \]
+ \item This QR transformation, which is a similar transformation, preserves the following properties of
+ a matrix: symmetry, tridiagonal form, and Hessenberg form.
+ \item The Householder method can be used to compute the QR decomposition.
+ \item Likewise, we can perform a QL decomposition $\mathbf{A}=\mathbf{Q} \mathbf{L}$, where $\mathbf{L}$ is lower triangular.
+\end{itemize}
 \end{frame}
 \begin{frame}{QR Algorithm }
 \begin{itemize}
@@ -736,6 +752,20 @@ tridiagonalizes the first row as well as the first column of $\mathbf{A}$.
 \item The matrix $\mathbf{T}_k$ converges to a diagonal matrix $\mathbf{D}$ with the eigenvalues of $\mathbf{T}$.
 \end{itemize}
 \end{frame}
+\begin{frame}{QR Algorithm}
+    \begin{algorithm}[H]
+        \caption{QR Algorithm for Tridiagonal Matrix}
+        \begin{algorithmic}
+            \State \textbf{Input:} Tridiagonal matrix $\mathbf{T}$
+            \While{not converged}
+                \State  $\mathbf{T}=\mathbf{Q} \mathbf{R}$.
+                \State $\mathbf{T} \gets \mathbf{R} \mathbf{Q}$.
+            \EndWhile
+            \State \textbf{Output:} Diagonal matrix $\mathbf{T}$
+        \end{algorithmic}
+    \end{algorithm}
+\end{frame}
+
 \section{Iterative Methods}
 \subsection[Power Method]{Power Method}
 \begin{frame}{Power Method}
@@ -798,6 +828,82 @@ tridiagonalizes the first row as well as the first column of $\mathbf{A}$.
         \item If $\mu$ is close to $\lambda_1$, then the convergence of the inverse power method is faster.
     \end{itemize}
 \end{frame}
+
+\begin{frame}{Krylov subspaces}
+    \begin{itemize}
+        \item When calculating an eigenvalue of a matrix $\mathbf{A}$ using the power method, one starts with an initial random
+        vector $\mathbf{b}$ and then computes iteratively the sequence $A \mathbf{b}, A^2 \mathbf{b}, \ldots, A^{n-1} \mathbf{b}$ normalizing and storing the
+        result in $\mathbf{b}$ on each iteration.
+        \item The set of vectors
+        $$
+            \mathcal{K}_n=\left\{\mathbf{b}, A \mathbf{b}, A^2 \mathbf{b}, \ldots, A^{n-1} \mathbf{b}\right\},
+        $$
+        where $n< \operatorname{rank}(\mathbf{A})$, is called the Krylov subspace of order $n$ generated by $\mathbf{b}$ and $\mathbf{A}$.
+        \item The vectors are not orthogonal but can be made so  by Gram-Schmidt orthogonalization.
+    \end{itemize}
+\end{frame}
+\begin{frame}{Krylov subspaces}
+    \begin{itemize}
+        \item Since $\mathbf{A}^{n-1}\mathbf{b}$ gives a good approximation to the dominant eigenvector, we expect the other orthogonalized vectors approximate the eigenvectors of the $n$ largest eigenvalues.
+
+        \item Krylov subspaces are the basis of several successful iterative methods in numerical linear algebra: \emph{Arnoldi} and \emph{Lanczos} methods for finding one (or a few) eigenvalues of a matrix; and {GMRES}
+        (Generalized Minimum RESidual) method for solving systems of linear equations.
+        \item Krylov subscape method is used in the computation of the eigenvalues of large \emph{sparse matrices}, where only matrix-vector multiplication is used. 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Arnoldi method}
+
+        \begin{algorithm}[H]
+            \caption{Arnoldi Iteration}
+            \begin{algorithmic}
+                \State $\mathbf{b} \gets$ arbitrary vector
+                \State $\mathbf{q}_1 \gets \mathbf{ b} / \|\mathbf{b}\|$
+                \For{$n=1,2,3,\ldots$}
+                    \State $v \gets \mathbf{A} q_n$
+                    \For{$j=1$ to $n$}
+                        \State $h_{jn} \gets \mathbf{q}_j^T \mathbf{v}$
+                        \State $\mathbf{v} \gets \mathbf{v} - h_{jn} \mathbf{q}_j$ \Comment{Gram-Schmidt orthogonalization}
+                    \EndFor
+                    \State $h_{n+1,n} \gets \|\mathbf{v}\|$ 
+                    \State $\mathbf{q}_{n+1} \gets \mathbf{v} / h_{n+1,n}$
+                \EndFor
+            \end{algorithmic}
+        \end{algorithm}
+\end{frame}
+
+\begin{frame}
+    \begin{itemize} 
+       \item Using the Arnoldi method, we can compute the eigenvalues of a matrix $\mathbf{A}$ by computing the eigenvalues of the Hessenberg matrix $\mathbf{H}$.
+        $$
+\mathbf{H}_n=\left[\begin{array}{ccccc}
+h_{1,1} & h_{1,2} & h_{1,3} & \ldots & h_{1, n} \\
+h_{2,1} & h_{2,2} & h_{2,3} & \ldots & h_{2, n} \\
+0 & h_{3,2} & h_{3,3} & \ldots & h_{3, n} \\
+\vdots & \ddots & \ddots & \ddots & \vdots \\
+0 & \cdots & 0 & h_{n, n-1} & h_{n, n}
+\end{array}\right],
+$$
+\item This is a partial orthogonal reduction of $\mathbf{A}$ into Hessenberg form
+$$
+\mathbf{H}_n=\mathbf{Q}_n^{T}  \mathbf{A} \mathbf{Q}_n
+$$
+\item The eigenvalues
+and eigenvectors of the matrix $\mathbf{H}_n$ approximate the largest $n$ eigenvalues of matrix $\mathbf{A}$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Lanczos method}
+\begin{itemize}
+    \item The Lanczos method is a variant of the Arnoldi method for Hermitian matrices.
+    \item The Hessenberg matrix $\mathbf{H}$ of Arnoldi method becomes a tridiagonal matrix $\mathbf{T}$.
+    \item The Lanczos algorithm thus reduces the original hermitian $N\times N$ matrix $\mathbf{A}$ into a smaller $n\times n$ tridiagonal matrix $\mathbf{T}_n$.
+    by an orthogonal projection onto the order-$n$ Krylov subspace.
+    \item The eigenvalues and eigenvectors can be computed easily by the QR algorithm.
+\end{itemize}
+\end{frame}
+
+
 \begin{frame}{Generalized Eigenvalue Problem}
     \begin{itemize}
     \item The generalized eigenvalue problem is to find the eigenvalues $\lambda$ and eigenvectors $\mathbf{x}$ that satisfy
