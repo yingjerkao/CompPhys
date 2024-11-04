@@ -5,6 +5,7 @@
 % This file is a solution template for:
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{multicol}
 % - Giving a talk on some subject.
 % - The talk is between 15min and 45min long.
 % - Style is ornate.
@@ -47,11 +48,11 @@
 \newcommand{\beforeverb}{\footnotesize}
 \newcommand{\afterverb}{\normalsize}
 
-\title[Ordinary Differential Equations] % (optional, use only with long paper titles)
-{Lecture 13}
+\title[Eigenvalue Problems] % (optional, use only with long paper titles)
+{Lecture 8}
 
 \subtitle
-{Ordinary Differential Equations} % (optional)
+{Eigenvalue Problems} % (optional)
 
 \author[Ying-Jer Kao] % (optional, use only with lots of authors)
 {Ying-Jer Kao}
@@ -123,471 +124,725 @@
 %   15 and 30 frames, all told.
 \section[Introduction]{Introduction}
 \begin{frame}{Introduction}
+    \begin{itemize}
+    \item Eigenvalue problems are important in many physics applications,
+    such as stablity analysis, normal modes, and quantum mechanics.
+    \item The Eigenvalue problem of an $n\times n$ matrix $\mathbf{A}$ is given by 
+\[ \mathbf{A x}=\lambda \mathbf{x},
+\] 
+where  $\mathbf{x}$ is an $n$-dimsional eignevector, and $\lambda$ is the eigenvalue.
+     \end{itemize}
+    \end{frame}
+\begin{frame}{Introduction}
 \begin{itemize}
-\item An \alert{ordinary differential equation} (ODE) is an equation that involves one or more derivatives of an unknown function. 
-\item A \alert{solution} of a differential equation is a specific function that satisfies the equation.
-\begin{align*}
-x'-x&=e^t &x(t)&=te^t + c e^t\\
-x''+9x&=e^t&x(t)&=c_1\sin3t+c_2 \cos 3t\\
-x'+\frac{1}{2x}&=0 &x(t)&=\sqrt{c-t}
-\end{align*}
-\item The constants $c, c_1, c_2$ are determined by the \alert{initial conditions}. 
+\item To find the eigenvalues and eigenvectors of a matrix, we need to solve the characteristic equation, 
+\[ (\mathbf{A}-\lambda \mathbf{I})\mathbf{x}=0.
+\]
+\item Non-trivial solution of $\mathbf{x}$ exists only if 
+\[
+|\mathbf{A}-\lambda \mathbf{I}|=0.
+\]
+\item Expansion of the determinant gives a polynomial equation of degree $n$ in $\lambda$,
+\[
+\lambda^n +a_{n-1}\lambda^{n-1}+\cdots +a_1\lambda +a_0=0.
+\]  
  \end{itemize}
 \end{frame}
+\begin{frame}{Definition}
+    \begin{itemize}
+        \item A matrix $\mathbf{A}$ is symmetric if $\mathbf{A}=\mathbf{A}^T$, where $\mathbf{A}^T=\left(a_{j i}\right)$ is the transpose of $\mathbf{A}=\left(a_{i j}\right)$. 
+        \item A complex matrix $\mathbf{A}$ is Hermitian if $\mathbf{A}=\mathbf{A}^\dagger$, where $\mathbf{A}^\dagger=\overline{\mathbf{A}}^T=\left(\bar{a}_{j i}\right)$. 
+        Here $\mathbf{A}^\dagger$ is the Hermitian conjugate  of $\mathbf{A}$, and $\bar{a}_{j i}$ is the complex conjugate of $a_{j i}$.
+        \item In terms of programming, $\mathbf{A}^T(i, j)=\mathbf{A}(j, i)$ and $\mathbf{A}^\dagger(i, j)=\overline{\mathbf{A}}(j, i)$. 
+        \item $\mathbf{A}$ is positive definite if $\mathbf{x}^T \mathbf{A} \mathbf{x}>0$ for all nonzero vectors $\mathbf{x}$.
+    \end{itemize}
+\end{frame}
 
-\begin{frame}{Initial-Value Problem}
-\begin{itemize}
-\item We focus on the initial-value problem for a \alert{first-order} ODE, 
-%\beforeverb
-\[
-x'=f(x(t),t); \quad x(a)=s
-\]
-%\[
-%\left\{
-%\begin{split}
-%\frac{dx}{dt}&=f(x,t)\\ 
-%x(a) &= s
-%\end{split}\right.
-%\]
-\afterverb 
-\item A numerical solution of a differential equation is usually obtained in the form of a \alert{table}; the functional form of the solution remains unknown.
-\item Solving ordinary differential equations numerically requires a \alert{large number of steps} with \alert{small step size}, so a significant amount of \alert{roundoff error can accumulate}. 
+\begin{frame}{Properties of Eigenvalues}
+
+    For any square matrix $\mathbf{A}$ :
+    \begin{itemize} 
+    \item If $\lambda$ is an eigenvalue of $A$, then $p(\lambda)$ is an eigenvalue of $p(A)$, for any polynomial $p$. In particular, $\lambda^k$ is an eigenvalue of $\mathbf{A}^k$.
+    \item If $\mathbf{A}$ is nonsingular and $\lambda$ is an eigenvalue of $\mathbf{A}$, then $p(1 / \lambda)$ is an eigenvalue of $p\left(\mathbf{A}^{-1}\right)$, for any polynomial $p$. In particular, $\lambda^{-1}$ is an eigenvalue of $\mathbf{A}^{-1}$.
+    
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Vector Fields}
+\begin{frame}{Properties of Eigenvalues}
+    For any square matrix $\mathbf{A}$ :
 \begin{itemize}
-\item Consider a generic first-order differential equation,
-\beforeverb
-%\[
-%\frac{dx}{dt}=f(x,t);\quad x(a)=s
-%\]
-\[
-\left\{
-\begin{split}
-\frac{dx}{dt}&=f(x,t)\\ 
-x(a) &= s
-\end{split}\right.
-\]
-\afterverb
-\item To get some intuition, we first visualize the \alert{vector field} of the equation.
-\item In the $tx$-plane, at every point $f(x, t)$ is defined, we plot a line segment having the slope $x'=f(x,t)$. 
-\item We hope to understand how the \alert{ solution function $x(t)$} evolves through these line segments  while keeping its slope  to the slope of the line segment drawn at that point.
+    
+    \item If $\mathbf{A}$ is real and symmetric, then its eigenvalues are real.
+    \item If $\mathbf{A}$ is complex and Hermitian, then its eigenvalues are real.
+    \item If $\mathbf{A}$ is Hermitian and positive definite, then its eigenvalues are positive.
+    \item  If $\mathbf{P}$ is nonsingular, then $\mathbf{A}$ and $\mathbf{P} \mathbf{A} \mathbf{P}^{-1}$ have the same characteristic polynomial (and the same eigenvalues).
 \end{itemize}
 \end{frame}
 
-
-\begin{frame}{Vector Fields}
-\centerline{\includegraphics[width=0.8\textwidth]{Lec13_fig1}}
-\begin{center}
-$x'=\sin(x+t^2)$
-\end{center}
+\begin{frame}{Similar Matrices}
+    \begin{itemize}
+        \item Two matrices $\mathbf{A}$ and $\mathbf{B}$ are similar if there exists a nonsingular matrix $\mathbf{P}$ such that $\mathbf{B}=\mathbf{P}^{-1} \mathbf{A} \mathbf{P}$.
+        \item Similar matrices have the same eigenvalues.
+        \item The eigenvectors of $\mathbf{B}$ are related to the eigenvectors of $\mathbf{A}$ by $\mathbf{P} \mathbf{x}$.
+        \item If $\mathbf{A}$ is diagonalizable,  $\mathbf{A}$ is similar to a diagonal matrix $\mathbf{D}$.
+        \item The diagonal matrix $\mathbf{D}$ has the eigenvalues of $\mathbf{A}$ on its diagonal.
+    \end{itemize}
 \end{frame}
-\begin{frame}{Vector Fields}
-\centerline{\includegraphics[width=0.8\textwidth]{Lec13_fig2}}
-\begin{center}
-$x'=x^2-t$, very sensitive to the initial condition!!
-\end{center}
+\begin{frame}{Similiar Matrices}
+
+\begin{theorem}
+    If $\mathbf{A}$ is similar to $\mathbf{B}$, then $\mathbf{A}$ and $\mathbf{B}$ have the same characteristic polynomial and the same eigenvalues.
+\end{theorem}
+\begin{proof}
+    If $\mathbf{B}=\mathbf{P}^{-1} \mathbf{A} \mathbf{P}$, then
+    \begin{align*}
+        |\mathbf{B}-\lambda \mathbf{I}|&=|\mathbf{P}^{-1} \mathbf{A} \mathbf{P}-\lambda \mathbf{I}|\\
+        &=|\mathbf{P}^{-1} \mathbf{A} \mathbf{P}-\mathbf{P}^{-1}\lambda \mathbf{P}|\\
+        &=|\mathbf{P}^{-1} (\mathbf{A}-\lambda \mathbf{I}) \mathbf{P}|\\
+        &=|\mathbf{A}-\lambda \mathbf{I}|.
+    \end{align*}
+\end{proof}
 \end{frame}
 
-\begin{frame}{Solving Differential Equations and Integration}
+\begin{frame}{Similiar Matrices}
+    \begin{itemize}
+        \item If $\mathbf{A}$ is real and symmetric,  $\mathbf{A}$ is similar to a real diagonal matrix $\mathbf{D}$.
+        \item If $\mathbf{A}$ is complex and Hermitian,  $\mathbf{A}$ is similar to a real diagonal matrix $\mathbf{D}$.
+        \item If $\mathbf{A}$ is complex and non-Hermitian,  $\mathbf{A}$ is similar to a block diagonal matrix $\mathbf{D}$. Each block is a $2\times 2$ matrix.   
+    \end{itemize}
+\end{frame}
+
+% \begin{frame}{Schur's Theorem}
+%     \begin{theorem}
+%         If $\mathbf{A}$ is a square real matrix with real eigenvalues,  
+%         there exists a orthogonal matrix $\mathbf{Q}$,  $\mathbf{Q} \mathbf{Q}^T=\mathbf{I}$,
+%          such that $\mathbf{Q} \mathbf{A} \mathbf{Q}^T=\mathbf{T}$ is upper triangular.
+%     \end{theorem}
+%     \begin{proof}
+%         The proof is by induction on the size of the matrix. 
+%         \begin{itemize}
+%         \item If $\mathbf{A}$ is $1\times 1$, then $\mathbf{A}$ is already upper triangular. 
+%         \item If $\mathbf{A}$ is $n\times n$, then there exists an orthogonal matrix $\mathbf{Q}$ 
+%         such that $\mathbf{Q} \mathbf{A} \mathbf{Q}^T=\mathbf{T}$ is upper triangular.
+%         \item We can show that for a $n+1\times n+1$ matrix $\mathbf{A}$, there also exists an orthogonal matrix $\mathbf{Q}$
+%         such that $\mathbf{Q} \mathbf{A} \mathbf{Q}^T=\mathbf{T}$ is upper triangular. 
+%         \end{itemize}
+%     \end{proof}
+% \end{frame}
+\begin{frame}{Schur's Theorem}
+    \begin{itemize}
+        \item The Schur decomposition is $\mathbf{A}=\mathbf{Q} \mathbf{T} \mathbf{Q}^T$.
+        \item The matrix $\mathbf{T}$ is upper triangular with the eigenvalues of $\mathbf{A}$ on its diagonal.
+        \item The matrix $\mathbf{Q}$ is orthogonal, $\mathbf{Q} \mathbf{Q}^T=\mathbf{I}$.
+        \item The Schur decomposition is unique if the eigenvalues of $\mathbf{A}$ are distinct.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Numerical Solution of Eigenvalue Problems}
+    \begin{itemize}
+        \item The best advice for anyone who is confronted with challenging eigenvalue problems is
+        to use the software in the package LAPACK.
+        \item LAPACK is a collection of Fortran subroutines for solving the most common problems in numerical linear algebra.
+        \item \texttt{Scipy.linalg} is a Python package that wraps LAPACK and provides a convenient interface to the LAPACK routines.
+    \end{itemize}
+\end{frame}
+\section{Direct Methods}
+\subsection{Jacobi Method}
+\begin{frame}{Jacobi Method}
 \begin{itemize}
-\item Consider a generic first-order ODE:
-$\frac{dx}{dr}=f(x(r),r)$. 
-\item Integrating from $t$ to $t+h$, 
-\beforeverb
+\item The \textbf{Jacobi method} is an iterative method to compute all the eigenvalues and eigenvectors of a symmetric matrix.
+\item Its utility is limited to small matrices (say, less than 50 $\times$ 50), because the computational effort increases very rapidly with
+the size of the matrix. 
+\item The Jacobi rotation is a similarity transformation that performs rotation in the plane spanned by two eigenvectors.
+
+\end{itemize}
+\end{frame}
+\begin{frame}{Jacobi Rotation}
+\begin{itemize}
+\item Consider 
+\[
+\mathbf{x}=\mathbf{R} \mathbf{x}',
+\]
+where the Jacobi rotation matrix $\mathbf{R}$ is given by
+\[
+\mathbf{R}_{kl}=\left[\begin{array}{cccccccc}
+    1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & c & 0 & 0 & s & 0 & 0 \\
+    0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+    0 & 0 & -s & 0 & 0 & c & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 1
+    \end{array}\right],
+\]
+where  $c=\cos \theta$ and $s=\sin \theta$, and $\theta$ is the rotation angle.
+\item $\mathbf{R}$ is an identity matrix except for the $k$-th and $l$-th rows and columns.
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Jacobi Rotation}
+    \begin{itemize}
+        \item $\mathbf{R}$ is orthogonal, $\mathbf{R}^T= \mathbf{R}^{-1}$.
+        \item A similiarity transformation $\mathbf{A}'=\mathbf{R}^T \mathbf{A} \mathbf{R}$ performs 
+        a rotation in the plane spanned by the $k$-th and $l$-th eigenvectors.
+        \item $\mathbf{A}'$ has the same eigenvalues as $\mathbf{A}$, and is also symmetric. 
+        \item The explicit form of $\mathbf{A}'$ is
+        \begin{align*}
+            A_{k k}' & =c^2 A_{k k}+s^2 A_{l l}-2 c s A_{k l} \\
+            A_{l l}' & =c^2 A_{l l}+s^2 A_{k k}+2 c s A_{k l} \\
+            A_{k l}' & =A_{l k}'=\left(c^2-s^2\right) A_{k l}+c s\left(A_{k k}-A_{l l}\right) \\
+            A_{k i}' & =A_{i k}'=c A_{k i}-s A_{l i}, \quad i \neq k, \quad i \neq l \\
+            A_{l i}' & =A_{i l}'=c A_{l i}+s A_{k i}, \quad i \neq k, \quad i \neq l
+        \end{align*}
+
+    \end{itemize}
+\end{frame}
+\begin{frame}{Jacobi Diagonalization}
+    \begin{itemize}
+        \item Diagonalization of $\mathbf{A}$ can be achieved by performing a series of Jacobi 
+        rotations to make all off-diagonal elements zero.
+        \item The final similiarity transformation matrix $\mathbf{P}$ is the product of 
+        all the Jacobi rotation matrices,
+        \[
+        \mathbf{P}=\mathbf{R}_1 \cdot \mathbf{R}_2 \cdot \mathbf{R}_3 \cdots \mathbf{R}_n.
+        \]
+        \item $\mathbf{P}$ becomes the eigenvector matrix of $\mathbf{A}$.
+        \item $\mathbf{A}'=\mathbf{P}^T \mathbf{A} \mathbf{P}$ is a diagonal matrix of eigenvalues.
+    \end{itemize}
+\end{frame}
+\begin{frame}{Jacobi Diagonalization}
+\begin{itemize}
+    \item Setting the off-diagonal matrix elements of $\mathbf{A}'$ to zero, we have
+    \[  
+    A_{k l}'=\left(c^2-s^2\right) A_{k l}+c s\left(A_{k k}-A_{l l}\right)=0,
+    \]
+    which gives
+    \[
+    \tan 2 \theta=-\frac{2 A_{k l}}{A_{k k}-A_{l l}}\equiv \frac{1}{\phi}.,
+    \]
+    using $c^2-s^2=\cos ^2 \theta-\sin ^2 \theta=\cos 2 \theta$ and $c s=\sin \theta \cos \theta=\frac{1}{2} \sin 2 \theta$.
+\end{itemize}
+\end{frame}
+\begin{frame}{Jacobi Diagonalization}
+    \begin{itemize}
+        \item Setting $\tan\theta=t$, we have
+        \[
+            \tan 2\theta =\frac{2t}{1-t^2}=\frac{1}{\phi}, 
+        \]  which gives
+        \[
+            t^2+2 \phi t-1=0
+\]    
+\item The solution is  $t=-\phi \pm \sqrt{1+\phi^2}$.
+\item The smaller root $|t|\le 1$ corresponds to a rotation angle less than $\pi/4$ 
+which gives the most stable reduction at each stage.  
+\[
+    t=\operatorname{sgn}(\phi)\left(-|\phi|+\sqrt{\phi^2+1}\right)
+\]
+For large $|\phi|$, we should use $t\approx -1/\phi$ to prevent overflow.
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Jacobi Diagonalization}
+    \begin{itemize}
+        \item We obtain 
+        \[  
+        c=\frac{1}{\sqrt{1+t^2}}, \quad s=tc.
+        \]
+        \item Solving for $A_{ll}$, we have
+        \[
+            A_{l l}=A_{k k}+A_{k l} \frac{c^2-s^2}{c s}
+        \]
+        \item The transformation is given by 
+        \begin{align*}
+            A_{k k}' & =A_{k k}-t A_{k l} \\
+            A_{l l}' & =A_{l l}+t A_{k l} \\
+            A_{k l}' & =A_{l k}'=0 \\
+            A_{k i}' & =A_{i k}'=A_{k i}-s\left(A_{l i}+\tau A_{k i}\right), \quad i \neq k, \quad i \neq l \\
+            A_{l i}' & =A_{i l}'=A_{l i}+s\left(A_{k i}-\tau A_{l i}\right), \quad i \neq k, \quad i \neq l
+        \end{align*}
+        where $\tau=s/(1+c) $.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Iteration Process}
+    \begin{itemize}
+        \item At the start of the iteration, $\mathbf{P}=\mathbf{I}$. 
+        \item Each iteration, the Jacobi rotation matrix $\mathbf{R}$ is applied to $\mathbf{P}$ and $\mathbf{A}$  that gives,
+        \begin{align*}
+            P_{i k}' & =P_{i k}-s\left(P_{i l}+\tau P_{i k}\right) \\
+            P_{i l}' & =P_{i l}+s\left(P_{i k}-\tau P_{i l}\right).
+        \end{align*}
+        \item The order in which the off-diagonal elements are eliminated is arbitrary.
+        \item Jacobi's original idea was to search the whole upper triangle at each stage and
+         set the largest off-diagonal element to zero. 
+        \item However, $\mathbf{A}$ has to be searched for the largest element before every rotation ($n^2$ operations).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Jacobi Method}
+    \begin{algorithm}[H]
+        \caption{Jacobi Method}
+        \begin{algorithmic}
+            \State $\mathbf{A}=\mathbf{A}_0$
+            \While{$\max_{i \neq j} |A_{i j}|>\epsilon$}
+            \State Find the maximum off-diagonal element $A_{k l}$.
+            \State Compute the Jacobi rotation matrix $\mathbf{R}$.
+            \State $\mathbf{A}=\mathbf{R}^T \mathbf{A} \mathbf{R}$
+            \EndWhile
+        \end{algorithmic}
+    \end{algorithm}
+\end{frame}
+
+\begin{frame}{Cyclic Jocobi Method}
+    \begin{itemize}
+        \item A better strategy is to annihilate elements in strict order.
+        \item  For example, one can simply proceed down the rows: $\mathbf{P}_{01}, \mathbf{P}_{02}, \ldots, \mathbf{P}_{0, n-1}$; then $\mathbf{P}_{12}, \mathbf{P}_{13}$, etc.
+        \item  One can show that convergence is generally quadratic for either the original or the cyclic Jacobi method, for nondegenerate eigenvalues. 
+        \item One such set of $n(n-1) / 2$ Jacobi rotations is called a \textbf{sweep}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Implemtation}
+    \begin{itemize}
+        \item Compute the sum of off-diagonal moduli, $S=\sum_{i < j} |A_{i j}|$.
+        \item The average of the off-diagonal elements is $2S / n(n-1)$.
+        \item We can choose the threshold $\mu=0.5S/n(n-1)$.
+        \item If $|A_{i j}|\ge \mu$, we perform the Jacobi rotation to make $A_{i j}=0$.
+        \item Update $\mathbf{P}$ and $\mathbf{A}$.
+        \item Repeat the process until $\mu <\epsilon$, the error tolerance.
+        \item It takes usually 6 to 10 sweeps to achieve convergence.
+    \end{itemize}
+
+\end{frame}
+\begin{frame}{Computational Complexity}
+    \begin{itemize}
+        \item It takes usually 6 to 10 sweeps to achieve convergence,or $3n^2$ to $5n^2$ Jacobi rotations.
+        \item Each Jacobi rotation requires $4n$ multiplications and $3n$ additions.
+        \item  The total number of operations is $O(n^3)$.
+    \end{itemize}
+\end{frame}
+
+\subsection[Householder Method]{Householder Method}
+\begin{frame}{Householder Method}
+    \begin{itemize}
+        \item In the Jacobi method, in order to reduce the matrix to diagonal form, we need to iterate to convergence. 
+        \item If we are content to stop when the matrix is tridiagonal,  the procedure can be carried out in a finite number
+        of steps which requires no iteration.
+        \item The Householder algorithm reduces an $n\times n$ symmetric matrix $\mathbf{A}$ to a tridiagonal matrix $\mathbf{T}$ by $n-2$ orthogonal transformations.
+    \end{itemize}
+\end{frame}
+\begin{frame}{Householder Matrix}
+    \begin{itemize}
+        \item Each Householder transformation uses the Householder matrix
+        \[
+            \mathbf{Q}=\mathbf{I}-\frac{\mathbf{u} \mathbf{u}^T}{H}
+        \] 
+        where $\mathbf{u}$ is a unit vector and $H=\mathbf{u}^T \mathbf{u}$. $\mathbf{u} \mathbf{u}^T= \mathbf{u}\otimes \mathbf{u}^T$ is the outer product. 
+        \item $\mathbf{Q}$ is symmetric ($\mathbf{Q}^T=\mathbf{Q}$) and orthogonal ($\mathbf{Q}^T \mathbf{Q}=\mathbf{I}$),
+        \begin{align*}
+            \mathbf{Q}^T \mathbf{Q} & =\mathbf{Q} \mathbf{Q}=\left(\mathbf{I}-\frac{\mathbf{u} \mathbf{u}^T}{H}\right)\left(\mathbf{I}-\frac{\mathbf{u} \mathbf{u}^T}{H}\right)=\mathbf{I}-2 \frac{\mathbf{u} \mathbf{u}^T}{H}+\frac{\mathbf{u}\left(\mathbf{u}^T \mathbf{u}\right) \mathbf{u}^T}{H^2} \\
+            & =\mathbf{I}-2 \frac{\mathbf{u u}^T}{H}+\frac{\mathbf{u}(2 H) \mathbf{u}^T}{H^2}=\mathbf{I}
+        \end{align*}
+    \end{itemize}
+\end{frame}
+\begin{frame}{Householder Matrix}
+    \begin{itemize}
+        \item Let $\mathbf{x}$  be an arbitrary vector and consider the transformation  $\mathbf{Q x}$.
+        \item Choose $\mathbf{u}=\mathbf{x}+k \mathbf{e}_1$  where 
+$k= \pm|\mathbf{x}|$ and $\mathbf{e}_1=\left[\begin{array}{lllll}
+1 & 0 & 0 & \cdots & 0
+\end{array}\right]^T $.
+\item We have 
 \begin{align*}
-\int_t^{t+h} dx&=\int_t^{t+h} f(x(r),r) dr\\
-x(t+h)&=x(t)+\int_t^{t+h} f(x(r),r) dr
+\mathbf{Q} \mathbf{x} & =\left(\mathbf{I}-\frac{\mathbf{u} \mathbf{u}^T}{H}\right) \mathbf{x}=\left[\mathbf{I}-\frac{\mathbf{u}\left(\mathbf{x}+k \mathbf{e}_1\right)^T}{H}\right] \mathbf{x} \\
+& =\mathbf{x}-\frac{\mathbf{u}\left(\mathbf{x}^T \mathbf{x}+k \mathbf{e}_1^T \mathbf{x}\right)}{H}=\mathbf{x}-\frac{\mathbf{u}\left(k^2+k x_1\right)}{H}
 \end{align*}
-\afterverb
 
-\item Replacing the integral with one of the numerical integration rules, we obtain a formula for solving the differential equation.
-\item For example, using the trapezoidal rule, we obtain the \alert{implicit formula},
-\beforeverb
-\[
-x(t+h)=x(t)+\frac{h}{2}\left[f(x(t),t)+f(x(t+h), t+h)\right]
-\]
-\afterverb
-\end{itemize}
+    \end{itemize}
 \end{frame}
-
-
-\section[Taylor Series Methods]{Taylor Series Methods }
-\begin{frame}{Taylor Series Methods}
-
-\begin{itemize}
-\item Assume the solution function $x(t)$ can be represented by a Taylor series
-\beforeverb
-\[
-x(t+h)=x(t)+h x'(t)+\frac{h^2}{2!}x''(t)+\frac{h^3}{3!}x'''(t)+\frac{h^4}{4!}x^{(4)}(t) +\cdots+\frac{h^m}{m!}x^{(m)}(t)+\cdots
-\]
-\afterverb
-\item The Taylor series truncated after $m+1$ terms enables us to compute $x(t+h)$ rather accurately if $h$ is small and if $x(t),x'(t),x''(t),...,x^{(m)}(t)$ are known. This is called the \alert{Taylor series method of order $m$}.
-\item The methods based on Taylor series are the most \alert{general}, and it is capable of \alert{high precision}. 	
-\end{itemize}
-\end{frame}
-
-
-\subsection[Euler's Method]{Euler's Method}
-\begin{frame}{Euler's Method}
-
-\begin{itemize}
-\item The Taylor series method of order one ($m=1$) is called the \alert{Euler's method}.
-\item To find the solution of the initial-value problem over the interval $[a,b]$,
-\beforeverb
-\[
-\frac{dx}{dt}=f(x,t);\quad x(a)=x_a
-\]
-\afterverb
-\item Using $x(t+h)\approx x(t)+hx'(t)$, we obtain 
-\[
-x(t+h)=x(t)+hf(x(t),t)
-\]
-which can be used to step from $t=a$ to $t=b$ with $n$ steps of size $h=(b-a)/n$.
-\item Truncation error: $O(h^2)$.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Euler's Method: Pseudo Code}
-%\beforeverb
-\begin{block}{Euler's Method}
-\begin{algorithmic}[1]
-\State \textbf{integer}: $k$, \textbf{real}:$h, t$
-\State $n\gets 100$
-\State \textbf{external function} $f$
-\State $a\gets 1, b  \gets 2, x\gets -4$
-\State $h\gets  (b-a)/n$
-\State $t\gets a $
-\State \textbf{output} $0,t,x$
-\For {$k \gets 1, n$} 
-\State $x \gets x+hf(x,t)$
-\State $t\gets t+h$
-\State \textbf{output} $k,t,x$
-\EndFor
-\end{algorithmic}
-\end{block}
-%\afterverb
-
-\end{frame}
-
-\subsection[Taylor Series Method of Order 4]{Taylor Series Method of Order 4}
-\begin{frame}{Taylor Series Method of Order 4}
-\begin{itemize}
-\item Consider the initial value problem,
-\[
-\left\{
-\begin{split}
-x'&=1+x^2 +t^3\\ 
-x(1) &= -4
-\end{split}\right.
-\]
-\item Differentiation of the equation several times, we obtain
+\begin{frame}{Householder Matrix}
+    \begin{itemize}
+\item Using 
 \begin{align*}
-x'&=1+x^2+t^3\\
-x''&=2xx'+3t^2\\
-x'''&=2xx''+2(x')^2+6t\\
-x^{(4)}&= 2xx'''+6x'x''+6
+2 H & =\left(\mathbf{x}+k \mathbf{e}_1\right)^T\left(\mathbf{x}+k \mathbf{e}_1\right)=|\mathbf{x}|^2+k\left(\mathbf{x}^T \mathbf{e}_1+\mathbf{e}_1^T \mathbf{x}\right)+k^2 \mathbf{e}_1^T \mathbf{e}_1 \\
+& =k^2+2 k x_1+k^2=2\left(k^2+k x_1\right),
 \end{align*}
-\end{itemize}
-
+we have 
+$$
+\mathbf{Q} \mathbf{x}=\mathbf{x}-\mathbf{u}=-k \mathbf{e}_1=\left[\begin{array}{lllll}
+-k & 0 & 0 & \cdots & 0
+\end{array}\right]^T.
+$$
+The transformation eliminates all the elements of $\mathbf{x}$ except the first one.
+    \end{itemize}
 \end{frame}
 
-\begin{frame}{Taylor Series Method of Order 4}
-\begin{itemize}
-\item If numerical values of $t$ and $x(t)$ are known, these four formulas, applied in order, yield $x'(t), x''(t), x'''(t)$, and $x^{(4)}(t)$.
-\item We can use the first \alert{five} terms in the Taylor series
+\begin{frame}{Householder Reduction}
+    \begin{itemize}
+\item Apply the transformation $\mathbf{P}$ to $\mathbf{A}$,
 \[
-x(t+h)= x(t)+h\left[x'(t)+\frac{1}{2}h\left[x''(t)+\frac{1}{3}h\left[x'''(t)+\frac{1}{4}hx^{(4)}(t)\right]\right]\right]
+\mathbf{P}_1 \mathbf{A}=\left[\begin{array}{ll}
+\mathbf{1} & \mathbf{0}^T \\
+\mathbf{0} & \mathbf{Q}
+\end{array}\right]\left[\begin{array}{cc}
+A_{11} & \mathbf{x}^T \\
+\mathbf{x} & \mathbf{A}^{\prime}
+\end{array}\right]=\left[\begin{array}{cc}
+A_{11} & \mathbf{x}^T \\
+\mathbf{Q x} & \mathbf{Q A}^{\prime}
+\end{array}\right]
 \]
+\item $\mathbf{x}$ represents the first column of $\mathbf{A}$ with the first element omitted, and $\mathbf{A}^{\prime}$ is simply $\mathbf{A}$ with its first row and column removed. 
+\item The matrix $\mathbf{Q}$ of dimensions $(n-1) \times (n-1)$ constructed before.
 \end{itemize}
-
 \end{frame}
-
-\begin{frame}{Taylor Series Method of Order 4: Pseudo Code}
-\beforeverb
-\begin{block}{Taylor Series Method of Order 4}
-\begin{algorithmic}[1]
-\State \textbf{integer}: $k$, \textbf{real}:$h, t, x, x', x'', x''', x^{(4)}$
-\State $n\gets 100$
-\State \textbf{external function} $f$
-\State $a\gets 1, b  \gets 2, x\gets -4$
-\State $h\gets  (b-a)/n$
-\State $t\gets a $
-\State \textbf{output} $0,t,x$
-\For {$k \gets 1, n$} 
-\State $x' \gets 1+x^2+t^3$
-\State $x'' \gets 2xx'+3t^2$
-\State $x'''=2xx''+2(x')^2+6t$
-\State $x^{(4)}= 2xx'''+6x'x''+6$
-\State $x\gets x+h\left[x'+\frac{1}{2}h\left[x''+\frac{1}{3}h\left[x'''+\frac{1}{4}hx^{(4)}\right]\right]\right]$
-\State $t\gets t+h$
-\State \textbf{output} $k,t,x$
-\EndFor
-\end{algorithmic}
-\end{block}
-\afterverb
-
+\begin{frame}{Householder Reduction}
+    \begin{itemize}
+        \item The transformation reduces the first column of $\mathbf{A}$ to
+\[
+\left[\begin{array}{c}
+A_{11} \\
+\mathbf{Q x}
+\end{array}\right]=\left[\begin{array}{c}
+A_{11} \\
+-k \\
+0 \\
+\vdots \\
+0
+\end{array}\right]
+\]
+\item The transformation 
+$$
+\mathbf{A} \leftarrow \mathbf{P}_1 \mathbf{A} \mathbf{P}_1=\left[\begin{array}{cc}
+A_{11} & (\mathbf{Q x})^T \\
+\mathbf{Q x} & \mathbf{Q A}^{\prime} \mathbf{Q}
+\end{array}\right]
+$$
+tridiagonalizes the first row as well as the first column of $\mathbf{A}$.
+\end{itemize}
 \end{frame}
-\begin{frame}{Error Estimate}
-\begin{itemize}
-
-\item At each step, if $x(t)$ is known and $x(t +h)$ is computed from the first few terms of the Taylor series, an error occurs due to truncation. This is the \alert{local truncation error}.
- \item Euler method has truncation error of $O(h^2)$. Taylor series method of order 4 has  the truncation error of $O(h^5)$.
-\item Another type of error is due to the \alert{accumulated effects} of all local truncation errors. 
-\item The calculated value of $x(t + h)$ is in error because 
-\begin{itemize} 
-\item $x(t)$ is in error due to \alert{previous truncation errors},
-\item \alert{local truncation error} occurs in the computation of $x(t + h)$.
-\end{itemize} 
-
-\item Roundoff error may not be serious in \alert{a single step} of the solution process. After hundreds or thousands of steps, though, it may accumulate and seriously contaminate the calculated solution.
+\begin{frame}{Example}
+    \begin{itemize}
+        \item For an 4$\times$4 matrix $\mathbf{A}$, the first Householder transformation is
+        \begin{align*}
+            &\begin{array}{|l|lll|}
+            \hline 1 & 0 & 0 & 0 \\
+            \hline 0 & & & \\
+            0 & & \mathbf{Q} & \\
+            0 & & & \\
+            \hline
+            \end{array}\cdot \begin{array}{|c|ccc|}
+            \hline A_{11} & A_{12} & A_{13} & A_{14} \\
+            \hline A_{21} & & & \\
+            A_{31} & & \mathbf{A}^{\prime} & \\
+            A_{41} & & & \\
+            \hline
+            \end{array} \cdot
+            \begin{array}{|l|lll|}
+            \hline 1 & 0 & 0 & 0 \\
+            \hline 0 & & & \\
+            0 & & \mathbf{Q} & \\
+            0 & & & \\
+            \hline
+            \end{array}\\
+            =& \begin{array}{|c|ccc|}
+                \hline A_{11} & -k & 0 & 0 \\
+                \hline-k & & & \\
+                0 & & \mathbf{Q A}^{\prime} \mathbf{Q} & \\
+                0 & & & \\
+                \hline
+                \end{array}
+            \end{align*}
+    \end{itemize}
+\end{frame}
+\begin{frame}{Example}
+    \begin{itemize}
+        \item The second row and column of $\mathbf{A}$ are reduced next by applying the transformation to
+        the $3\times 3$ lower right portion of the matrix. 
+        \item The transformation is $\mathbf{A} \leftarrow \mathbf{P}_2 \mathbf{A} \mathbf{P}_2$,  where 
+        \[
+            \mathbf{P}_2=\left[\begin{array}{ll}
+                \mathbf{I}_2 & \mathbf{0}^T \\
+                \mathbf{0} & \mathbf{Q}
+                \end{array}\right]
+        \]
+        \item $\mathbf{I}_2$ is a $2 \times 2$ identity matrix and $\mathbf{Q}$ is an 
+         $(n-2) \times(n-2)$ matrix constructed by choosing for $\mathbf{x}$ the bottom $n-2$ elements of the second column of $\mathbf{A}$. 
+        \item It takes $(n-2)$ Householder transformations to reduce the matrix to tridiagonal form. 
+    \end{itemize}
+\end{frame}
+\begin{frame}{Improvement}
+    \begin{itemize}
+        \item It is wasteful to form $\mathbf{P}_i$ and 
+        then carry out the matrix multiplication $\mathbf{P}_i \mathbf{A P _ { i }}$
+        \item Note 
+        \[
+        \mathbf{A}^{\prime} \mathbf{Q}=\mathbf{A}^{\prime}\left(\mathbf{I}-\frac{\mathbf{u u}^T}{H}\right)
+        =\mathbf{A}^{\prime}-\frac{\mathbf{A}^{\prime} \mathbf{u}}{H} \mathbf{u}^T
+        =\mathbf{A}^{\prime}-\mathbf{v} \mathbf{u}^T,
+        \]
+        where $\mathbf{v}=\frac{\mathbf{A}^{\prime} \mathbf{u}}{H}$.
+        \item Therefore 
+        \begin{align*}
+            \mathbf{Q} \mathbf{A}^{\prime} \mathbf{Q} & =\left(\mathbf{I}-\frac{\mathbf{u} \mathbf{u}^T}{H}\right)\left(\mathbf{A}^{\prime}-\mathbf{v} \mathbf{u}^T\right)=\mathbf{A}^{\prime}-\mathbf{v} \mathbf{u}^T-\frac{\mathbf{u} \mathbf{u}^T}{H}\left(\mathbf{A}^{\prime}-\mathbf{v} \mathbf{u}^T\right) \\
+            & =\mathbf{A}^{\prime}-\mathbf{v} \mathbf{u}^T-\frac{\mathbf{u}\left(\mathbf{u}^T \mathbf{A}^{\prime}\right)}{H}+\frac{\mathbf{u}\left(\mathbf{u}^T \mathbf{v}\right) \mathbf{u}^T}{H} \\
+            & =\mathbf{A}^{\prime}-\mathbf{v} \mathbf{u}^T-\mathbf{u} \mathbf{v}^T+2 g \mathbf{g u} \mathbf{u}^T,
+        \end{align*}
+        where $g=\frac{\mathbf{u}^T \mathbf{v}}{2 H}$.
+    \end{itemize}
+\end{frame}
+\begin{frame}{Improvement}
+    \begin{align*}
+        \mathbf{Q} \mathbf{A}^{\prime} \mathbf{Q} & =\left(\mathbf{I}-\frac{\mathbf{u} \mathbf{u}^T}{H}\right)\left(\mathbf{A}^{\prime}-\mathbf{v} \mathbf{u}^T\right)=\mathbf{A}^{\prime}-\mathbf{v} \mathbf{u}^T-\frac{\mathbf{u} \mathbf{u}^T}{H}\left(\mathbf{A}^{\prime}-\mathbf{v} \mathbf{u}^T\right) \\
+        & =\mathbf{A}^{\prime}-\mathbf{v} \mathbf{u}^T-\frac{\mathbf{u}\left(\mathbf{u}^T \mathbf{A}^{\prime}\right)}{H}+\frac{\mathbf{u}\left(\mathbf{u}^T \mathbf{v}\right) \mathbf{u}^T}{H} \\
+        & =\mathbf{A}^{\prime}-\mathbf{v} \mathbf{u}^T-\mathbf{u} \mathbf{v}^T+2 g \mathbf{g u} \mathbf{u}^T,
+    \end{align*}
+    where $g=\frac{\mathbf{u}^T \mathbf{v}}{2 H}$.
+    \vspace{1cm}
+        
+         Writing $\mathbf{w}=\mathbf{v}-g \mathbf{u}$, we have
+        \[
+        \mathbf{Q A}^\prime \mathbf{Q}=\mathbf{A}^{\prime}-\mathbf{w} \mathbf{u}^T-\mathbf{u} \mathbf{w}^T
+        \]
  
-\end{itemize}
-\end{frame}
-\section[Runge-Kutta Methods]{Runge-Kutta Methods}
-\begin{frame}{Runge-Kutta Methods}
-\begin{itemize}
-\item In Taylor series methods, we need to compute $x'',x''',\ldots$ by differentiating the function $f$.
-\item This requires \alert{pre-computation} of these derivatives analytically before coding.
-\item Ideally, a method should involve only the evaluation of $f$. 
-\item The  Runge-Kutta methods are designed to imitate the Taylor series method \alert{without} requiring analytic differentiation of the original differential equation.
-\end{itemize}
-\end{frame}
-\subsection[Runge-Kutta Method of Order 2]{Runge-Kutta Method of Order 2}
-\begin{frame}{Runge-Kutta Method of Order 2}
-\begin{itemize}
-\item Consider the functions $K_1, K_2$, 
-\[
-K_1 = h f(t,x),\quad K_2 =h f(t+\alpha h, x+\beta K_1),
-\]
-and the value of $x$ at $t+h$ 
-\begin{align*}
-x(t+h)&=x(t)+w_1K_1+w_2 K_2\\
-&=x(t)+w_1hf(t,x)+w_2h f(t+\alpha h, x+\beta h f(t,x))
-\end{align*}
-\item We want to determine $w_1, w_2, \alpha,\beta$ so the solution is \alert{accurate}, i.e., reproducing as many terms as possible in Taylor series,
-\[
-x(t+h)=x(t)+h x'(t)+\frac{h^2}{2!}x''(t)+\frac{h^3}{3!}x'''(t) +\cdot
-\]
-\item By the choice of $w_1=1$ and $w_2=0$ reproduces Euler's method, which agrees to the order $h$.
-\end{itemize}
-\end{frame}
-\begin{frame}{Runge-Kutta Method of Order 2}
-\begin{itemize}
-\item Expand $f(t+\alpha h, x+\beta h f)$ near $(t,x)$
-\[
-f(t+\alpha h, x +\beta h f) = f+\alpha h f_t +\beta h f f_x + \frac{1}{2}\left(\alpha h \frac{\partial }{\partial t} +\beta h f \frac{\partial }{\partial x} \right) ^2 f(\bar{t},\bar{x})
-\]
-\item The solution $x(t+h)$ is 
-\[
-x(t+h)=x(t)+(w_1+w_2) hf +\alpha w_2 h^2 f_t + \beta w_2 h^2 f f_x +O(h^3)
-\]
-\item Taylor series up to $h^2$ order, rewrite $x''=f_t+f_x f$ using $x'=f$, 
-\[
-x(t+h)=x +h f +\frac{1}{2}h^2 f_t +\frac{1}{2} h^2 f f_x +O(h^3)
-\]
-\item The equations for $w_1, w_2, \alpha, \beta$ are
-\[
-w_1+w_2=1, \quad \alpha w_2 = \frac{1}{2},  \quad \beta w_2 =\frac{1}{2}. 
-\]
-\end{itemize}
 \end{frame}
 
-\begin{frame}{Runge-Kutta Method of Order 2}
-\begin{itemize}
-\item A solution (\alert{Heun's method}) is 
-\beforeverb
-\[
-\alpha=1\quad \beta=1 \quad w_1=w_2=\frac{1}{2}
-\]
-\afterverb
-and we obtain \alert{second-order Runge-Kutta method},
-\[
-x(t+h)=x(t)+\frac{h}{2}f(t,x)+\frac{h}{2}f(t+h,x+hf(t,x))
-\]
-The solution  is computed with \alert{two evaluations} of $f(t,x)$.
-\item Other solutions are possible. For arbitrary $\alpha$, 
-\beforeverb
-\[
-\beta=\alpha \quad w_1 =1-\frac{1}{2\alpha} \quad w_2 =\frac{1}{2\alpha}
-\]
-\afterverb
-\item The error term for Runge-Kutta methods of order 2 is 
-\beforeverb
-\[
-\frac{h^3}{4}\left(\frac{2}{3}-\alpha \right) \left(\frac{\partial }{\partial t}+f\frac{\partial }{\partial x}\right)^2 f+\frac{h^3}{6}f_x  \left(\frac{\partial }{\partial t}+f\frac{\partial }{\partial x}\right) f
-\]
-\afterverb
-When $\alpha =\frac{2}{3}$, the first term vanishes. This is the \alert{Ralston's method}. 
-\end{itemize}
+\begin{frame}[fragile]
+\frametitle{Householder Reduction}
+ 
+  \begin{algorithm}[H]
+    \caption{Householder Reduction}
+    \scriptsize
+    \begin{algorithmic}
+        \For{$i=1$ to $n-2$}
+            \State  $A^{\prime} \gets (n-i) \times (n-i)$ lower right-hand portion of $A$.
+            \State  $\mathbf{x} \gets \left[\begin{array}{llll}A_{i+1, i} & A_{i+2, i} & \cdots & A_{n, i}\end{array}\right]^T$.
+            \If {$x_1>0$} 
+            \State $k \gets |\mathbf{x}|$ 
+            \ElsIf {$x_1<0$}
+            \State $k\gets-|\mathbf{x}|$.
+            \EndIf
+            \State $\mathbf{u}\gets \left[\begin{array}{lllll}k+x_1 & x_2 & x_3 & \cdots & x_{n-i}\end{array}\right]^T$.
+            \State  $H\gets|\mathbf{u}| / 2$.
+            \State  $\mathbf{v}\gets\mathbf{A}^{\prime} \mathbf{u} / H$.
+            \State $g\gets\mathbf{u}^T \mathbf{v} / (2 H)$.
+            \State  $\mathbf{w}=\mathbf{v}-g\mathbf{u}$.
+            \State $\mathbf{A}^{\prime} \gets \mathbf{A}^{\prime}-\mathbf{w}^T \mathbf{u}-\mathbf{u}^T \mathbf{w}$.
+            \State  $A_{i, i+1}\gets -k$.
+            \State  $A_{i+1, i}\gets -k$.
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}
 \end{frame}
-\begin{frame}{Popular Choices}
+\begin{frame}{Householder Reduction}
+    \begin{itemize}
+        \item The Householder reduction is a stable and efficient method for tridiagonalizing a symmetric matrix.
+        \item The computational complexity is $O(n^3)$.
+        \item The Householder method is used in the LAPACK routine \texttt{sytrd} to reduce a symmetric matrix to tridiagonal form.
+    \end{itemize}
+\end{frame}
+\begin{frame}{Computing Eigenvectors}
+    \begin{itemize}
+        \item The obtained tridiagonal matrix $\mathbf{T}$ has the same eigenvalues as $\mathbf{A}$ because 
+        are performing simliarity transformations.  
+        \item To compute the eigenvectors, we must have the transformation matrix $\mathbf{P}$,
+        \[\mathbf{X}=\mathbf{P} \mathbf{X}_{\mathrm {tridiag }}
+        \]
+        where $\mathbf{X}_{\mathrm {tridiag }}$ is the eigenvector matrix of $\mathbf{T}$.
+        \item The transformation matrix $\mathbf{P}$ is the product of all the Householder matrices,
+        \[
+            \mathbf{P}=\mathbf{P}_1 \mathbf{P}_2 \cdots \mathbf{P}_{n-2}
+        \]
+    \end{itemize}
+\end{frame}
 
-\begin{itemize}
-\item We list some popular choices of the second-order Runge-Kutta methods,
-\begin{align*}
-\alpha=\frac{1}{2} &\beta=\frac{1}{2} &w_1=0 &w_2=1 \quad\mbox{Modified Euler's Method}\\
-\alpha=1 &\beta=1 &w_1=\frac{1}{2} &w_2=\frac{1}{2} \quad\mbox{Heun's Method}\\
-\alpha=\frac{2}{3} &\beta=\frac{3}{4} &w_1=\frac{1}{3} &w_2=\frac{2}{3} \quad\mbox{Ralston's Method}
-\end{align*}
-\item Second-order methods are not popular in applications since the error is only $O(h^3)$.
-\end{itemize}
+\begin{frame}{Computing Eigenvectors}
+    \begin{itemize}
+        \item We initialize $\mathbf{P}=\mathbf{I}$, and apply the transformation
+        \[
+            \mathbf{P} \leftarrow \mathbf{P P}_i=\left[\begin{array}{ll}
+                \mathbf{P}_{11} & \mathbf{P}_{12} \\
+                \mathbf{P}_{21} & \mathbf{P}_{22}
+                \end{array}\right]\left[\begin{array}{ll}
+                \mathbf{I}_i & \mathbf{0}^T \\
+                \mathbf{0} & \mathbf{Q}
+                \end{array}\right]=\left[\begin{array}{ll}
+                \mathbf{P}_{11} & \mathbf{P}_{21} \mathbf{Q} \\
+                \mathbf{P}_{12} & \mathbf{P}_{22} \mathbf{Q}
+                \end{array}\right]
+        \]
+       \item Each multiplication affects only the right-most $n-i$ columns of $\mathbf{P}$ since $\mathbf{P}_{12}$
+       contains only zeros.
+       \item Using 
+       \[
+       \mathbf{P}^{\prime}=\left[\begin{array}{l}
+        \mathbf{P}_{12} \\
+        \mathbf{P}_{22}
+        \end{array}\right],
+        \]
+        we have
+        \[\left[\begin{array}{l}
+            \mathbf{P}_{12} \mathbf{Q} \\
+            \mathbf{P}_{22} \mathbf{Q}
+            \end{array}\right]=\mathbf{P}^{\prime} 
+            \mathbf{Q}=\mathbf{P}^{\prime}\left(\mathbf{I}-\frac{\mathbf{u u}^T}{H}\right)
+            =\mathbf{P}^{\prime}-\frac{\mathbf{P}^{\prime} \mathbf{u}}{H} \mathbf{u}^T
+            =\mathbf{P}^{\prime}-\mathbf{y} \mathbf{u}^T
+            \] where $\mathbf{y}=\mathbf{P}^{\prime} \mathbf{u} / H$.
+    \end{itemize}
 \end{frame}
-\subsection[Runge-Kutta Method of Order 4]{Runge-Kutta Method of Order 4}
-\begin{frame}{Runge-Kutta Method of Order 4}
+\begin{frame}{Computing Eigenvectors}
+    \begin{algorithm}[H]
+        \caption{Update Transformation Matrix}
+        \begin{algorithmic}
+            \State Retrieve $\mathbf{u}$.
+            \Comment{ $\mathbf{u}$'s are stored by columns below the principal diagonal of $\mathbf{A}$}.
+            \State $H\gets|\mathbf{u}| / 2$.
+            \State  $\mathbf{y}\gets \mathbf{P}^{\prime} \mathbf{u} / H$.
+            \State $\mathbf{P}^{\prime} \gets \mathbf{P}^{\prime}-\mathbf{y} \mathbf{u}^T$.
+        \end{algorithmic}
+    \end{algorithm}
+    The computational complexity is $O(n^3)$.
+    
+\end{frame}
+\begin{frame}{Eigenvalues of Symmetric Tridiagonal Matrices}
+    \begin{itemize}
+        \item The eigenvalues of a symmetric tridiagonal matrix can be computed by the QR or QL algorithms.
+        \item Any real symmetric matrix $\mathbf{A}$ can be decomposed as 
+        \[
+        \mathbf{A}= \mathbf{Q} \mathbf{R},
+        \]
+        where $\mathbf{Q}$ is orthogonal and $\mathbf{R}$ is upper triangular.
+    \item Consider another matrix $\mathbf{A}^\prime=\mathbf{R} \mathbf{Q}$. Since $\mathbf{Q}$ is orthogonal, 
+    $\mathbf{R}= \mathbf{Q}^T \mathbf{A}$, and 
+     \[
+     \mathbf{A}^\prime =\mathbf{Q}^T \mathbf{A} \mathbf{Q}.
+     \]
+     \item A QR transformation preserves the following properties of
+     a matrix: symmetry, tridiagonal form, and Hessenberg form.
+     \item Likewise, $\mathbf{A}=\mathbf{Q} \mathbf{L}$, where $\mathbf{L}$ is lower triangular.
+    \end{itemize}
+\end{frame}
+\begin{frame}{QR Algorithm }
 \begin{itemize}
-\item The widely used algorithm is the fourth-order Runge-Kutta method:
-\[
-x(t+h)=x(t)+\frac{1}{6}(K_1+2K_2+2K_3+K_4)
+    \item If we apply a series of QR transformations to a symmetric tridiagonal matrix $\mathbf{T}$, we obtain
+    \[  
+    \mathbf{T}_1=\mathbf{Q}_1^T \mathbf{T} \mathbf{Q}_1, \quad \mathbf{T}_2=\mathbf{Q}_2^T \mathbf{T}_1 \mathbf{Q}_2, \quad \ldots, \quad \mathbf{T}_k=\mathbf{Q}_k^T \mathbf{T}_{k-1} \mathbf{Q}_k
 \]
-where
-\begin{align*}
-&K_1=hf(t,x)  &K_2=&hf(t+\frac{1}{2}h,x+\frac{1}{2} K_1)\\
-&K_3=hf(t+\frac{1}{2}h,x+\frac{1}{2} K_2) &K_4=&hf(t+h,x+ K_3)
-\end{align*}
-\item The solution $x(t+h)$  is obtained by \alert{four} function evaluations of $f$.
-\item It agrees with the Taylor expansion up to and including the term in $h^4$.
+\item The matrix $\mathbf{T}_k$ converges to a diagonal matrix $\mathbf{D}$ with the eigenvalues of $\mathbf{T}$.
 \end{itemize}
 \end{frame}
-\begin{frame}{Runge-Kutta Method of Order 4: Pseudo Code}
-\beforeverb
-\begin{block}{Runge-Kutta Method of Order 4}
-\begin{algorithmic}[1]
-\Procedure{RK4}{f, t, x, h, n}
-\State \textbf{integer}: $j, n$, \textbf{real}:$K_1, K_2, K_3, K_4, h, t, t_a, x$
-\State \textbf{external function} $f$
-\State $t_a\gets t $
-\State \textbf{output} $0,t,x$
-\For {$j \gets 1, n$} 
-\State $K_1 \gets h f(t,x)$
-\State $K_2 \gets hf(t+\frac{1}{2}h,x+\frac{1}{2} K_1)$
-\State $K_3 \gets hf(t+\frac{1}{2}h,x+\frac{1}{2} K_2)$
-\State $K_4 \gets hf(t+h,x+ K_3)$
-\State $x\gets x+\frac{1}{6}(K_1+2K_2+2K_3+K_4)$
-\State $t\gets t_a+jh$
-\State \textbf{output} $j,t,x$
-\EndFor
-\EndProcedure
-\end{algorithmic}
-\end{block}
-\afterverb
+\section{Iterative Methods}
+\subsection[Power Method]{Power Method}
+\begin{frame}{Power Method}
+\begin{itemize}
+\item The power method is an iterative method to find the largest eigenvalue and its corresponding eigenvector of a matrix.
+\item The method is based on the observation that if $\mathbf{x}$ is an eigenvector of $\mathbf{A}$, then $\mathbf{A}^k\mathbf{x}=\lambda^k\mathbf{x}$.
+\item If $\lambda_1$ is the largest eigenvalue of $\mathbf{A}$, then $\lim_{k\to \infty} \mathbf{A}^k\mathbf{x}=\lambda_1^k\mathbf{x}$.
+\item If $\mathbf{x}$ is a random vector, then $\mathbf{A}^k\mathbf{x}$ will converge to the eigenvector corresponding to the largest eigenvalue.
+\item The method is simple and easy to implement, but it is slow to converge.
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]{Inverse Power Method}
+    \begin{itemize}
+        \item If we want to find the smallest eigenvalue $\lambda_1$ and the corresponding eigenvector $\mathbf{x}_1$
+        of $\mathbf{A}$, we can use the inverse power method.
+    \end{itemize}
+    \begin{algorithm}[H]
+        \caption{Inverse Power Method}
+        \begin{algorithmic}
+            \State $\mathbf{v}$ be a unit vector.
+            \While{$\mathbf{v}$ not converged}
+                \State Solve $\mathbf{A z}=\mathbf{v}$ for  $\mathbf{z}$.
+                \State $\mathbf{v}\gets \mathbf{z} /|\mathbf{z}|$.
+            \EndWhile
+        \end{algorithmic}
+    \end{algorithm}
+\end{frame}
+\begin{frame}{Inverse Power Method}
+    \begin{itemize}
+        \item Let us examine why this method works. We can expand 
+        $\mathbf{z}$ and $\mathbf{v}$ in terms of the eigenvectors of $\mathbf{A}$,
+        \[
+            \mathbf{v}=\sum_{i=1}^n v_i \mathbf{x}_i \quad \mathbf{z}=\sum_{i=1}^n z_i \mathbf{x}_i
+        \]
+        \item The equation $\mathbf{A z}=\mathbf{v}$ can be written as
+        \[
+            \sum_{i=1}^n ( z_i \lambda_i - v_i )\mathbf{x}_i=0 \quad \Rightarrow \quad z_i=\frac{v_i}{\lambda_i}.
+        \]
+        \[
+            \mathbf{z} 
+             =\frac{1}{\lambda_1}\left(v_1 \mathbf{x}_1+v_2 \frac{\lambda_1}{\lambda_2} \mathbf{x}_2+v_3 \frac{\lambda_1}{\lambda_3} \mathbf{x}_3+\cdots\right)
+            \]
 
+    \end{itemize}
 \end{frame}
-\begin{frame}{Adaptive Runge-Kutta Methods}
-\begin{itemize}
-\item Determination of a suitable step size $h$ can be a major issue in numerical integration.
-\item Large $h$ can cause large truncation error, while small $h$ makes the computation expensive.
-\item A constant step size may not be appropriate for the entire range of integration.
-\item \alert{Adpative methods} estimate the truncation error at each integration step and automatically adjust the step size to keep the error within the prescribed \alert{tolerance}.
+\begin{frame}{Inverse Power Method}
+    \begin{itemize}
+        \item Since $\lambda_1 / \lambda_i<1(i \neq 1)$,  the coefficient of $\mathbf{x}_1$ has become more prominent
+         in $\mathbf{z}$ than it was in $\mathbf{v}$; $\mathbf{z}$ is a better approximation to $\mathbf{x}_1$. 
+         \item Setting $\mathbf{v}=\mathbf{z}/|\mathbf{z}|$, the iteration converges to
+         \[ 
+         \mathbf{z}=\frac{1}{\lambda_1} v_1 \mathbf{x}_1=\frac{1}{\lambda_1} \mathbf{x}_1
+         \]
+    \end{itemize}
+\end{frame}
+\begin{frame}{Shifted Inverse Power Method}
+    \begin{itemize}
+        \item The convergence of the inverse power method can be accelerated by shifting the matrix.
+        \item The shifted inverse power method is based on the observation that if $\mathbf{A}$ has eigenvalues $\lambda_1, \lambda_2, \ldots, \lambda_n$, then $\mathbf{A}-\mu \mathbf{I}$ has eigenvalues $\lambda_1-\mu, \lambda_2-\mu, \ldots, \lambda_n-\mu$.
+        \item If $\mu$ is close to $\lambda_1$, then the convergence of the inverse power method is faster.
+    \end{itemize}
+\end{frame}
+\begin{frame}{Generalized Eigenvalue Problem}
+    \begin{itemize}
+    \item The generalized eigenvalue problem is to find the eigenvalues $\lambda$ and eigenvectors $\mathbf{x}$ that satisfy
+    \[
+    \mathbf{A x}=\lambda \mathbf{B x},
+    \]
+    where $\mathbf{A}$ and $\mathbf{B}$ are square matrices. $\mathbf{A}$
+    \end{itemize}
+\end{frame}
+\begin{frame}{Generalized Eigenvalue Problem}
+    \begin{itemize}
+        \item The generalized eigenvalue problem can be reduced to the standard eigenvalue problem by 
+        \[
+        \mathbf{B}^{-1} \mathbf{A x}=\lambda \mathbf{x}.
+        \]
+        \item The matrix $\mathbf{B}^{-1} \mathbf{A}$ is similar to $\mathbf{A}$, and has the same eigenvalues.
+        \item The eigenvectors of $\mathbf{B}^{-1} \mathbf{A}$ are the same as those of $\mathbf{A}$.
+        \item The generalized eigenvalue problem is used in the computation of the vibrational modes of molecules.
+    \end{itemize}
+\end{frame}
 
-\end{itemize}
+\begin{frame}{Singular Value Decomposition}
+    \begin{itemize}
+        \item The singular value decomposition (SVD) is a generalization of the eigenvalue decomposition for non-square matrices.
+        \item For an $m\times n$ matrix $\mathbf{A}$, the SVD is given by
+        \[
+        \mathbf{A}=\mathbf{U} \boldsymbol{\Lambda} \mathbf{V}^T,
+        \] where  $m\times m$ matrix $\mathbf{U}$ and $n\times n$ matrix $\mathbf{V} $ are orthogonal matrices 
+        and the $m\times n$ matrix $\boldsymbol{\Lambda}$ is a diagonal matrix.
+        \item The diagonal elements of $\boldsymbol{\Lambda}$: $\lambda_1, \lambda_2, \ldots, \lambda_{m/n}$ are the singular values of $\mathbf{A}$.
+        
+    \end{itemize}
 \end{frame}
-\begin{frame}{Runge-Kutta-Fehlberg Method}
-\begin{itemize}
-\item The Fehlberg method of order 4 is of Runge-Kutta type and uses these formulas:
-\[
-x(t+h)=x(t)+\frac{25}{216} K_1+\frac{1408}{2565} K_3+\frac{2197}{4104}K_4-\frac{1}{5}K_5
-\]
-where
-\beforeverb
-\begin{align*}
-&K_1=hf(t,x)\\  
-&K_2=hf\left(t+\frac{1}{4}h,x+\frac{1}{4} K_1\right)\\
-&K_3=hf\left(t+\frac{3}{8}h,x+\frac{3}{32} K_1+\frac{3}{32} K_2\right)   \\
-&K_4=hf\left(t+\frac{12}{13}h,x+\frac{1932}{2197} K_1-\frac{7200}{2197} K_2 + \frac{7296}{2197}K_3\right)   \\
-&K_5=hf\left(t+h,x+\frac{439}{216} K_1-8 K_2 + \frac{3680}{513}K_3-\frac{845}{4104}K_4\right)  
-\end{align*}
-\end{itemize}
-\end{frame}
-\begin{frame}{Runge-Kutta-Fehlberg Method}
-\begin{itemize}
-\item Since this scheme requires \alert{five} function evaluation, one more than the classical Runge-Kutta method of order 4, it is of little value alone. 
-\item However, with an additional function evaluation
-\beforeverb
-\[
-K_6=hf\left(t+\frac{1}{2}h,x-\frac{8}{27} K_1+2 K_2 - \frac{3544}{2565}K_3-\frac{1859}{4104}K_4-\frac{11}{40}K_5\right)  
-\]
-\afterverb
-we obtain the \alert{fifth-order Runge-Kutta method},
-\[
-x(t+h)=x(t)+\frac{16}{135} K_1+\frac{6656}{12825} K_3+\frac{28561}{56430}K_4-\frac{9}{50}K_5+\frac{2}{55} K_6
-\]
-\end{itemize}
-\end{frame}
-\begin{frame}{RK45:Pseudo Code}
-\begin{block}{RK45}
-\begin{algorithmic}[]
-\tiny
-\Procedure{RK45}{$f, t, x, h, n, \epsilon$}
-\State \textbf{integer}: $j, n$, \textbf{real}:$K_1, K_2, K_3, K_4, K_5, k_6, h, t, x, x_4$
-\State \textbf{external function} $f$
-\State \textbf{real} $c_{20} \gets 0.25, c_{21} \gets 0.25, c_{30} \gets 0.375, c_{31} \gets 0.09375, c_{32} \gets 0.28125$
-\State \textbf{real} $c_{40} \gets 12./13., c_{41} \gets 1932./2197. , c_{42} \gets -7200./2197., c_{43} \gets 7296./2197.$
-\State \textbf{real} $c_{51} \gets 439./216., c_{52} \gets -8., c_{53} \gets 3680./513., c_{54} \gets -845./4104.$
-\State \textbf{real} $c_{60} \gets 0.5, c_{61} \gets -8./27., c_{62}\gets  2., c_{63} \gets -3544./2565., c_{64} \gets 1859./4104.$
-\State \textbf{real} $c_{65} \gets -0.275$
-\State \textbf{real} $a_1 \gets 25./216., a_2 \gets 0., a_3 \gets 1408./2565. $
-\State \textbf{real} $a_4 \gets 2197./4104., a_5 \gets -0.2$
-\State \textbf{real} $b_1 \gets 16./135., b2 \gets 0., b3 \gets 6656./12825.$ 
-\State \textbf{real} $b_4 \gets 28561./56430., b_5 \gets -0.18$
-\State \textbf{real} $b_6 \gets 2./55.$
-\State  $K_1 \gets hf(t,x)$
-\State $K_2 \gets h f(t+c_{20}h,x+c_{21}K_1) $
-\State $K_3 \gets hf(t+c_{30}h,x+c_{31}K_1 +c_{32}K_2) $
-\State $K_4 \gets hf(t+c_{40}h,x+c_{41}K_1 +c_{42}K_2 +c_{43}K_3) $
-\State $K_ 5\gets hf(t+h,x+c_{51}K_1 +c_{52}K_2 +c_{53}K_3 +c_{54}K_4) $
-\State $K_6 \gets hf(t+c_{60}h,x+c_{61}K_1 +c_{62}K_2 +c_{63}K_3 +c_{64}K_4 +c_{65}K_5)$
-\State $x_4 \gets x +a_1K_1 +a_3K_3 +a_4K_4 +a_5K_5 $
-\State $x_5 \gets x +b_1K_1 +b_3K_3 +b_4K_4 +b_5K_5 +b_6K_6$
-\State $ t \gets t+h $
-\State $\epsilon  \gets |x_5 -x_4|$
-\EndProcedure
-\end{algorithmic}
-\afterverb
-\end{block}
-\end{frame}
-\begin{frame}{Adaptive Method }
-\begin{itemize}
-\item  In the RK45 procedure, the fourth- and fifth-order approximations for $x(t + h)$,  $x_4$ and $x_5$, are computed from six function evaluations and error estimate $\epsilon = |x_4 - x_5|$ is known.
-\item For given bounds of the error  ($\epsilon_{\min} \le \epsilon \le \epsilon_{\max}$), the step size $h$ is doubled or halved as needed to keep $\epsilon$ within these bounds. 
-\item A range for the allowable step size $h$ can  also be specified ($h_{\min} \le |h| \le h_{\max}$). 
-\end{itemize}
-\end{frame}
-\begin{frame}{Adaptive RKF Method: Pseudo Code}
-\tiny
-%\begin{block}{Adapt\_RK45}
-\begin{algorithmic}[]
-\tiny
-\Procedure {RK45\_Adaptive}{$ f, t, x, h, t_b, itmax, \epsilon_{\rm max}, \epsilon_{\rm min}, h_{\rm min}, h_{\rm max}, iflag$}
-\State \textbf{integer} $iflag, itmax, n$;\textbf{external function} $f$ 
-\State \textbf{real} $\epsilon, \epsilon_{\rm max}, \epsilon_{\rm min}, d, h, h_{\rm min}, h_{\rm max}, t, t_b, x, x_{\rm save}, t_{\rm save}$
-\State \textbf{real} $\delta \gets \frac{1}{2}\times 10^{-5}$
-\State \textbf{output} $0, h, t, x$
-\State $iflag \gets 1$
-\State $k \gets 0$
-\While{$k \le itmax$} 
-\State  $k\gets k+1$ 
-\State \textbf{if} $|h| < h_{\rm min}$ \textbf{then}  $h \gets {\rm sign}(h)h_{\rm min}$ 
-\State \textbf{if} $|h| > h_{\rm max}$ \textbf{then} $ h \gets {\rm sign}(h)h_{\rm max}$
- \State $d \gets  |t_b- t|$ 
- \If{$d \le |h|$}
-\State $iflag \gets 0$
- \State \textbf{if} $d\le \delta \cdot {\rm max}(|t_b|, |t|)$ \textbf{then} exit loop 
- \State $h \gets {\rm sign}(h)d$
-\EndIf
-\State  $xsave \gets x$; $tsave \gets t$ 
-\State \textbf{call} RK45($ f, t, x, h, \epsilon$)
-\State \textbf{output} $n,h,t,x,\epsilon$
-\State \textbf{if} $iflag = 0$ \textbf{then} exit loop 
-\State \textbf{if} $\epsilon<\epsilon_{\rm min}$ \textbf{then} $h \gets 2h$
-\If{$\epsilon > \epsilon_{\rm max}$} 
-\State $h \gets h/2$; $x \gets xsave$; $t \gets tsave$;$k\gets k-1$ 
-\EndIf
-\EndWhile 
-\EndProcedure
-\end{algorithmic}
-%\end{block}
+\begin{frame}{Singular Value Decomposition}
+    \begin{itemize}
+        \item $\mathbf{A}^T \mathbf{A}$ is an $n\times n$ symmetric matrix which can be diagonalized
+        by an orthogonal matrix $\mathbf{Q}$, 
+        \[
+        \mathbf{Q}^T \left(\mathbf{A}^T \mathbf{A} \right)\mathbf{Q}=\mathbf{D},
+        \]
+        where $\mathbf{D}$ is a $n\times n$ diagonal matrix with nonnegative elements $\lambda_i^2$.
+        \item The singular values $\lambda_i$ are the square roots of the eigenvalues of $\mathbf{A}^T \mathbf{A}$ or $\mathbf{A} \mathbf{A}^T$.
+        \item The columns of $\mathbf{U}$ are the eigenvectors of $\mathbf{A} \mathbf{A}^T$ and the columns of $\mathbf{V}$ are the eigenvectors of $\mathbf{A}^T \mathbf{A}$.
+        \item The SVD is used in principal component analysis, image compression, and data reduction.
+    \end{itemize}
 \end{frame}
 \end{document}
 
