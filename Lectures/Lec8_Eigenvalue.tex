@@ -536,27 +536,27 @@ tridiagonalizes the first row as well as the first column of $\mathbf{A}$.
         \item For an 4$\times$4 matrix $\mathbf{A}$, the first Householder transformation is
         \begin{align*}
             &\begin{array}{|l|lll|}
-            \hline 1 & 0 & 0 & 0 \\
-            \hline 0 & & & \\
+           1 & 0 & 0 & 0 \\
+           0 & & & \\
             0 & & \mathbf{Q} & \\
             0 & & & \\
             \hline
             \end{array}\cdot \begin{array}{|c|ccc|}
-            \hline A_{11} & A_{12} & A_{13} & A_{14} \\
-            \hline A_{21} & & & \\
+           A_{11} & A_{12} & A_{13} & A_{14} \\
+           A_{21} & & & \\
             A_{31} & & \mathbf{A}^{\prime} & \\
             A_{41} & & & \\
             \hline
             \end{array} \cdot
             \begin{array}{|l|lll|}
-            \hline 1 & 0 & 0 & 0 \\
-            \hline 0 & & & \\
+           1 & 0 & 0 & 0 \\
+           0 & & & \\
             0 & & \mathbf{Q} & \\
             0 & & & \\
             \hline
             \end{array}\\
             =& \begin{array}{|c|ccc|}
-                \hline A_{11} & -k & 0 & 0 \\
+               A_{11} & -k & 0 & 0 \\
                 \hline-k & & & \\
                 0 & & \mathbf{Q A}^{\prime} \mathbf{Q} & \\
                 0 & & & \\
@@ -902,6 +902,27 @@ and eigenvectors of the matrix $\mathbf{H}_n$ approximate the largest $n$ eigenv
     \item The eigenvalues and eigenvectors can be computed easily by the QR algorithm.
 \end{itemize}
 \end{frame}
+\begin{frame}{Lanczos Method}
+
+        \begin{algorithm}[H]
+        \caption{Lanczos Algorithm}
+        \begin{algorithmic}
+            \State $\mathbf{b} \gets$ arbitrary vector
+            \State $\mathbf{q}_1 \gets \mathbf{b} / \|\mathbf{b}\|$
+            \State $\mathbf{v}_0 \gets \mathbf{0}$
+            \For{$n=1,2,3,\ldots$}
+                \State $\mathbf{v} \gets \mathbf{A} \mathbf{q}_n - \beta_{n-1} \mathbf{q}_{n-1}$
+                \State $\alpha_n \gets \mathbf{q}_n^T \mathbf{v}$
+                \State $\mathbf{v} \gets \mathbf{v} - \alpha_n \mathbf{q}_n$
+                \State $\beta_n \gets \|\mathbf{v}\|$
+                \If{$\beta_n = 0$}
+                    \State \textbf{break}
+                \EndIf
+                \State $\mathbf{q}_{n+1} \gets \mathbf{v} / \beta_n$
+            \EndFor
+        \end{algorithmic}
+        \end{algorithm}
+\end{frame}
 
 
 \begin{frame}{Generalized Eigenvalue Problem}
@@ -949,6 +970,91 @@ and eigenvectors of the matrix $\mathbf{H}_n$ approximate the largest $n$ eigenv
         \item The columns of $\mathbf{U}$ are the eigenvectors of $\mathbf{A} \mathbf{A}^T$ and the columns of $\mathbf{V}$ are the eigenvectors of $\mathbf{A}^T \mathbf{A}$.
         \item The SVD is used in principal component analysis, image compression, and data reduction.
     \end{itemize}
+\end{frame}
+\begin{frame}{Sparse Matrices}
+    \begin{itemize}
+        \item In many applications, the matrices are sparse, i.e., most of the elements are zero.
+        \item For example, the adjacency matrix of a graph is sparse.
+        \item The storage and computation of sparse matrices can be done efficiently using sparse matrix formats.
+        \item The most common sparse matrix formats are the Compressed Sparse Row (CSR)
+         and Compressed Sparse Column (CSC) formats.
+    \end{itemize}
+\end{frame}
+\begin{frame}{Sparse Matrices}
+    \begin{itemize}
+        \item A \textbf{sparse matrix} is a matrix with a large proportion of zero elements.
+        \item Need for Sparse Storage:
+        \begin{itemize}
+        \item Reduces memory usage
+        \item Improves computational efficiency
+        \end{itemize}
+        \item Applications: Machine learning, scientific computing, graph algorithms
+    \end{itemize}
+\end{frame}
+\begin{frame}{Example: Adjacency matrix}
+\centerline{\includegraphics[width=\textwidth]{Different-types-of-graphs-and-their-corresponding-adjacency-matrix-representations-The.ppm.png}}
+\end{frame}
+\begin{frame}{Example: Tight-Binding Hamiltonian}
+    \begin{itemize}
+        \item The tight-binding Hamiltonian for a 1D chain of $N$ atoms 
+        \[
+        \mathbf{H}=-t \sum_{i=1}^{N-1} \left({c}_i^{\dagger} {c}_{i+1}+{c}_{i+1}^{\dagger} {c}_i\right)+
+        \epsilon \sum_{i=1}^N {c}_i^{\dagger} {c}_i
+        \]
+        \item In the atomic basis, the Hamiltonian is represented by a matrix
+        \[  
+        H=\left[\begin{array}{llllllll}
+        \epsilon & -t & 0 & 0 & \cdots & \cdots & \cdots & 0 \\
+        -t & \epsilon & -t & 0 & \cdots & \cdots & \cdots & 0\\
+        0 & -t & \epsilon & -t & \cdots & \cdots & \cdots & 0  \\
+        \vdots & \cdots & \ddots & \ddots & \ddots & \cdots & \cdots &  0 \\
+        \vdots & \cdots &  \cdots & \cdots & 0 & -t & \epsilon & -t \\
+        0 & \cdots& \cdots & \cdots & \cdots &  0 & -t & \epsilon   
+        \end{array}\right],
+        \]
+        which is a tridiagonal matrix.
+    \end{itemize}
+\end{frame}
+\begin{frame}{Sparse Matrices}
+    \begin{itemize}
+    \item A sparse matrix 
+        
+    \[\left[\begin{array}{llllllllll}
+       1 & 0 & 3 & 0 & 9 & 0 & 3 & 0 & 0 & 0 \\
+       11 & 0 & 4 & 0 & 0 & 0 & 0 & 0 & 2 & 1 \\
+       0 & 0 & 1 & 0 & 0 & 0 & 4 & 0 & 1 & 0 \\
+       8 & 0 & 0 & 0 & 3 & 1 & 0 & 0 & 0 & 0 \\
+       0 & 0 & 0 & 9 & 0 & 0 & 1 & 0 & 17 & 0 \\
+       13 & 21 & 0 & 9 & 2 & 47 & 1 & 81 & 21 & 9 \\
+       0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+       0 & 0 & 0 & 0 & 19 & 8 & 16 & 0 & 0 & 55 \\
+       54 & 4 & 0 & 0 & 0 & 11 & 0 & 0 & 0 & 0 \\
+       0 & 0 & 2 & 0 & 0 & 0 & 0 & 22 & 0 & 21 
+        \end{array}\right]
+    \] contains mostly zeros.
+    \item We do not want to save zeros.
+\end{itemize}
+\end{frame}
+\begin{frame}{Coordinate (COO) Format}
+    \begin{itemize}
+        \item In the COO format, the matrix is stored as three arrays: \texttt{values}, \texttt{rows}, and \texttt{columns}.
+    \end{itemize}
+    \centerline{\includegraphics[width=\textwidth]{coo.png}}
+
+\end{frame}
+\begin{frame}{Compressed Sparse Row (CSR) Format}
+    \begin{itemize}
+        \item In the CSR format, the matrix is stored as three arrays: \texttt{values}, \texttt{columns}, and \texttt{row\_ptr}.
+     
+    \end{itemize}
+    \centerline{ \includegraphics[width=\textwidth]{csc.png}}
+\end{frame}
+\begin{frame}{Compressed Sparse Column (CSC) Format}
+    \begin{itemize}
+        \item In the CSC format, the matrix is stored as three arrays: \texttt{values}, \texttt{rows}, and \texttt{col\_ptr}.
+       
+    \end{itemize}
+    \centerline{\includegraphics[width=\textwidth]{csc.png}}
 \end{frame}
 \end{document}
 
