@@ -1,0 +1,224 @@
+% $Header: /home/vedranm/bitbucket/beamer/solutions/generic-talks/generic-ornate-15min-45min.en.tex,v 90e850259b8b 2007/01/28 20:48:30 tantau $
+\documentclass{beamer}
+%\documentclass[handout]{beamer}
+\usefonttheme[onlymath]{serif}
+% This file is a solution template for:
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{multicol}
+% - Giving a talk on some subject.
+% - The talk is between 15min and 45min long.
+% - Style is ornate.
+
+
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice. 
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % or ...
+
+  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+\setbeamertemplate{navigation symbols}{} 
+
+\usepackage[english]{babel}
+% or whatever
+
+\usepackage[latin1]{inputenc}
+% or whatever
+\useoutertheme{default}
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+\newcommand{\beforeverb}{\footnotesize}
+\newcommand{\afterverb}{\normalsize}
+
+\title[Exact Diagonalization for Quantum Systems] % (optional, use only with long paper titles)
+{Lecture 10}
+
+\subtitle
+{Exact Diagonalization for Quantum Systems } % (optional)
+
+\author[Ying-Jer Kao] % (optional, use only with lots of authors)
+{Ying-Jer Kao}
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[National Taiwan University] % (optional, but mostly needed)
+{
+  Department of Physics\\
+ National Taiwan University
+  }
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date[Numerical Analysis and Programming] % (optional)
+{\today}
+
+\subject{Talks}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%\AtBeginSubsection[]
+%{
+%  \begin{frame}<beamer>{Outline}
+%    \tableofcontents[currentsection,currentsubsection]
+%  \end{frame}
+%}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \tableofcontents
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+
+% Since this a solution template for a generic talk, very little can
+% be said about how it should be structured. However, the talk length
+% of between 15min and 45min and the theme suggest that you stick to
+% the following rules:  
+
+% - Exactly two or three sections (other than the summary).
+% - At *most* three subsections per section.
+% - Talk about 30s to 2min per frame. So there should be between about
+%   15 and 30 frames, all told.
+\section[Introduction]{Introduction}
+
+\begin{frame}{Introduction}
+    \begin{itemize}
+        \item Solving Schr\"{o}dinger equation for a manybody system for a finitie size system is an eigenvalue problem.
+        \[
+        H|\psi\rangle=E|\psi\rangle
+        \]
+        \item We can simulate all kind of models if we can diagonalize the Hamiltonian
+        \item Limited by the size of the matrices we can store and diagonalize. 
+    \end{itemize}
+\end{frame}
+\begin{frame}{Hilbert Space}
+    \begin{itemize}
+    \item Dimension of Hilbert space grows exponentially with system size.
+    \item For a system with $N$ sites and $d$ states per site, the dimension of the Hilbert space is $d^N$.
+    \item Example: Spin-1/2 chain with $N$ sites has a Hilbert space of dimension $2^N$.
+ $$
+|\psi\rangle=\sum_{\{S\}} a\left(s_1, s_2, \cdots, s_N\right)\left|s_1 s_2 \cdots, s_N\right\rangle
+$$
+basis states on each site: $\left|\uparrow\right\rangle$ and $\left|\downarrow\right\rangle$
+
+    \end{itemize}
+\end{frame}
+\begin{frame}{Exponential Wall}
+    \begin{itemize}
+        \item $N=2$: basis states of the system
+        \[
+        \left|\uparrow_1\uparrow_2\right\rangle, \left|\uparrow_1\downarrow_2\right\rangle, \left|\downarrow_1\uparrow_2\right\rangle, \left|\downarrow_1\downarrow_2\right\rangle
+        \]
+        \item $N=40$, $2^40 \sim 10^{12}$ basis states, and the Hamiltonian has a dimension of $2^40\times 2^40$!!
+        \item For a FP64 complex number storage, we need 16 bytes, we need \textbf{17.5}TB of memory to store the coefficients of the wavefunction!!
+        \item Impossible to store the full Hamiltonian!!
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{State of the Art}
+
+\begin{itemize}
+   \item  Fractional quantum Hall effect\\
+    different filling fractions ν, up to 16-20 electrons up to 300 million basis states, up to 1 billion in the near future
+    \item Spin $S=1/2$ models:\\
+  40 spins square lattice, 39 sites triangular, 42 sites star lattice at $S_z=0$, 64 spins or more in elevated magnetization sectors up to 1.5 billion(=$10^9$) basis states with symmetries, up to 4.5 billion without.
+    \item $t$-$J$ models:\\
+    32 sites checkerboard with 2 holes, 32 sites square lattice with 4 holes, up to 2.8 billion basis states
+   \item Hubbard models
+    20 sites square lattice at half filling, 20 sites quantum dot structure, 22-25 sites in ultracold atoms setting, up to 80 billion basis states.
+  \item  \alert{low-lying eigenvalues}, not full diagonalization.
+\end{itemize}    
+\end{frame}
+\section{Exact Diagonalization}
+\begin{frame}{Exact Diagonalization Procesure}
+    \begin{itemize}
+        \item Coding the basis states.
+        \item Reducing Hilbert space using symmetries.
+        \item Finding the nonzero matrix entries of the Hamiltonian.
+        \item Diagonalization.
+        \item Calculating physical observable's expectation value.
+    \end{itemize}
+\end{frame}
+\begin{frame}{Heisenberg Chain}
+$$
+        H=J \sum_{i=0}^{N-1} \mathbf{S}_i \cdot \mathbf{S}_{i+1}=J \sum_{i=0}^{N-1}\left[S_i^z S_{i+1}^z+\frac{1}{2}\left(S_i^{+} S_{i+1}^{-}+S_i^{-} S_{i+1}^{+}\right)\right]
+$$
+    \begin{itemize}
+    \item Using the standard notation for basis states 
+    $$
+    \left|S_0^z S_1^z \ldots S_{N-1}^z\right\rangle,
+    $$
+    with $S_i^z$ from left to right corresponding to the spin states on the lattice site $i=0,1,2,\ldots, N-1$.
+    \end{itemize}
+\end{frame}
+\begin{frame}{Basis States}
+    \begin{itemize}
+        \item We need to represent the \textbf{states} in the computer.
+        \item Representation of basis states in terms of binary numbers: $S=1/2$
+$$
+\left.\left|\uparrow_1 \downarrow_2 \downarrow_3 \uparrow_4 \ldots\right\rangle\right) \Rightarrow\left[\begin{array}{llll}
+1 & 0 & 0 & 1
+\end{array}\right]_2=9
+$$
+\item Detection of up/down spins by bit-test
+\item Transverse exchange $S^{+} S^{-}+S^{-} S^{+}$ can be done by an XOR operation
+$$
+\left[\begin{array}{llll}
+1 & 0 & 0 & 1
+\end{array}\right]_2 \oplus\left[\begin{array}{llll}
+1 & 1 & 0 & 0
+\end{array}\right]_2=\left[\begin{array}{llll}
+0 & 1 & 0 & 1
+\end{array}\right]_2=5
+$$
+
+
+    \end{itemize}
+
+\end{frame}
+\end{document}
+
+
