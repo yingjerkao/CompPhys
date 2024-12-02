@@ -5,7 +5,8 @@
 % This file is a solution template for:
 \usepackage{algcompatible}
 \usepackage{algpseudocode}
-\usepackage{multicol}
+\usepackage{tikz}
+
 \usepackage{animate}
 % - Giving a talk on some subject.
 % - The talk is between 15min and 45min long.
@@ -141,30 +142,25 @@ Differential Equations} % (optional)
 \begin{frame}{Introduction: Shooting Method}
 
     \begin{itemize}
-        \item One way to overcome the lack of starting conditions is to guess the missing values.
-        \item The resulting solution is unlikely to satisfy boundary conditions at the other end, but:
-        \begin{itemize}
-            \item By inspecting the discrepancy, one can estimate changes to make to the initial conditions.
-            \item This iterative procedure is known as the \textit{shooting method}.
-        \end{itemize}
-        \item The shooting method name is derived from analogy with target shooting:
-        \begin{itemize}
-            \item Take a shot and observe where it hits the target.
-            \item Correct the aim and shoot again.
-        \end{itemize}
+        \item We guess the missing boundary condition, and solve the differential equation.
+        \item The resulting solution is unlikely to satisfy boundary conditions at the other end, so we adjust the guess.
+        \item We repeat the process until the solution satisfies the boundary conditions.
 
     \end{itemize}
+    \vspace{1cm}
+    \centerline{\includegraphics[width=0.7\textwidth]{ShootingMethodCartoon.pdf}}
 \end{frame}
 \begin{frame}{Introduction: Finite Difference Method}
     \begin{itemize}
-        \item Another method for solving two-point boundary value problems is the \textit{finite difference method}:
-        \begin{itemize}
+        \item Another method for solving two-point boundary value problems is the \textit{finite difference method}.
+        
             \item Differential equations are approximated by finite differences at evenly spaced mesh points.
             \item This transforms the differential equation into a set of simultaneous algebraic equations.
-        \end{itemize}   
     \end{itemize}
+    \centerline{\includegraphics[width=0.5\textwidth]{FiniteDifference.pdf}}
 \end{frame}
 
+\section{Shooting Method}
 \begin{frame}{Shooting Method}
     \begin{itemize}
         \item Take the boundary-value problem
@@ -259,6 +255,7 @@ Differential Equations} % (optional)
         
     \end{itemize}
 \end{frame}
+\section{Finite Difference Method}
 \begin{frame}{Finite Difference Method}
 \begin{itemize}
     \item We can approximate the differential equation by finite differences
@@ -364,6 +361,42 @@ Differential Equations} % (optional)
         \end{itemize}
         
 \end{frame}
+\begin{frame}{Finite Difference Method: Summary}
+    \begin{itemize}
+        \item The finite difference method is more efficient than the shooting method for large systems.
+        \item The finite difference method is more stable than the shooting method.
+        \item The finite difference method is more accurate than the shooting method.
+        \item The finite difference method is more difficult to implement than the shooting method.
+    \end{itemize}
+
+\end{frame}
+\begin{frame}{Numerical Error and Stability:Shooting Method}
+    \begin{itemize}
+        \item For the shooting method, the numerical error is similar to those of the initial value problems.
+        \item In terms of the stability of the method, even the initial guesses are not close to the true answer, the method returns an accurate numerical solution. This is due to the adding of the rightmost constraint keeps the errors from increasing unboundedly.
+
+    \end{itemize}
+\end{frame}
+\begin{frame}{Numerial Eror and Stability:Finite Difference Method}
+\begin{itemize}
+    \item   For finite difference methods, the numerical error is determined by the order of accuracy of the numerical scheme used.
+    \item  The accuracy of the finite difference method is determined by the larger of the two truncation errors, the difference scheme used for the differential equation or that of the difference scheme used to discretize the boundary conditions.  
+    \item Since the finite difference methods essentially turns the BVP into solving a system of equations, therefore, the stability of it depends on the stability of the scheme used to solve the resulting system of equations simultaneously.
+            
+            
+\end{itemize}
+\end{frame}
+\begin{frame}{Summary}
+\begin{itemize}
+    \item Boundary value problems are a specific kind of ODE solving problem with boundary conditions specified at the start and end of the interval.
+    \item The \textbf{shooting method} can transform the boundary value problems to initial value problems and use the root-finding method to solve it.
+    \item The \textbf{finite difference method} uses the finite difference scheme to approximate the derivatives and turns the problem into a set of equations to solve.
+    \item The accuracy and stability of the boundary value problems have both similarity and difference to the initial value problems.
+\end{itemize}
+
+   
+\end{frame}
+\section{Partial Differential Equations}
 \begin{frame}{Partial Differential Equations}
 \begin{itemize}
     \item A partial differential equation (PDE) is an equation involving an unknown function of two or more variables and its partial derivatives.
@@ -508,7 +541,7 @@ lead to some of the most challenging of numerical problems.
         -u_{i-1,j}+r u_{i,j}-u_{i+1,j}=s u_{i,j-1},
         \] 
         where $r=2+s$ and $s=h^2/k$.
-        \item Introduce unknowns $u_{i,j}$ and known values $b_i=s u_{i,j-1}$, we have 
+        \item Introduce unknowns $u_i=u_{i,j}$ and known values $b_i=s u_{i,j-1}$, we have 
 $$
 \left[\begin{array}{rrrrrr}
 r & -1 & & & & \\
@@ -537,33 +570,295 @@ where $u(0,t)=u_{0,j}=u(1,t)=u_{N,j}=0$ are used.
 \end{itemize}
 \end{frame}
 \begin{frame}{Crank-Nicolson Method}
+    $$
+    \left[\begin{array}{rrrrrr}
+    r & -1 & & & & \\
+    -1 & r & -1 & & & \\
+    & -1 & r & -1 & & \\
+    & & \ddots & \ddots & \ddots & \\
+    & & & -1 & r & -1 \\
+    & & & & -1 & r
+    \end{array}\right]\left[\begin{array}{c}
+    u_1 \\
+    u_2 \\
+    u_3 \\
+    \vdots \\
+    u_{n-2} \\
+    u_{n-1}
+    \end{array}\right]=\left[\begin{array}{c}
+    b_1 \\
+    b_2 \\
+    b_3 \\
+    \vdots \\
+    b_{n-2} \\
+    b_{n-1}
+    \end{array}\right].
+    $$
     \begin{itemize}
         \item The matrix is tridiagonal, and diagonal dominant $|r|>2$, so the matrix can be solved by 
-        the Thomas algorithm,
-        $$
-\left[\begin{array}{rrrrrr}
-r & -1 & & & & \\
--1 & r & -1 & & & \\
-& -1 & r & -1 & & \\
-& & \ddots & \ddots & \ddots & \\
-& & & -1 & r & -1 \\
-& & & & -1 & r
-\end{array}\right]\left[\begin{array}{c}
-u_1 \\
-u_2 \\
-u_3 \\
-\vdots \\
-u_{n-2} \\
-u_{n-1}
-\end{array}\right]=\left[\begin{array}{c}
-b_1 \\
-b_2 \\
-b_3 \\
-\vdots \\
-b_{n-2} \\
-b_{n-1}
-\end{array}\right].
-$$
+        the Thomas algorithm.
+     
+    \end{itemize}
+\end{frame}
+\begin{frame}{Crank-Nicolson Method: PseudoCode}
+    \beforeverb
+    \begin{algorithmic}
+        \Procedure{HeatEquationCN}{$N, M$}
+        \State $h \gets 1/N$
+        \State $k \gets 1/M$
+        \State $s \gets h^2/k$
+        \State $r \gets 2+s$
+        \For{$i=1$ to $N-1$}
+        \State $u[i] \gets \sin(\pi i h)$ \Comment{Initial condition}
+        \EndFor
+        \For{$j=1$ to $M$}
+        \State $b[1] \gets s u[1]$
+        \State $b[N-1] \gets s u[N-1]$
+        \For{$i=2$ to $N-2$}
+        \State $b[i] \gets s u[i]$
+        \EndFor
+        \State Solve the tridiagonal system
+        \EndFor
+        \EndProcedure
+    \end{algorithmic}
+\afterverb
+\end{frame}
+\begin{frame}{Stability of Crank-Nicolson Method}
+    \begin{itemize}
+        \item The Crank-Nicolson method is  stable; if the initial value $\alpha \leq u(x,0) \leq \beta$, the solution will also be bounded by $\alpha$ and $\beta$.
+        \item Let $j$ be the index of the largest $u_i$ on this line $t = k$. 
+        \[
+            -u_{j-1}+r u_j-u_{j+1}=b_j
+        \]
+        \item Since $u_j$ is the largest of the $u$'s, $u_{j-1} \le  u_j$ and $u_{j+1}\le u_j$, therefore 
+        \[
+            r u_j=b_j+u_{j-1}+u_{j+1} \leqq b_j+2 u_j.
+        \]
+        \item Using $r=2+s$ and $b_j=su_(jh,0)$,
+        \[
+        u_j \leqq u(j h, 0) \leqq \beta,
+        \]
+        we have $u_i \leqq \beta$, and $u_i \geqq \alpha$. 
+         
+    \end{itemize}
+
+\end{frame}
+\begin{frame}{Hyperbolic PDE}
+    \begin{itemize}
+        \item Consider the wave equation
+        \[
+        \frac{\partial^2 u}{\partial t^2} = c^2 \frac{\partial ^2}{\partial x^2} u,
+        \]
+        where the boundary conditions are 
+        \[
+        u(0, t) = u(1, t) = 0,
+        \]
+        and the initial conditions are 
+        \[
+        u(x, 0) = \sin \pi x, \quad \frac{\partial u}{\partial t} = 0.
+        \]
+        \item We can use the finite difference method to solve the wave equation.
+    \end{itemize}
+
+\end{frame}
+\begin{frame}{Wave Equation}
+    \begin{itemize}
+        \item Approximating the first and second derivatives by finite differences, and consider different steps 
+        $h$ and $k$ for $x$ and $t$, we have
+        \beforeverb
+        \[
+        \frac{1}{k^2}[u(x, t+k)-2 u(x, t)+u(x, t-k)]=
+        c^2 \frac{1}{h^2}[u(x+h, t)-2 u(x, t)+u(x-h, t)],
+        \]
+        \afterverb
+       
+        \item We can advance the solution in time by solving the above equation.
+    \end{itemize}
+\end{frame}
+\begin{frame}
+\centerline{\includegraphics[width=0.6\textwidth]{WaveEqnExplicit.pdf}}
+\begin{itemize}
+    \item Rewriting the above equation, we have the explicit method,
+    \beforeverb
+    \begin{align*}
+    \lefteqn{u(x, t+k)=}\\
+    &2 u(x, t)-u(x, t-k)+c^2 \rho^2[u(x+h, t)-2 u(x, t)+u(x-h, t)],
+    \end{align*}
+    \afterverb
+    where $\rho^2=k^2/h^2$.
+    \item If $u(x,t)$ is known, we can advance the solution to $t+\Delta t$.
+\end{itemize}
+\end{frame}
+\begin{frame}{Vibrating String}
+\centerline{\includegraphics[width=0.4\textwidth]{VibratingString.pdf}}
+\begin{itemize}
+    \item Assume $0\le x \le 1$ and at $t=0$, $u(x,0)=\sin(\pi x)$ and $\frac{\partial u}{\partial t}=0$.
+    \item The boundary conditions are $u(0,t)=u(1,t)=0$.
+    \item The explicit method is
+    \[
+    u(x, t+k)=2 u(x, t)-u(x, t-k)+c^2 \rho^2[u(x+h, t)-2 u(x, t)+u(x-h, t)],
+    \]
+    where $\rho^2=k^2/h^2$.
+    \item We progress from $t=0$ to $t=k, 2k, \ldots$.
+\end{itemize}
+\end{frame}
+\begin{frame}
+\begin{itemize}
+    \item For $t=0$, we have
+    \beforeverb
+    \[
+        u(x, k)=2 u(x, 0)-u(x, -k)+c^2 \rho^2[u(x+h, 0)-2 u(x, 0)+u(x-h, 0)].
+    \]
+    \afterverb
+    \item Use the initial condition $u_t(x,0)=0$,
+    \[
+    \frac{1}{2k}\left[u(x,k)-u(x,-k)\right]=0.
+    \]
+    We then have 
+    \[
+    u(x, k)=\frac{1}{2}c^2 \rho^2[f(x+h)+f(x-h)]+(1-c^2\rho^2) f(x).
+    \]
+    \item We can advance the solution to $t=2k, 3k, \ldots$.
+\end{itemize}
+\end{frame}
+\begin{frame}{Vibrating String: PseudoCode}
+\begin{algorithmic}
+    \Procedure{WaveEquation}{$N, M$}
+    \State $h \gets 1/N$
+    \State $k \gets 1/M$
+    \State $\rho^2 \gets k^2/h^2$
+    \For{$i=1$ to $N-1$}
+    \State $u[i] \gets \sin(\pi i h)$
+    \EndFor
+    \For{$j=1$ to $M$}
+    \For{$i=1$ to $N-1$}
+    \State $u[i] \gets 2 u[i]-u[i]-\rho^2[u[i+1]-2 u[i]+u[i-1]]$
+    \EndFor
+    \EndFor
+    \EndProcedure
+\end{algorithmic}
+
+\end{frame}
+\begin{frame}{Elliptic PDE}
+    \begin{itemize}
+        \item Consider the Poisson equation
+        \[  
+        \nabla^2 u = f(x, y),
+        \]
+        where the boundary conditions are
+        \[
+        u(0, y) = u(1, y) = u(x, 0) = u(x, 1) = 0.
+        \]
+    \end{itemize}
+\end{frame}
+\begin{frame}{Poisson Equation}
+    \centerline{\includegraphics[width=0.4\textwidth]{LaplaceEqn.pdf}}
+    \begin{itemize}
+        \item Approximating the second derivatives by finite differences, and consider different steps 
+        $h$ for $x$ and $y$, we have
+        \beforeverb
+        \[
+        \frac{1}{h^2}[u(x+h, y)-2 u(x, y)+u(x-h, y)]+\frac{1}{h^2}[u(x, y+h)-2 u(x, y)+u(x, y-h)]=f(x, y).
+        \]
+        \afterverb
+    \end{itemize}
+\end{frame}
+\begin{frame}
+    \begin{itemize}
+        \item We can advance the solution by solving the above equation.
+        \item The finite difference equation is
+        \[
+        -u_{i-1,j}-u_{i,j-1}+4 u_{i,j}-u_{i+1,j}-u_{i,j+1}=h^2 f(x_i, y_j),
+        \]
+        where $x_i=ih$ and $y_j=jh$.
+        \item Introduce unknowns $u_{i,j}$ and known values $b_{i,j}=h^2 f(x_i, y_j)$, we have 
+        \[
+        -u_{i-1,j}-u_{i,j-1}+4 u_{i,j}-u_{i+1,j}-u_{i,j+1}=b_{i,j}.
+        \]
+    \end{itemize}
+
+\end{frame}
+\begin{frame}{Stencil for Poisson Equation}
+    
+\[
+        -u_{i-1,j}-u_{i,j-1}+4 u_{i,j}-u_{i+1,j}-u_{i,j+1}=b_{i,j}.
+        \]
+  \begin{center}  
+    \begin{tikzpicture}[scale=2, every node/.style={font=\small}]
+    
+    % Draw grid points
+    \fill[black] (0, 0) circle (0.05) node[below left] {\(-1\)};
+    \fill[black] (1, 0) circle (0.05) node[below right] {\(-1\)};
+    \fill[black] (0.5, 0.5) circle (0.05) node[above] {\(-1\)};
+    \fill[black] (0.5, -0.5) circle (0.05) node[below] {\(-1\)};
+    \fill[black] (0.5, 0) circle (0.05) node[above right] {\(4, u_{i,j}\)};
+    
+    % Connect the points to form the stencil
+    \draw[thick] (0, 0) -- (1, 0); % Horizontal
+    \draw[thick] (0.5, 0.5) -- (0.5, -0.5); % Vertical
+    
+    % Add labels for clarity
+    \node[above left] at (0, 0.0) {\(u_{ i-1,j}\)};
+    \node[above right] at (1, 0.0) {\(u_{i+1,j}\)};
+    \node[above] at (0.5, 0.8) {\(u_{i,j+1}\)};
+    \node[below] at (0.5, -0.8) {\(u_{i,j-1}\)};
+    
+    \end{tikzpicture}
+\end{center}
+
+\end{frame}
+\begin{frame}
+    \centerline{\includegraphics[width=0.2\textwidth]{Grid.pdf}}
+        \scriptsize
+        For the interior points, we have
+        \begin{align*}
+            & -u_{21}-u_{01}-u_{12}-u_{10}+4 u_{11}=-h^2 f_{11} \\
+            & -u_{31}-u_{11}-u_{22}-u_{20}+4 u_{21}=-h^2 f_{21} \\
+            & -u_{41}-u_{21}-u_{32}-u_{30}+4 u_{31}=-h^2 f_{31} \\
+            & -u_{22}-u_{02}-u_{13}-u_{11}+4 u_{12}=-h^2 f_{12} \\
+            & -u_{32}-u_{12}-u_{23}-u_{21}+4 u_{22}=-h^2 f_{22} \\
+            & -u_{42}-u_{22}-u_{33}-u_{31}+4 u_{32}=-h^2 f_{32} \\
+            & -u_{23}-u_{03}-u_{14}-u_{12}+4 u_{13}=-h^2 f_{13} \\
+            & -u_{33}-u_{13}-u_{24}-u_{22}+4 u_{23}=-h^2 f_{23} \\
+            & -u_{43}-u_{23}-u_{34}-u_{32}+4 u_{33}=-h^2 f_{33}
+            \end{align*}
+            \afterverb
+\end{frame}
+\begin{frame}
+\begin{itemize}
+     \item We order the unknowns as a vector $\mathbf{u}=(u_{11}, u_{21}, u_{31}, u_{12}, u_{22}, u_{32}, u_{13}, u_{23}, u_{33})^T$.
+     \item The system can be written as $\mathbf{A} \mathbf{u} = \mathbf{b}$,
+    where 
+\end{itemize}
+    \scriptsize
+    \[
+        A=\left[\begin{array}{rrrrrrrrr}
+            4 & -1 & 0 & -1 & 0 & 0 & 0 & 0 & 0 \\
+            -1 & 4 & -1 & 0 & -1 & 0 & 0 & 0 & 0 \\
+            0 & -1 & 4 & 0 & 0 & -1 & 0 & 0 & 0 \\
+            -1 & 0 & 0 & 4 & -1 & 0 & -1 & 0 & 0 \\
+            0 & -1 & 0 & -1 & 4 & -1 & 0 & -1 & 0 \\
+            0 & 0 & -1 & 0 & -1 & 4 & 0 & 0 & -1 \\
+            0 & 0 & 0 & -1 & 0 & 0 & 4 & -1 & 0 \\
+            0 & 0 & 0 & 0 & -1 & 0 & -1 & 4 & -1 \\
+            0 & 0 & 0 & 0 & 0 & -1 & 0 & -1 & 4
+            \end{array}\right],         
+            \boldsymbol{b}=\left[\begin{array}{l}
+                -h^2 g_{11}+u_{10}+u_{01} \\
+                -h^2 f_{21}+u_{20} \\
+                -h^2 f_{31}+u_{30}+u_{41} \\
+                -h^2 f_{12}+u_{02} \\
+                -h^2 f_{22} \\
+                -h^2 f_{32}+u_{42} \\
+                -h^2 f_{13}+u_{14}+u_{03} \\
+                -h^2 f_{23}+u_{24} \\
+                -h^2 f_{33}+u_{34}+u_{43}
+                \end{array}\right].
+    \]
+    \afterverb
+    \begin{itemize}
+        \item Boundary conditions are used to eliminate the terms outside the domain.
+        \item The matrix is sparse and symmetric, and can be solved by the conjugate gradient method.
     \end{itemize}
 \end{frame}
 \end{document}
