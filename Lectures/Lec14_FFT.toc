@@ -1,4 +1,0 @@
-\babel@toc {english}{}\relax 
-\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
-\beamer@sectionintoc {2}{Discrete Fourier Transformation}{4}{0}{2}
-\beamer@sectionintoc {3}{Fast Fourier Transformation}{6}{0}{3}
