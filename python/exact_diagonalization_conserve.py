@@ -1,7 +1,7 @@
 """ Exact diagonalization code to find the ground state of 
 a 1D quantum Ising model with conservation of parity and momentum."""
 
-from __future__ import division
+
 import numpy as np
 import pylab as pl
 
@@ -84,7 +84,7 @@ if __name__ == "__main__":
             E[k] = Enew
 
     for k in E:
-        print k
+        print(k)
         pl.plot(k*np.ones(len(E[k])),np.real(E[k]),'bo')
     pl.ylim([-0.5,0.5])
     pl.xlabel('$k/\\pi$')
